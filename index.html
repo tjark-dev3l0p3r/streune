@@ -193,6 +193,14 @@ body {
 .chat-name { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 3px; }
 .chat-preview { font-size: 13px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .chat-time { font-size: 11px; color: var(--muted); font-family: 'Space Mono', monospace; }
+.dist-pill {
+  font-size: 11px; font-weight: 700; font-family: 'Space Mono', monospace;
+  color: var(--accent); background: rgba(77,159,255,0.1);
+  border: 1px solid rgba(77,159,255,0.2);
+  border-radius: 20px; padding: 2px 8px;
+  flex-shrink: 0;
+}
+.dist-pill.dist-far { color: var(--muted); background: rgba(74,98,128,0.1); border-color: rgba(74,98,128,0.2); }
 .unread-badge {
   background: var(--accent); border-radius: 10px; min-width: 20px; height: 20px;
   display: flex; align-items: center; justify-content: center;
@@ -431,7 +439,10 @@ body {
         <div class="chat-item" onclick="openChatView()">
           <div class="chat-avatar">R</div>
           <div class="chat-info">
-            <div class="chat-name">Runner_K</div>
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:3px">
+              <div class="chat-name">Runner_K</div>
+              <div class="dist-pill">📍 87m</div>
+            </div>
             <div class="chat-preview">Hey, bist du noch in der Nähe vom Park?</div>
           </div>
           <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
@@ -442,7 +453,10 @@ body {
         <div class="chat-item">
           <div class="chat-avatar">C</div>
           <div class="chat-info">
-            <div class="chat-name">CaféMax</div>
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:3px">
+              <div class="chat-name">CaféMax</div>
+              <div class="dist-pill">📍 134m</div>
+            </div>
             <div class="chat-preview">Bin noch 20min hier wenn du willst</div>
           </div>
           <div class="chat-time">09:21</div>
@@ -450,7 +464,10 @@ body {
         <div class="chat-item">
           <div class="chat-avatar">W</div>
           <div class="chat-info">
-            <div class="chat-name">Wanderer</div>
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:3px">
+              <div class="chat-name">Wanderer</div>
+              <div class="dist-pill dist-far">⏱ vor 3h</div>
+            </div>
             <div class="chat-preview">👋</div>
           </div>
           <div class="chat-time">Gestern</div>
@@ -458,7 +475,10 @@ body {
         <div class="chat-item">
           <div class="chat-avatar" style="font-size:16px">👥</div>
           <div class="chat-info">
-            <div class="chat-name">Treffpunkt Stadtpark</div>
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:3px">
+              <div class="chat-name">Treffpunkt Stadtpark</div>
+              <div class="dist-pill">📍 210m</div>
+            </div>
             <div class="chat-preview">FreiGeist: Ich bin da! ✓</div>
           </div>
           <div class="chat-time">09:15</div>

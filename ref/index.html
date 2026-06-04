@@ -2,10 +2,11 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>STREUNE — Jemand hat dich eingeladen</title>
-<meta property="og:title" content="STREUNE — Finde Leute in deiner Nähe">
-<meta property="og:description" content="Du wurdest zu Streune eingeladen. Kompass. Kein Swipen. Kein Algorithmus.">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<title>STREUNE — Jemand lädt dich ein 👀</title>
+<meta property="og:title" content="Jemand aus deiner Nähe lädt dich ein...">
+<meta property="og:description" content="Streune — Finde Leute in deiner Nähe. Kein Swipen. Kein Algorithmus.">
+<meta property="og:image" content="https://tjark-dev3l0p3r.github.io/streune/og-image.png">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700;800;900&family=Space+Mono:wght@700&display=swap');
 *{box-sizing:border-box;margin:0;padding:0}
@@ -15,145 +16,180 @@ body{display:flex;flex-direction:column;align-items:center;justify-content:cente
   padding:32px 20px;
   background:radial-gradient(ellipse at 50% 0%,#0d1f3c 0%,#0a0e14 60%)}
 
-.logo{font-size:56px;color:var(--accent);margin-bottom:8px;animation:pulse 3s ease-in-out infinite}
-@keyframes pulse{0%,100%{text-shadow:0 0 20px rgba(77,159,255,.3)}50%{text-shadow:0 0 40px rgba(77,159,255,.6)}}
+.logo{font-size:52px;color:var(--accent);margin-bottom:6px;animation:glow 3s ease-in-out infinite}
+@keyframes glow{0%,100%{text-shadow:0 0 20px rgba(77,159,255,.3)}50%{text-shadow:0 0 40px rgba(77,159,255,.6)}}
+h1{font-size:26px;font-weight:900;letter-spacing:4px;color:var(--text);margin-bottom:6px}
+.sub{font-size:14px;color:var(--muted);margin-bottom:32px;text-align:center}
 
-h1{font-size:28px;font-weight:900;letter-spacing:4px;color:var(--text);margin-bottom:8px}
-.tagline{font-size:15px;color:var(--muted);text-align:center;line-height:1.6;margin-bottom:32px;max-width:280px}
-
-.invite-card{background:var(--card);border:1px solid var(--border);border-radius:20px;
-  padding:24px;width:100%;max-width:340px;margin-bottom:28px;text-align:center}
-.invite-from{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:2px;margin-bottom:12px}
-.invite-name{font-size:22px;font-weight:800;color:var(--accent);letter-spacing:2px;margin-bottom:8px}
-.invite-bonus{display:inline-flex;align-items:center;gap:8px;
+/* Mystery card */
+.mystery-card{background:var(--card);border:1px solid var(--border);border-radius:20px;
+  padding:28px 24px;width:100%;max-width:340px;margin-bottom:24px;text-align:center}
+.photo-wrap{position:relative;width:110px;height:110px;margin:0 auto 16px;border-radius:55px;overflow:hidden;
+  border:3px solid rgba(77,159,255,.3);box-shadow:0 0 30px rgba(77,159,255,.15)}
+.photo-img{width:100%;height:100%;object-fit:cover;filter:blur(16px);transform:scale(1.1);transition:filter 1.5s ease}
+.photo-img.revealed{filter:blur(0);transform:scale(1)}
+.photo-placeholder{width:100%;height:100%;background:linear-gradient(135deg,#1a2940,#0d1520);
+  display:flex;align-items:center;justify-content:center;font-size:40px;filter:blur(8px)}
+.mystery-label{font-size:13px;color:var(--muted);margin-bottom:10px;text-transform:uppercase;letter-spacing:1px}
+.mystery-name{font-size:28px;font-weight:900;color:var(--accent);letter-spacing:2px;margin-bottom:8px;font-family:'Space Mono',monospace}
+.mystery-hint{font-size:12px;color:var(--muted);line-height:1.7}
+.bonus-badge{display:inline-flex;align-items:center;gap:8px;
   background:rgba(77,159,255,.1);border:1px solid rgba(77,159,255,.25);
-  border-radius:50px;padding:8px 18px;font-size:14px;font-weight:700;color:var(--accent)}
+  border-radius:50px;padding:8px 18px;font-size:13px;font-weight:700;color:var(--accent);margin-top:14px}
 
-.features{display:flex;flex-direction:column;gap:12px;width:100%;max-width:340px;margin-bottom:32px}
-.feat{display:flex;align-items:center;gap:14px;background:var(--card);
-  border:1px solid var(--border);border-radius:14px;padding:14px 16px}
-.feat-icon{font-size:22px;flex-shrink:0}
-.feat-text{font-size:14px;color:var(--text);font-weight:600;line-height:1.4}
-.feat-sub{font-size:12px;color:var(--muted);margin-top:2px}
+/* Features */
+.features{display:flex;flex-direction:column;gap:10px;width:100%;max-width:340px;margin-bottom:28px}
+.feat{display:flex;align-items:center;gap:13px;background:var(--card);
+  border:1px solid var(--border);border-radius:13px;padding:13px 15px}
+.feat-ico{font-size:20px;flex-shrink:0}
+.feat-txt{font-size:13px;color:var(--text);font-weight:600;line-height:1.4}
+.feat-sub{font-size:11px;color:var(--muted);margin-top:2px}
 
+/* Download buttons */
 .dl-btns{display:flex;flex-direction:column;gap:10px;width:100%;max-width:340px}
 .btn-ios,.btn-android{display:flex;align-items:center;justify-content:center;gap:12px;
   padding:16px;border-radius:14px;font-family:'Space Grotesk',sans-serif;
-  font-size:16px;font-weight:800;cursor:pointer;border:none;transition:all .18s;text-decoration:none}
-.btn-ios{background:var(--accent);color:#fff}
-.btn-ios:hover{background:#3a8ae8;transform:translateY(-1px)}
+  font-size:15px;font-weight:800;cursor:pointer;border:none;transition:all .18s;text-decoration:none}
+.btn-ios{background:var(--accent);color:#fff;box-shadow:0 6px 20px rgba(77,159,255,.35)}
+.btn-ios:hover{transform:translateY(-2px)}
 .btn-android{background:var(--card);border:1px solid var(--border);color:var(--text)}
-.btn-android:hover{border-color:var(--accent);transform:translateY(-1px)}
-.btn-icon{font-size:20px}
+.btn-android:hover{border-color:var(--accent)}
 
-.note{font-size:11px;color:var(--muted);text-align:center;margin-top:20px;line-height:1.7;max-width:300px}
+.note{font-size:11px;color:var(--muted);text-align:center;margin-top:20px;line-height:1.8;max-width:300px}
+.ref-code{font-family:'Space Mono',monospace;font-size:12px;color:var(--accent);
+  background:rgba(77,159,255,.08);border-radius:6px;padding:3px 8px;letter-spacing:2px}
 
-/* Referral code badge */
-.ref-badge{font-family:'Space Mono',monospace;font-size:13px;
-  background:rgba(77,159,255,.08);border:1px solid rgba(77,159,255,.2);
-  border-radius:8px;padding:6px 12px;color:var(--accent);margin-top:14px;
-  display:inline-block;letter-spacing:2px}
+/* Countdown reveal */
+.reveal-bar{width:100%;height:4px;background:var(--border);border-radius:2px;overflow:hidden;margin-top:12px}
+.reveal-fill{height:4px;background:var(--accent);border-radius:2px;width:0;transition:width 0.1s linear}
+.reveal-txt{font-size:11px;color:var(--muted);margin-top:6px}
 </style>
 </head>
 <body>
 
 <div class="logo">◎</div>
 <h1>STREUNE</h1>
-<p class="tagline">Finde Leute in deiner Nähe.<br>Kein Swipen. Kein Algorithmus. Kein Profilbild.</p>
+<p class="sub">Jemand aus deiner Nähe lädt dich ein.</p>
 
-<div class="invite-card">
-  <div class="invite-from">Du wurdest eingeladen von</div>
-  <div class="invite-name" id="inviter-name">◎ &nbsp;Lädt...</div>
-  <div style="margin:12px 0">
-    <div class="invite-bonus">🎁 +150m extra Sichtradius für euch beide</div>
+<div class="mystery-card">
+  <div class="photo-wrap" id="photo-wrap">
+    <div class="photo-placeholder" id="photo-placeholder">🧑</div>
+    <img id="photo-img" class="photo-img" src="" alt="" style="display:none;position:absolute;inset:0">
   </div>
-  <div class="ref-badge" id="ref-code">CODE: ...</div>
+  <div class="mystery-label">Eingeladen von</div>
+  <div class="mystery-name" id="inviter-name">Na***</div>
+  <div class="mystery-hint">
+    Du siehst das Foto noch pixelig — genau wie in der App.<br>
+    Nach 150 Nachrichten wird es kristallklar. 📸
+  </div>
+  <!-- Reveal countdown -->
+  <div id="reveal-section" style="display:none">
+    <div class="reveal-bar"><div class="reveal-fill" id="reveal-fill"></div></div>
+    <div class="reveal-txt" id="reveal-txt">Klicke auf das Bild um mehr zu sehen...</div>
+  </div>
+  <div class="bonus-badge">🎁 +150m Radius für euch beide</div>
 </div>
 
 <div class="features">
   <div class="feat">
-    <div class="feat-icon">◎</div>
-    <div>
-      <div class="feat-text">Kompass zeigt Leute in der Nähe</div>
-      <div class="feat-sub">Richtung + Distanz in Metern — einfach hinlaufen</div>
-    </div>
+    <div class="feat-ico">◎</div>
+    <div><div class="feat-txt">Kompass zeigt Leute in deiner Nähe</div>
+    <div class="feat-sub">Richtung + Distanz in Metern — einfach hinlaufen</div></div>
   </div>
   <div class="feat">
-    <div class="feat-icon">📡</div>
-    <div>
-      <div class="feat-text">Anpingen → sofort chatten</div>
-      <div class="feat-sub">Kein Match, kein Warten — einfach schreiben</div>
-    </div>
+    <div class="feat-ico">📡</div>
+    <div><div class="feat-txt">Anpingen → sofort chatten</div>
+    <div class="feat-sub">Kein Match, kein Warten, kein Algorithmus</div></div>
   </div>
   <div class="feat">
-    <div class="feat-icon">🏠</div>
-    <div>
-      <div class="feat-text">Privacy by Design</div>
-      <div class="feat-sub">Kein Background-Tracking, zuhause unsichtbar</div>
-    </div>
+    <div class="feat-ico">📸</div>
+    <div><div class="feat-txt">Fotos werden nach 150 Nachrichten klar</div>
+    <div class="feat-sub">Du verdienst das Gesicht durch echten Kontakt</div></div>
+  </div>
+  <div class="feat">
+    <div class="feat-ico">🔒</div>
+    <div><div class="feat-txt">Kein Background-Tracking</div>
+    <div class="feat-sub">Standort nur beim Öffnen, nach ein paar Stunden weg</div></div>
   </div>
 </div>
 
 <div class="dl-btns">
-  <a class="btn-ios" id="btn-ios" href="#" onclick="downloadApp('ios')">
-    <span class="btn-icon">🍎</span> Im App Store laden
+  <a class="btn-ios" id="btn-ios" href="#" onclick="download('ios')">
+    <span>🍎</span> Im App Store laden
   </a>
-  <a class="btn-android" id="btn-android" href="#" onclick="downloadApp('android')">
-    <span class="btn-icon">🤖</span> Bei Google Play laden
+  <a class="btn-android" href="#" onclick="download('android')">
+    <span>🤖</span> Bei Google Play laden
   </a>
 </div>
 
 <p class="note">
-  Mit dem Download akzeptierst du die Nutzungsbedingungen.<br>
-  Dein Einladungscode wird automatisch nach dem ersten Start angewendet.
+  Dein Einladungscode: <span class="ref-code" id="ref-code-display">...</span><br>
+  wird automatisch nach dem ersten Start angewendet.
 </p>
 
 <script>
-// Referral-Code aus URL lesen
 const params = new URLSearchParams(window.location.search);
-const code   = params.get('ref') || params.get('code') || '';
-const name   = params.get('name') || 'jemand aus deiner Nähe';
+const code   = params.get('ref') || '';
+const name   = params.get('name') || 'Na***';
+const photo  = params.get('photo') || '';
 
-// Anzeigen
-document.getElementById('inviter-name').textContent = '◎  ' + decodeURIComponent(name);
-document.getElementById('ref-code').textContent = 'CODE: ' + code.toUpperCase();
+// Name anzeigen (bereits maskiert)
+document.getElementById('inviter-name').textContent = decodeURIComponent(name);
+document.getElementById('ref-code-display').textContent = code.toUpperCase() || 'DEMO';
 
-// Referral-Code im localStorage speichern (deferred deep link)
+// Referral im localStorage speichern (Deferred Deep Link)
 if (code) {
   localStorage.setItem('streune_referral', code.toUpperCase());
   localStorage.setItem('streune_referral_ts', Date.now().toString());
 }
 
-// Plattform erkennen
-const ios     = /iphone|ipad|ipod/i.test(navigator.userAgent);
-const android = /android/i.test(navigator.userAgent);
+// Foto anzeigen (pixelig)
+if (photo) {
+  const img = document.getElementById('photo-img');
+  const placeholder = document.getElementById('photo-placeholder');
+  img.src = decodeURIComponent(photo);
+  img.style.display = 'block';
+  placeholder.style.display = 'none';
 
-// iOS/Android Buttons dynamisch anpassen
-function downloadApp(platform) {
-  // Referral in URL mitgeben falls App schon installiert
-  const deepLink = `streune://ref/${code}`;
+  // Reveal-Bar zeigen
+  document.getElementById('reveal-section').style.display = 'block';
 
-  if (platform === 'ios' || ios) {
-    // Versuche App zu öffnen, sonst App Store
-    window.location = deepLink;
-    setTimeout(() => {
-      window.location = 'https://apps.apple.com/app/streune/id000000000'; // PLATZHALTER
-    }, 1500);
-  } else {
-    window.location = deepLink;
-    setTimeout(() => {
-      window.location = 'https://play.google.com/store/apps/details?id=app.streune'; // PLATZHALTER
-    }, 1500);
-  }
+  // Klick = kurz weniger pixelig aber nie ganz klar
+  document.getElementById('photo-wrap').onclick = () => {
+    let blur = 16;
+    const interval = setInterval(() => {
+      blur = Math.max(6, blur - 1);
+      img.style.filter = `blur(${blur}px)`;
+      document.getElementById('reveal-fill').style.width = `${((16-blur)/10)*100}%`;
+      document.getElementById('reveal-txt').textContent =
+        blur > 6 ? `Noch ${blur - 6} Nachrichten weniger...` : '🔒 Erst in der App vollständig sichtbar';
+      if (blur <= 6) clearInterval(interval);
+    }, 80);
+  };
 }
 
-// Primären Button hervorheben
+// Platform detection
+const ios     = /iphone|ipad|ipod/i.test(navigator.userAgent);
+const android = /android/i.test(navigator.userAgent);
 if (ios) {
   document.getElementById('btn-ios').style.order = '-1';
 } else if (android) {
-  document.getElementById('btn-android').style.background = 'var(--accent)';
-  document.getElementById('btn-android').style.color = '#fff';
-  document.getElementById('btn-android').style.border = 'none';
+  const ab = document.querySelector('.btn-android');
+  ab.style.background = 'var(--accent)';
+  ab.style.color = '#fff';
+  ab.style.border = 'none';
+}
+
+function download(platform) {
+  const deepLink = `streune://ref/${code}`;
+  window.location = deepLink;
+  setTimeout(() => {
+    if (platform === 'ios' || ios) {
+      window.location = 'https://apps.apple.com/app/streune/id000000000';
+    } else {
+      window.location = 'https://play.google.com/store/apps/details?id=app.streune';
+    }
+  }, 1500);
 }
 </script>
 </body>

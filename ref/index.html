@@ -77,15 +77,9 @@ h1{font-size:26px;font-weight:900;letter-spacing:4px;color:var(--text);margin-bo
     <img id="photo-img" class="photo-img" src="" alt="" style="display:none;position:absolute;inset:0">
   </div>
   <div class="mystery-label">Eingeladen von</div>
-  <div class="mystery-name" id="inviter-name">Na***</div>
+  <div class="mystery-name" id="inviter-name">...</div>
   <div class="mystery-hint">
-    Du siehst das Foto noch pixelig — genau wie in der App.<br>
-    Nach 150 Nachrichten wird es kristallklar. 📸
-  </div>
-  <!-- Reveal countdown -->
-  <div id="reveal-section" style="display:none">
-    <div class="reveal-bar"><div class="reveal-fill" id="reveal-fill"></div></div>
-    <div class="reveal-txt" id="reveal-txt">Klicke auf das Bild um mehr zu sehen...</div>
+    Lad die App runter — ihr bekommt beide <b>+150m Radius</b> geschenkt.
   </div>
   <div class="bonus-badge">🎁 +150m Radius für euch beide</div>
 </div>
@@ -143,42 +137,20 @@ if (code) {
   localStorage.setItem('streune_referral_ts', Date.now().toString());
 }
 
-// Bin ich selbst der Einlader? (eigenen Referral-Code im localStorage)
-const myCode = localStorage.getItem('streune_own_code') || '';
-const isOwner = myCode && code && myCode.toUpperCase() === code.toUpperCase();
-
-// Foto anzeigen
+// Foto klar anzeigen — der Empfänger kennt den Einlader ja
 if (photo) {
   const img = document.getElementById('photo-img');
   const placeholder = document.getElementById('photo-placeholder');
   img.src = decodeURIComponent(photo);
   img.style.display = 'block';
+  img.style.filter = 'blur(0px)';
+  img.style.transform = 'scale(1)';
   placeholder.style.display = 'none';
-
-  if (isOwner) {
-    // Eigenes Foto → klar anzeigen
-    img.style.filter = 'blur(0px)';
-    img.style.transform = 'scale(1)';
-    document.getElementById('inviter-name').textContent = decodeURIComponent(params.get('fullname') || name);
-    const hint = document.querySelector('.mystery-hint');
-    if (hint) hint.textContent = 'Das ist deine Einladungsseite. Andere sehen dein Foto pixelig — erst nach 150 Nachrichten wird es klar. 📸';
-    document.getElementById('mystery-label').textContent = 'Das bist du';
-  } else {
-    // Fremdes Foto → pixelig + Reveal-Interaktion
-    document.getElementById('reveal-section').style.display = 'block';
-    document.getElementById('photo-wrap').onclick = () => {
-      let blur = 16;
-      const interval = setInterval(() => {
-        blur = Math.max(6, blur - 1);
-        img.style.filter = `blur(${blur}px)`;
-        document.getElementById('reveal-fill').style.width = `${((16-blur)/10)*100}%`;
-        document.getElementById('reveal-txt').textContent =
-          blur > 6 ? `Noch ${blur - 6} Schritte...` : '🔒 Erst in der App vollständig sichtbar';
-        if (blur <= 6) clearInterval(interval);
-      }, 80);
-    };
-  }
 }
+
+// Vollständiger Name anzeigen (kein Masking nötig — persönliche Einladung)
+const fullname = params.get('fullname') || name;
+document.getElementById('inviter-name').textContent = decodeURIComponent(fullname);
 
 // Platform detection
 const ios     = /iphone|ipad|ipod/i.test(navigator.userAgent);

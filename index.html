@@ -2,734 +2,885 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>STREUNE — Design Demo</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#0a0e14">
+<title>STREUNE</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700;800;900&family=Space+Mono:wght@700&display=swap');
+:root{--bg:#0a0e14;--card:#141d2b;--border:#1f2d40;--accent:#4d9fff;--text:#e8f0fe;--muted:#4a6280;--amber:#f59e0b;--green:#34d399;--red:#f87171}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;user-select:none}
+html,body{height:100%;overflow:hidden;background:var(--bg);font-family:'Space Grotesk',sans-serif;color:var(--text)}
+body{display:flex;flex-direction:column;max-width:430px;margin:0 auto;position:relative}
 
-:root {
-  --bg: #0a0e14;
-  --bg2: #111827;
-  --card: #141d2b;
-  --border: #1f2d40;
-  --accent: #4d9fff;
-  --accent2: #2563eb;
-  --text: #e8f0fe;
-  --muted: #4a6280;
-  --ping: #f59e0b;
-  --green: #34d399;
-  --danger: #ef4444;
-}
+/* SCREENS */
+.screen{position:absolute;inset:0;display:flex;flex-direction:column;background:var(--bg);transition:transform .3s ease,opacity .3s ease}
+.screen.hidden{transform:translateX(100%);pointer-events:none}
+.screen.out{transform:translateX(-30%);opacity:0;pointer-events:none}
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
-html, body { height: 100%; overflow: hidden; background: var(--bg); }
-body {
-  font-family: 'Space Grotesk', sans-serif;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
+/* SAFE AREA */
+.safe-top{height:env(safe-area-inset-top,44px);flex-shrink:0}
+.safe-bot{height:env(safe-area-inset-bottom,16px);flex-shrink:0}
 
-/* PHONE FRAME = fullscreen */
-.phone {
-  width: 100%;
-  height: 100%;
-  max-width: 430px;
-  margin: 0 auto;
-  background: var(--bg);
-  overflow: hidden;
-  position: relative;
-  flex: 1;
-}
+/* PROGRESS */
+.prog-track{height:3px;background:var(--border);flex-shrink:0}
+.prog-fill{height:3px;background:var(--accent);border-radius:2px;transition:width .35s}
 
-/* NOTCH hidden in fullscreen */
-.notch { display: none; }
+/* WELCOME SLIDES */
+.slides-outer{flex:1;overflow:hidden}
+.slides-inner{display:flex;height:100%;transition:transform .3s cubic-bezier(.25,.46,.45,.94)}
+.slide{min-width:100%;padding:32px 28px 16px;display:flex;flex-direction:column;justify-content:center;overflow-y:auto}
+.s-ico{font-size:52px;margin-bottom:16px;display:block}
+.s-tag{display:inline-flex;align-items:center;background:rgba(77,159,255,.1);border:1px solid rgba(77,159,255,.25);border-radius:20px;padding:5px 14px;font-size:12px;font-weight:700;color:var(--accent);margin-bottom:12px}
+.s-title{font-size:clamp(24px,7vw,32px);font-weight:900;line-height:1.2;margin-bottom:18px;letter-spacing:-.5px}
+.s-body{font-size:15px;color:var(--muted);line-height:1.75}
+.s-body b{color:var(--text)}
+.s-body .hi{color:var(--accent);font-weight:800}
+.s-body .gr{color:var(--green);font-weight:800}
+.s-body .am{color:var(--amber);font-weight:800}
+/* Mechanic rows */
+.mech{margin-top:14px;display:flex;flex-direction:column;gap:7px}
+.mech-r{display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:11px 12px}
+.mech-i{font-size:20px;width:28px;text-align:center;flex-shrink:0}
+.mech-t{flex:1;font-size:13px;font-weight:700;color:var(--text)}
+.mech-d{font-size:11px;color:var(--muted)}
+.mech-b{font-size:13px;font-weight:900;color:var(--accent);font-family:'Space Mono',monospace;flex-shrink:0}
+/* Photo stages */
+.ph-stages{display:flex;gap:10px;justify-content:center;margin-top:14px}
+.ph-stage{display:flex;flex-direction:column;align-items:center;gap:6px}
+.ph-circle{width:58px;height:58px;border-radius:29px;background:linear-gradient(135deg,#1a2940,#0d1520);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:24px;overflow:hidden}
+.ph-circle.b0{filter:blur(8px);opacity:.5}
+.ph-circle.b1{filter:blur(4px);opacity:.7}
+.ph-circle.b2{filter:blur(1px);opacity:.9}
+.ph-circle.b3{filter:blur(0);border-color:var(--accent);box-shadow:0 0 10px rgba(77,159,255,.3)}
+.ph-lbl{font-size:10px;color:var(--muted);text-align:center;font-family:'Space Mono',monospace}
+/* Sticker flow */
+.flow{margin-top:14px;display:flex;flex-direction:column;gap:8px}
+.flow-r{display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:11px 12px}
+.flow-n{width:26px;height:26px;border-radius:13px;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:#fff;flex-shrink:0}
+.flow-n.dim{background:var(--border);color:var(--muted)}
+.flow-t{font-size:13px;color:var(--text);font-weight:600;flex:1}
+.flow-b{background:rgba(52,211,153,.1);border:1px solid rgba(52,211,153,.2);border-radius:8px;padding:2px 8px;font-size:11px;color:var(--green);font-weight:700}
+/* Summary grid */
+.sum-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
+.sum-c{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px;display:flex;align-items:center;gap:8px}
+.sum-i{font-size:18px;flex-shrink:0}
+.sum-t{font-size:12px;color:var(--muted)}
+.sum-t b{color:var(--text);font-weight:700;display:block;margin-bottom:1px}
 
-/* STATUS BAR */
-.statusbar {
-  height: 44px;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0 20px;
-  position: relative; z-index: 10;
-  background: var(--bg);
-}
-.statusbar .time { font-family: 'Space Mono', monospace; font-size: 14px; font-weight: 700; color: var(--text); }
-.statusbar .icons { display: flex; gap: 5px; align-items: center; font-size: 13px; color: var(--text); }
+/* BOTTOM NAV */
+.bottom-nav{padding:8px 0;background:var(--bg);border-top:1px solid var(--border);padding-bottom:calc(8px + env(safe-area-inset-bottom,0px));display:flex;flex-shrink:0}
+.nav-tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;padding:4px 0}
+.nav-tab .ni{font-size:22px;color:var(--muted);transition:color .2s}
+.nav-tab .nl{font-size:10px;color:var(--muted);font-weight:700;transition:color .2s}
+.nav-tab.active .ni,.nav-tab.active .nl{color:var(--accent)}
+.nav-badge{background:var(--red);border-radius:8px;min-width:16px;height:16px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900;color:#fff;padding:0 3px;position:absolute;top:2px;right:20%}
 
-/* SCREEN CONTAINER */
-.screens { display: flex; width: 300%; height: calc(100vh - 44px - 56px); transition: transform .35s cubic-bezier(.25,.46,.45,.94); }
-.screen { width: calc(100vw); max-width: 430px; flex-shrink: 0; overflow: hidden; position: relative; }
+/* HEADER */
+.hdr{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;border-bottom:1px solid var(--border);flex-shrink:0}
+.hdr-logo{font-size:17px;font-weight:900;color:var(--accent);letter-spacing:2px;cursor:pointer}
+.hdr-r{display:flex;gap:8px;align-items:center}
+.tog{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:7px 9px;font-size:14px;cursor:pointer;transition:all .15s}
+.tog.on{border-color:var(--accent);background:rgba(77,159,255,.1)}
 
-/* COMPASS SCREEN */
-#compass { background: var(--bg); }
+/* COMPASS */
+.compass-area{flex:1;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden}
+#compass-svg{position:absolute}
+.my-dot{position:absolute;width:22px;height:22px;border-radius:11px;background:var(--accent);border:3px solid var(--bg);transform:translate(-50%,-50%);box-shadow:0 0 0 4px rgba(77,159,255,.2),0 0 16px rgba(77,159,255,.4);z-index:5}
+.my-dot::after{content:'';position:absolute;inset:-6px;border-radius:50%;border:1px solid rgba(77,159,255,.3);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:.6}50%{transform:scale(1.4);opacity:0}}
+.udot{position:absolute;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;cursor:pointer;z-index:4;transition:transform .15s}
+.udot:active{transform:translate(-50%,-50%) scale(1.3)}
+.udot .ue{font-size:20px}
+.udot .ud{font-size:9px;color:var(--muted);font-family:'Space Mono',monospace}
+.sdot{position:absolute;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;cursor:pointer;z-index:4}
+.sdot .se{font-size:22px}
+.sdot .sn{font-size:9px;color:var(--amber);font-weight:700}
+/* Status */
+.compass-bottom{position:absolute;bottom:16px;left:0;right:0;display:flex;flex-direction:column;align-items:center;gap:8px;z-index:6}
+.status-pill{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:8px 18px;font-size:14px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:8px}
+.radius-txt{font-size:11px;color:var(--muted);font-family:'Space Mono',monospace}
+.invite-row{display:flex;gap:8px;width:calc(100% - 32px)}
+.inv-wa{background:#128c7e;border-radius:12px;padding:11px;display:flex;flex-direction:column;align-items:center;gap:3px;width:64px;cursor:pointer;flex-shrink:0}
+.inv-wa span:first-child{font-size:18px}
+.inv-wa span:last-child{font-size:10px;color:#fff;font-weight:800}
+.inv-main{flex:1;background:rgba(77,159,255,.1);border:1.5px solid rgba(77,159,255,.35);border-radius:12px;padding:11px 14px;display:flex;align-items:center;gap:10px;cursor:pointer}
+.inv-main .ii{font-size:18px}
+.inv-main .it{font-size:13px;font-weight:800;color:var(--text)}
+.inv-main .is{font-size:10px;color:var(--accent)}
+.inv-main .ia{font-size:16px;color:var(--accent);font-weight:700;margin-left:auto}
 
-.compass-header {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 12px 20px 10px;
-  border-bottom: 1px solid var(--border);
-}
-.logo-text { font-size: 18px; font-weight: 800; color: var(--accent); letter-spacing: 3px; }
-.header-actions { display: flex; gap: 8px; }
-.hbtn {
-  background: var(--card); border: 1px solid var(--border); border-radius: 8px;
-  padding: 7px 10px; font-size: 13px; color: var(--text); cursor: pointer;
-  transition: all .15s;
-}
-.hbtn.on { border-color: var(--accent); background: rgba(77,159,255,.1); }
+/* POPUP */
+.popup{position:absolute;bottom:8px;left:12px;right:12px;background:var(--card);border:1px solid var(--border);border-radius:18px;padding:18px;z-index:20;animation:slideup .2s ease}
+@keyframes slideup{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
+.popup-head{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.popup-avatar{width:44px;height:44px;border-radius:22px;background:rgba(77,159,255,.15);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:900;color:var(--accent);flex-shrink:0}
+.popup-name{font-size:18px;font-weight:900;color:var(--text)}
+.popup-status{font-size:12px;color:var(--muted);margin-top:2px}
+.popup-dist{font-size:12px;color:var(--accent);font-family:'Space Mono',monospace;margin-bottom:14px}
+.popup-btns{display:flex;gap:8px}
+.btn-ping{flex:1;background:var(--accent);border:none;border-radius:10px;padding:12px;color:#fff;font-weight:800;font-size:14px;cursor:pointer;font-family:inherit}
+.btn-report{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px 14px;font-size:16px;cursor:pointer}
+.btn-close{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px 14px;color:var(--muted);font-size:14px;cursor:pointer;font-weight:700}
 
-/* COMPASS AREA */
-.compass-area {
-  position: relative;
-  height: calc(100vh - 44px - 56px - 60px - 60px);
-  display: flex; align-items: center; justify-content: center;
-}
+/* ONBOARDING */
+.onb{flex:1;overflow-y:auto;padding:24px 20px 40px;display:flex;flex-direction:column;gap:16px}
+.onb-title{font-size:22px;font-weight:900;color:var(--text);margin-bottom:4px}
+.onb-sub{font-size:13px;color:var(--muted);margin-bottom:8px;line-height:1.6}
+.onb-label{font-size:12px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
+.onb-input{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:13px;color:var(--text);font-size:15px;font-family:inherit;width:100%;outline:none}
+.onb-input:focus{border-color:var(--accent)}
+.status-grid{display:flex;flex-wrap:wrap;gap:8px}
+.s-btn{border:1px solid var(--border);border-radius:10px;padding:10px 14px;display:flex;align-items:center;gap:8px;cursor:pointer;flex:1;min-width:40%}
+.s-btn.sel{border-color:var(--accent);background:rgba(77,159,255,.1)}
+.s-btn span{font-size:12px;color:var(--muted);font-weight:600}
+.s-btn.sel span{color:var(--text)}
+.big-btn{background:var(--accent);border:none;border-radius:14px;padding:15px;color:#fff;font-weight:900;font-size:16px;cursor:pointer;font-family:inherit;width:100%;transition:opacity .15s}
+.big-btn:disabled{opacity:.4}
+.big-btn:hover{opacity:.9}
+.check-row{display:flex;align-items:center;gap:10px;padding:12px;background:var(--card);border:1px solid var(--border);border-radius:10px;cursor:pointer}
+.check-box{width:20px;height:20px;border-radius:5px;border:2px solid var(--border);transition:all .15s;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.check-box.checked{background:var(--accent);border-color:var(--accent)}
+.check-lbl{font-size:13px;color:var(--muted);flex:1}
 
-.compass-svg { position: absolute; }
+/* PROFILE */
+.prof-scroll{flex:1;overflow-y:auto;padding:12px}
+.prof-sec{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:12px}
+.prof-sec-title{font-size:11px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px}
+.pseudo-box{background:#0d1117;border-radius:8px;padding:14px;font-size:20px;font-weight:900;color:var(--accent);letter-spacing:3px}
+.radius-row{display:flex;align-items:center;gap:12px}
+.radius-bar{flex:1;height:8px;background:#21262d;border-radius:4px;overflow:hidden}
+.radius-fill{height:8px;background:var(--accent);border-radius:4px;transition:width .4s}
+.radius-num{color:var(--accent);font-weight:900;font-size:15px;font-family:'Space Mono',monospace;min-width:56px}
+.ref-btns{display:flex;gap:8px;margin-top:10px}
+.ref-wa{background:#128c7e;border:none;border-radius:10px;padding:12px;flex:1;color:#fff;font-weight:800;font-size:14px;cursor:pointer;font-family:inherit}
+.ref-share{background:#0d1117;border:1px solid var(--border);border-radius:10px;padding:12px;flex:1;color:var(--accent);font-weight:800;font-size:14px;cursor:pointer;font-family:inherit}
+.action-btn{display:flex;align-items:center;gap:12px;padding:14px;border-radius:12px;border:1px solid var(--border);background:#0d1117;cursor:pointer;margin-bottom:8px;width:100%;text-align:left}
+.action-btn .ai{font-size:20px}
+.action-btn .at{font-size:14px;font-weight:800;color:var(--text);flex:1}
+.action-btn .as{font-size:11px;color:var(--muted);margin-top:2px}
+.action-btn .aa{font-size:16px;color:var(--muted)}
 
-/* Animated dots */
-.user-dot {
-  position: absolute;
-  cursor: pointer;
-  display: flex; flex-direction: column; align-items: center;
-  transform: translate(-50%, -50%);
-  transition: transform .2s;
-}
-.user-dot:hover { transform: translate(-50%, -50%) scale(1.3); }
-.user-dot .emoji { font-size: 20px; }
-.user-dot .dist { font-size: 9px; color: var(--muted); margin-top: 2px; font-family: 'Space Mono', monospace; }
+/* SPOTS */
+.spot-list{flex:1;overflow-y:auto;padding:12px}
+.spot-card{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:10px;cursor:pointer}
+.spot-card:active{opacity:.8}
+.spot-ico{font-size:28px}
+.spot-info{flex:1}
+.spot-name{font-size:16px;font-weight:800;color:var(--text);margin-bottom:4px}
+.spot-sub{font-size:12px;color:var(--muted)}
+.spot-dist{font-size:13px;color:var(--accent);font-weight:700;font-family:'Space Mono',monospace}
+.create-spot-btn{background:rgba(77,159,255,.1);border:1.5px solid rgba(77,159,255,.3);border-radius:14px;padding:14px;text-align:center;color:var(--accent);font-weight:800;font-size:15px;cursor:pointer;margin-top:4px}
 
-/* My dot */
-.my-dot {
-  position: absolute;
-  width: 22px; height: 22px; border-radius: 50%;
-  background: var(--accent);
-  border: 3px solid var(--bg);
-  box-shadow: 0 0 0 4px rgba(77,159,255,.2), 0 0 16px rgba(77,159,255,.4);
-  transform: translate(-50%, -50%);
-  left: 50%; top: 50%;
-}
-.my-dot::after {
-  content: '';
-  position: absolute; inset: -6px;
-  border-radius: 50%;
-  border: 1px solid rgba(77,159,255,.3);
-  animation: pulse-ring 2s ease-in-out infinite;
-}
-@keyframes pulse-ring {
-  0%,100% { transform: scale(1); opacity: .6; }
-  50% { transform: scale(1.3); opacity: 0; }
-}
+/* CHATS */
+.chat-list{flex:1;overflow-y:auto}
+.chat-row{display:flex;align-items:center;gap:14px;padding:16px;border-bottom:1px solid var(--border);cursor:pointer}
+.chat-row:active{background:var(--card)}
+.chat-av{width:48px;height:48px;border-radius:24px;background:rgba(77,159,255,.12);border:1px solid rgba(77,159,255,.25);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:900;color:var(--accent);flex-shrink:0}
+.chat-info{flex:1;min-width:0}
+.chat-name-row{display:flex;align-items:center;gap:8px;margin-bottom:3px}
+.chat-name{font-size:15px;font-weight:700;color:var(--text)}
+.dist-pill{background:rgba(77,159,255,.08);border:1px solid rgba(77,159,255,.18);border-radius:20px;padding:2px 8px;font-size:10px;color:var(--accent);font-weight:700;font-family:'Space Mono',monospace}
+.chat-prev{font-size:13px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chat-time{font-size:11px;color:var(--muted);font-family:'Space Mono',monospace}
 
-/* Compass rotation */
-.compass-ring { animation: rotate-compass 12s linear infinite; transform-origin: center; }
-@keyframes rotate-compass {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
+/* STATUS PICKER OVERLAY */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:50;display:flex;flex-direction:column;justify-content:flex-end;max-width:430px;margin:0 auto}
+.overlay-sheet{background:var(--card);border-radius:24px 24px 0 0;padding:20px 20px 40px;border-top:1px solid var(--border)}
+.overlay-handle{width:38px;height:4px;background:var(--border);border-radius:2px;margin:0 auto 18px}
+.overlay-title{font-size:13px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:14px}
+.s-option{display:flex;align-items:center;gap:12px;padding:14px;border-radius:12px;border:1px solid transparent;cursor:pointer;margin-bottom:8px;transition:all .15s}
+.s-option:hover{background:rgba(77,159,255,.06);border-color:rgba(77,159,255,.2)}
+.s-option .so-e{font-size:24px}
+.s-option .so-t{font-size:16px;font-weight:700;color:var(--text)}
+.s-option.active{background:rgba(77,159,255,.1);border-color:var(--accent)}
 
-/* STATUS BAR BOTTOM */
-.compass-status {
-  position: absolute; bottom: 16px; left: 0; right: 0;
-  display: flex; flex-direction: column; align-items: center; gap: 6px;
-  z-index: 5;
-}
-.status-pill {
-  background: var(--card); border: 1px solid var(--border); border-radius: 20px;
-  padding: 8px 18px; font-size: 14px; font-weight: 700; color: var(--text);
-  cursor: pointer;
-}
-.radius-txt { font-size: 11px; color: var(--muted); font-family: 'Space Mono', monospace; }
-.invite-big-btn {
-  display: flex; align-items: center; gap: 12;
-  margin-top: 10px; width: calc(100% - 32px);
-  background: rgba(77,159,255,0.1);
-  border: 1.5px solid rgba(77,159,255,0.35);
-  border-radius: 14px; padding: 13px 16px;
-  cursor: pointer; transition: all .15s;
-  display: flex; align-items: center; gap: 12px;
-}
-.invite-big-btn:hover {
-  background: rgba(77,159,255,0.18);
-  border-color: rgba(77,159,255,0.6);
-  transform: translateY(-1px);
-}
+/* NOTIFICATION TOAST */
+.toast{position:fixed;top:20px;left:50%;transform:translateX(-50%);background:var(--card);border:1px solid var(--accent);border-radius:12px;padding:10px 18px;font-size:13px;font-weight:700;color:var(--accent);z-index:100;white-space:nowrap;animation:toastin .3s ease;max-width:380px}
+@keyframes toastin{from{transform:translateX(-50%) translateY(-20px);opacity:0}to{transform:translateX(-50%) translateY(0);opacity:1}}
 
-/* USER POPUP */
-.user-popup {
-  position: absolute; bottom: 80px; left: 16px; right: 16px;
-  background: var(--card); border: 1px solid var(--border); border-radius: 20px;
-  padding: 20px; z-index: 20;
-  box-shadow: 0 20px 40px rgba(0,0,0,.5);
-  animation: slide-up .25s ease;
-  display: none;
-}
-.user-popup.show { display: block; }
-@keyframes slide-up {
-  from { transform: translateY(20px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
-}
-.popup-name { font-size: 20px; font-weight: 800; color: var(--text); margin-bottom: 4px; }
-.popup-status { font-size: 13px; color: var(--muted); margin-bottom: 4px; }
-.popup-dist { font-size: 13px; color: var(--accent); margin-bottom: 16px; font-family: 'Space Mono', monospace; }
-.popup-btns { display: flex; gap: 8px; }
-.btn-ping {
-  flex: 1; background: var(--accent); border: none; border-radius: 12px;
-  padding: 13px; color: #fff; font-weight: 800; font-size: 14px; cursor: pointer;
-  font-family: 'Space Grotesk', sans-serif;
-}
-.btn-close {
-  background: var(--card); border: 1px solid var(--border); border-radius: 12px;
-  padding: 13px 16px; color: var(--muted); font-size: 14px; cursor: pointer;
-}
-
-/* CHAT SCREEN */
-#chats { background: var(--bg); }
-.screen-header {
-  padding: 16px 20px;
-  border-bottom: 1px solid var(--border);
-}
-.screen-title { font-size: 24px; font-weight: 800; color: var(--text); }
-.chat-item {
-  display: flex; align-items: center; gap: 14px;
-  padding: 16px 20px;
-  border-bottom: 1px solid var(--border);
-  cursor: pointer;
-  transition: background .15s;
-}
-.chat-item:hover { background: var(--card); }
-.chat-avatar {
-  width: 48px; height: 48px; border-radius: 24px;
-  background: rgba(77,159,255,.15); border: 1px solid rgba(77,159,255,.3);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 20px; font-weight: 900; color: var(--accent); flex-shrink: 0;
-}
-.chat-info { flex: 1; min-width: 0; }
-.chat-name { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 3px; }
-.chat-preview { font-size: 13px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.chat-time { font-size: 11px; color: var(--muted); font-family: 'Space Mono', monospace; }
-.dist-pill {
-  font-size: 11px; font-weight: 700; font-family: 'Space Mono', monospace;
-  color: var(--accent); background: rgba(77,159,255,0.1);
-  border: 1px solid rgba(77,159,255,0.2);
-  border-radius: 20px; padding: 2px 8px;
-  flex-shrink: 0;
-}
-.dist-pill.dist-far { color: var(--muted); background: rgba(74,98,128,0.1); border-color: rgba(74,98,128,0.2); }
-.unread-badge {
-  background: var(--accent); border-radius: 10px; min-width: 20px; height: 20px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 11px; font-weight: 900; color: #fff; padding: 0 5px;
-}
-
-/* CHAT VIEW */
-#chat-view { background: var(--bg); display: none; }
-#chat-view.show { display: block; }
-.chat-header {
-  display: flex; align-items: center; gap: 12px;
-  padding: 12px 16px 12px;
-  border-bottom: 1px solid var(--border);
-}
-.back-btn { font-size: 22px; color: var(--accent); cursor: pointer; padding: 4px; }
-.chat-header-info { flex: 1; }
-.chat-header-name { font-size: 16px; font-weight: 800; color: var(--text); }
-.chat-header-status { font-size: 12px; color: var(--muted); }
-.messages { padding: 16px; display: flex; flex-direction: column; gap: 10px; height: 380px; overflow-y: auto; }
-.msg { max-width: 78%; }
-.msg.me { align-self: flex-end; }
-.msg.other { align-self: flex-start; }
-.msg-bubble {
-  padding: 11px 14px; border-radius: 16px; font-size: 14px; line-height: 1.5; color: var(--text);
-}
-.msg.me .msg-bubble { background: #1c3557; border-bottom-right-radius: 4px; }
-.msg.other .msg-bubble { background: var(--card); border-bottom-left-radius: 4px; }
-.msg-time { font-size: 10px; color: var(--muted); margin-top: 4px; text-align: right; font-family: 'Space Mono', monospace; }
-.chat-input-row {
-  display: flex; gap: 10px; padding: 12px 16px;
-  border-top: 1px solid var(--border);
-}
-.chat-input {
-  flex: 1; background: var(--card); border: 1px solid var(--border); border-radius: 20px;
-  padding: 11px 16px; color: var(--text); font-size: 14px; font-family: 'Space Grotesk', sans-serif;
-  outline: none;
-}
-.chat-input::placeholder { color: var(--muted); }
-.send-btn {
-  width: 44px; height: 44px; border-radius: 22px; background: var(--accent);
-  border: none; color: #fff; font-size: 18px; cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-}
-
-/* PROFILE SCREEN */
-#profile { background: var(--bg); overflow-y: auto; }
-.profile-section {
-  margin: 12px 16px;
-  background: var(--card); border: 1px solid var(--border); border-radius: 16px;
-  padding: 16px;
-}
-.section-label { font-size: 11px; color: var(--muted); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
-.pseudonym-box {
-  background: var(--bg); border-radius: 10px; padding: 14px;
-  font-size: 22px; font-weight: 900; color: var(--accent); letter-spacing: 3px;
-}
-.status-grid { display: flex; flex-wrap: wrap; gap: 8px; }
-.status-btn {
-  border: 1px solid var(--border); border-radius: 10px;
-  padding: 10px 14px; display: flex; align-items: center; gap: 8px;
-  cursor: pointer; transition: all .15s;
-}
-.status-btn.active { border-color: var(--accent); background: rgba(77,159,255,.1); }
-.status-btn .s-emoji { font-size: 18px; }
-.status-btn .s-label { font-size: 13px; color: var(--muted); font-weight: 600; }
-.status-btn.active .s-label { color: var(--text); }
-.radius-section { }
-.radius-row { display: flex; align-items: center; gap: 12px; }
-.radius-bar { flex: 1; height: 8px; background: #1f2d40; border-radius: 4px; overflow: hidden; }
-.radius-fill { height: 8px; background: linear-gradient(90deg, var(--accent2), var(--accent)); border-radius: 4px; width: 40%; transition: width .4s ease; }
-.radius-num { font-family: 'Space Mono', monospace; font-size: 14px; color: var(--accent); font-weight: 700; min-width: 55px; }
-.referral-box {
-  display: flex; justify-content: space-between; align-items: center;
-  background: var(--bg); border-radius: 10px; padding: 14px;
-}
-.ref-code { font-family: 'Space Mono', monospace; font-size: 16px; color: var(--text); letter-spacing: 2px; }
-.ref-share { font-size: 13px; color: var(--accent); font-weight: 700; cursor: pointer; }
-
-/* TAB BAR */
-.tabbar {
-  position: fixed; bottom: 0; left: 0; right: 0; height: 56px;
-  max-width: 430px; margin: 0 auto; left: 50%; transform: translateX(-50%); width: 100%;
-  background: rgba(10,14,20,.95); border-top: 1px solid var(--border);
-  display: flex; backdrop-filter: blur(10px);
-}
-.tab {
-  flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
-  gap: 3px; cursor: pointer; transition: all .15s;
-}
-.tab-icon { font-size: 22px; color: var(--muted); transition: color .15s; }
-.tab-label { font-size: 10px; color: var(--muted); font-weight: 600; transition: color .15s; }
-.tab.active .tab-icon, .tab.active .tab-label { color: var(--accent); }
-.tab-badge {
-  position: absolute; top: 4px; right: calc(50% - 16px);
-  background: var(--danger); border-radius: 8px; min-width: 16px; height: 16px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 10px; font-weight: 900; color: #fff; padding: 0 4px;
-}
-
-/* SIDEBAR INFO */
-.info-panel {
-  width: 280px;
-  padding: 30px 24px;
-  margin-left: 40px;
-}
-.info-title { font-size: 28px; font-weight: 800; color: var(--accent); letter-spacing: 4px; margin-bottom: 6px; }
-.info-sub { font-size: 14px; color: var(--muted); line-height: 1.6; margin-bottom: 32px; }
-.info-feature {
-  display: flex; align-items: flex-start; gap: 12px; margin-bottom: 16px;
-}
-.feat-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
-.feat-text { }
-.feat-title { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
-.feat-desc { font-size: 12px; color: var(--muted); line-height: 1.5; }
-.screen-tabs {
-  display: flex; gap: 8px; margin-top: 32px; flex-wrap: wrap;
-}
-.screen-tab {
-  background: var(--card); border: 1px solid var(--border); border-radius: 8px;
-  padding: 8px 14px; font-size: 12px; font-weight: 700; color: var(--muted);
-  cursor: pointer; transition: all .15s;
-}
-.screen-tab.active, .screen-tab:hover {
-  border-color: var(--accent); color: var(--accent);
-  background: rgba(77,159,255,.08);
-}
-
-/* SVG Compass styles */
-.tick-major { stroke: rgba(77,159,255,0.5); }
-.tick-minor { stroke: rgba(77,159,255,0.2); }
+/* LOCATION BANNER */
+.loc-banner{background:rgba(245,158,11,.08);border-top:1px solid rgba(245,158,11,.2);padding:8px 16px;font-size:12px;color:var(--amber);text-align:center;flex-shrink:0}
 </style>
 </head>
 <body>
 
-<div style="width:100%;height:100vh;display:flex;flex-direction:column">
+<!-- ═══════════════════════════════════════════ -->
+<!-- WELCOME SCREEN                              -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="screen" id="scr-welcome">
+  <div class="safe-top"></div>
+  <div class="prog-track"><div class="prog-fill" id="wprog" style="width:9%"></div></div>
+  <div class="slides-outer">
+    <div class="slides-inner" id="slides">
 
-<!-- PHONE -->
-<div class="phone">
-  <div class="notch"></div>
+      <div class="slide">
+        <span class="s-ico">📱</span>
+        <h1 class="s-title">Mal ehrlich.</h1>
+        <div class="s-body">Du hast gerade dein Handy in der Hand.<br><br>Gleichzeitig laufen da draußen Menschen vorbei, trinken Kaffee zwei Straßen weiter, joggen durch denselben Park — und ihr werdet euch niemals begegnen.<br><br>Nicht weil ihr es nicht wollt. Sondern weil niemand einfach so fremde Leute anspricht.<br><br><b>Streune löst genau das.</b></div>
+      </div>
 
-  <!-- STATUS BAR -->
-  <div class="statusbar">
-    <span class="time">09:41</span>
-    <div class="icons">
-      <span>▲▲▲</span>
-      <span>WiFi</span>
-      <span>🔋</span>
+      <div class="slide">
+        <span class="s-ico">◎</span>
+        <h1 class="s-title">Ein Kompass.<br>Kein Algorithmus.</h1>
+        <div class="s-body">Öffne die App. Ein Kompass zeigt dir andere User in deiner Nähe — mit Richtung und Distanz in Metern.<br><br><span class="hi">Kein Swipe. Kein Profil-Stress. Keine endlose Scroll-Hölle.</span><br><br>Person in 87 Metern. Tap. <i>"Hey, bist du der mit dem Kaffee?"</i> — Chat. Treffen. Fertig.</div>
+      </div>
+
+      <div class="slide">
+        <span class="s-ico">🏠</span>
+        <span class="s-tag">🔒 Privacy by Design</span>
+        <h1 class="s-title">Dein Zuhause<br>bleibt dein Zuhause.</h1>
+        <div class="s-body">Kein Background-Tracking. Nie.<br><br>Dein Standort wird einmalig eingefroren und nach <b>ein paar Stunden gelöscht</b>. Bist du in deiner Home-Zone? Passiert gar nichts.</div>
+      </div>
+
+      <div class="slide">
+        <span class="s-ico">📡</span>
+        <span class="s-tag">📡 Radius als Währung</span>
+        <h1 class="s-title">So wächst<br>deine Welt.</h1>
+        <div class="s-body">Du startest mit <span class="hi">500 Meter</span> Sichtweite. Wie weit du siehst, hängt von dir ab — nicht von deinem Abo.</div>
+        <div class="mech">
+          <div class="mech-r"><div class="mech-i">👤</div><div class="mech-t">Jemanden einladen<div class="mech-d">Link teilen → Person lädt App</div></div><div class="mech-b">+150m</div></div>
+          <div class="mech-r"><div class="mech-i">🤝</div><div class="mech-t">Euch wirklich treffen<div class="mech-d">Beide bestätigen das Treffen</div></div><div class="mech-b">+150m</div></div>
+          <div class="mech-r"><div class="mech-i">📅</div><div class="mech-t">Täglich aktiv sein<div class="mech-d">App öffnen außerhalb Home-Zone</div></div><div class="mech-b">+25m</div></div>
+          <div class="mech-r" style="border-color:rgba(77,159,255,.3)"><div class="mech-i">🏁</div><div class="mech-t">Maximum<div class="mech-d">Mehr wäre nicht mehr hyperlokal</div></div><div class="mech-b" style="color:var(--muted)">3.000m</div></div>
+        </div>
+      </div>
+
+      <div class="slide">
+        <span class="s-ico">📸</span>
+        <span class="s-tag">✨ Earned Intimacy</span>
+        <h1 class="s-title">Bilder die sich<br>verdienen lassen.</h1>
+        <div class="s-body">Fotos werden erst nach und nach sichtbar — je mehr ihr schreibt.</div>
+        <div class="ph-stages">
+          <div class="ph-stage"><div class="ph-circle b0">🧑</div><div class="ph-lbl">0 Nachr.<br>Unbekannt</div></div>
+          <div class="ph-stage"><div class="ph-circle b1">🧑</div><div class="ph-lbl">25 Nachr.<br>Umrisse</div></div>
+          <div class="ph-stage"><div class="ph-circle b2">🧑</div><div class="ph-lbl">75 Nachr.<br>Erkennbar</div></div>
+          <div class="ph-stage"><div class="ph-circle b3">🧑</div><div class="ph-lbl" style="color:var(--accent)">150 Nachr.<br>✨ Klar!</div></div>
+        </div>
+        <div class="s-body" style="margin-top:12px;font-size:14px">Du lernst jemanden kennen <b>bevor</b> du sein Gesicht siehst.</div>
+      </div>
+
+      <div class="slide">
+        <span class="s-ico">⭐</span>
+        <span class="s-tag">⚖️ Fair by Design</span>
+        <h1 class="s-title">Weißt du ob<br>jemand nett ist?</h1>
+        <div class="s-body">Auf Streune kannst du andere Nutzer bewerten — <span class="hi">aber erst nach 100 Nachrichten</span>.<br><br>Das macht egomotive Einster-Bewertungen technisch unmöglich.<br><br>Und: <b>Neuere Sterne zählen mehr als ältere.</b> Wer eine schlechte Phase hatte — das verblasst. Du kannst immer aus dem Schlamm rauskommen.</div>
+      </div>
+
+      <div class="slide">
+        <span class="s-ico">🎁</span>
+        <span class="s-tag">🎁 Guerrilla Marketing</span>
+        <h1 class="s-title">Aufkleber.<br>Deine Stadt. Dein Radius.</h1>
+        <div class="s-body">Kleb Streune in deine Stadt — und wachse dabei selbst mit.</div>
+        <div class="flow">
+          <div class="flow-r"><div class="flow-n">1</div><div class="flow-t">5 Personen einladen</div><div class="flow-b">Pflicht</div></div>
+          <div class="flow-r" style="border-color:rgba(52,211,153,.3)"><div class="flow-n">2</div><div class="flow-t">Adresse eingeben → 10 Aufkleber kommen per Post</div><div class="flow-b">Kostenlos</div></div>
+          <div class="flow-r"><div class="flow-n">3</div><div class="flow-t">Aufkleber kleben → QR-Code = Referral für dich</div></div>
+          <div class="flow-r"><div class="flow-n dim">4</div><div class="flow-t">Nach 20 weiteren → nächste Runde Aufkleber</div></div>
+        </div>
+      </div>
+
+      <div class="slide">
+        <span class="s-ico">📍</span>
+        <h1 class="s-title">Spots.<br>Dein Ort, dein Chat.</h1>
+        <div class="s-body">Im Gym? Im Park? Auf einem Konzert?<br><br>Erstelle einen <b>Spot</b> — alle in 500m sehen ihn auf dem Kompass.<br><br>Gruppen-Chat für den Ort. Alle anonym. Und aus dem Chat heraus kannst du einzelne Personen direkt anschreiben.</div>
+      </div>
+
+      <div class="slide">
+        <span class="s-ico">🗺️</span>
+        <h1 class="s-title">Alles auf<br>einen Blick.</h1>
+        <div class="sum-grid">
+          <div class="sum-c"><div class="sum-i">◎</div><div class="sum-t"><b>Kompass</b>Leute in der Nähe</div></div>
+          <div class="sum-c"><div class="sum-i">👤</div><div class="sum-t"><b>+150m</b>pro Einladung</div></div>
+          <div class="sum-c"><div class="sum-i">🤝</div><div class="sum-t"><b>+150m</b>pro Treffen</div></div>
+          <div class="sum-c"><div class="sum-i">⭐</div><div class="sum-t"><b>Ratings</b>ab 100 Nachrichten</div></div>
+          <div class="sum-c"><div class="sum-i">📸</div><div class="sum-t"><b>Fotos</b>klar nach 150 Nachr.</div></div>
+          <div class="sum-c"><div class="sum-i">🎁</div><div class="sum-t"><b>Aufkleber</b>ab 5 Einladungen</div></div>
+          <div class="sum-c"><div class="sum-i">📍</div><div class="sum-t"><b>Spots</b>Orts-Gruppen</div></div>
+          <div class="sum-c"><div class="sum-i">👻</div><div class="sum-t"><b>Ghost</b>1 Tap unsichtbar</div></div>
+        </div>
+      </div>
+
+      <div class="slide">
+        <span class="s-ico">🌱</span>
+        <span class="s-tag">🌱 Gründer-Generation</span>
+        <h1 class="s-title">Du bist früh.</h1>
+        <div class="s-body">Der Kompass könnte leer sein wenn du ihn das erste Mal öffnest.<br><br>Das ist der Preis dafür, dass du dabei bist bevor alle anderen es sind.<br><br>Jede Person die du einlädst baut diese App mit auf. Jede Stadt hatte einmal ihren ersten Tag.<br><br><span class="hi">Das hier ist deiner.</span></div>
+      </div>
+
+    </div>
+  </div>
+  <!-- dots + button -->
+  <div style="padding:16px 24px;padding-bottom:calc(16px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--border);flex-shrink:0">
+    <div style="display:flex;gap:5px;justify-content:center;margin-bottom:14px" id="wdots"></div>
+    <button class="big-btn" id="wbtn" onclick="wNext()">Weiter →</button>
+    <div style="text-align:center;padding-top:12px;font-size:13px;color:var(--muted);cursor:pointer" id="wskip" onclick="showOnboarding()">Überspringen</div>
+  </div>
+  <div class="safe-bot"></div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- ONBOARDING                                   -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="screen hidden" id="scr-onb">
+  <div class="safe-top"></div>
+  <div class="hdr">
+    <span class="hdr-logo">◎ STREUNE</span>
+    <span style="font-size:13px;color:var(--muted)">Account erstellen</span>
+  </div>
+  <div class="onb" id="onb-content">
+    <div>
+      <div class="onb-title">Dein Pseudonym</div>
+      <div class="onb-sub">Kein Klarname nötig. Kein Foto. Keine persönlichen Daten.</div>
+      <div class="onb-label">Pseudonym</div>
+      <input class="onb-input" id="onb-name" placeholder="z.B. NachtSchwärmer22" maxlength="20">
+    </div>
+    <div>
+      <div class="onb-label">Was machst du gerade?</div>
+      <div class="status-grid" id="status-grid">
+        <div class="s-btn sel" onclick="selStatus('sport',this)"><span>🏃</span><span>Sport</span></div>
+        <div class="s-btn" onclick="selStatus('kaffee',this)"><span>☕</span><span>Kaffee</span></div>
+        <div class="s-btn" onclick="selStatus('spazieren',this)"><span>🚶</span><span>Spazieren</span></div>
+        <div class="s-btn" onclick="selStatus('unterwegs',this)"><span>🌆</span><span>Unterwegs</span></div>
+        <div class="s-btn" onclick="selStatus('offen',this)"><span>✨</span><span>Offen</span></div>
+      </div>
+    </div>
+    <div class="check-row" onclick="toggleAge(this)" id="age-check">
+      <div class="check-box" id="age-box"></div>
+      <div class="check-lbl">Ich bin mindestens 18 Jahre alt</div>
+    </div>
+    <button class="big-btn" id="onb-btn" onclick="finishOnb()" disabled>Los geht's →</button>
+  </div>
+  <div class="safe-bot"></div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- MAIN APP                                     -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="screen hidden" id="scr-app">
+
+  <!-- COMPASS TAB -->
+  <div id="tab-compass" style="display:flex;flex-direction:column;flex:1;overflow:hidden">
+    <div class="safe-top"></div>
+    <div class="hdr">
+      <span class="hdr-logo" onclick="showProfile()" id="hdr-pseudo">◎ Streune</span>
+      <div class="hdr-r">
+        <div class="tog" id="tog-ghost" onclick="toggleGhost()">👁</div>
+        <div class="tog" id="tog-dnd" onclick="toggleDnd()">🔔</div>
+        <div class="tog" onclick="showGroupPing()">👥</div>
+        <div class="tog" onclick="showSpots()">📍</div>
+      </div>
+    </div>
+    <div id="loc-banner" class="loc-banner" style="display:none">📍 GPS wird geladen...</div>
+    <div class="compass-area" id="compass-area">
+      <svg id="compass-svg" width="340" height="340" viewBox="0 0 340 340">
+        <circle cx="170" cy="170" r="148" fill="rgba(77,159,255,.03)" stroke="rgba(77,159,255,.08)" stroke-width="1"/>
+        <circle cx="170" cy="170" r="100" fill="none" stroke="rgba(77,159,255,.12)" stroke-width="1" stroke-dasharray="3 3"/>
+        <g id="compass-ring" style="transform-origin:170px 170px">
+          <circle cx="170" cy="170" r="100" fill="none" stroke="rgba(77,159,255,.2)" stroke-width="1"/>
+          <text x="170" y="62" text-anchor="middle" fill="#4d9fff" font-size="11" font-weight="800" font-family="Space Grotesk" letter-spacing="1">N</text>
+          <text x="278" y="174" text-anchor="middle" fill="rgba(77,159,255,.45)" font-size="10" font-weight="700" font-family="Space Grotesk">O</text>
+          <text x="170" y="288" text-anchor="middle" fill="rgba(77,159,255,.45)" font-size="10" font-weight="700" font-family="Space Grotesk">S</text>
+          <text x="62" y="174" text-anchor="middle" fill="rgba(77,159,255,.45)" font-size="10" font-weight="700" font-family="Space Grotesk">W</text>
+        </g>
+      </svg>
+      <div class="my-dot" style="left:50%;top:50%"></div>
+      <!-- User dots rendered by JS -->
+      <div id="user-dots"></div>
+      <div class="compass-bottom">
+        <div class="status-pill" id="status-pill" onclick="showStatusPicker()">
+          <span id="status-display">✨ Offen für alles</span>
+          <span style="color:var(--muted);font-size:13px">✎</span>
+        </div>
+        <div class="radius-txt" id="radius-txt">📡 500m Radius · 4 in der Nähe</div>
+        <div class="invite-row">
+          <div class="inv-wa" onclick="shareWA()"><span>💬</span><span>WhatsApp</span></div>
+          <div class="inv-main" onclick="shareNative()">
+            <span class="ii">📡</span>
+            <div><div class="it">Freunde einladen</div><div class="is">+150m Radius für euch beide</div></div>
+            <span class="ia">↗</span>
+          </div>
+        </div>
+      </div>
+      <!-- Popup -->
+      <div class="popup" id="user-popup" style="display:none">
+        <div class="popup-head">
+          <div class="popup-avatar" id="pu-av">R</div>
+          <div><div class="popup-name" id="pu-name">Runner_K</div><div class="popup-status" id="pu-status">🏃 Sport</div></div>
+        </div>
+        <div class="popup-dist" id="pu-dist">87 Meter entfernt</div>
+        <div class="popup-btns">
+          <button class="btn-ping" onclick="pingUser()">Anpingen 📡</button>
+          <button class="btn-report" onclick="closePopup()">🚩</button>
+          <button class="btn-close" onclick="closePopup()">✕</button>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- SCREENS -->
-  <div class="screens" id="screens">
-
-    <!-- SCREEN 1: COMPASS -->
-    <div class="screen" id="compass">
-      <div class="compass-header">
-        <span class="logo-text">◎ STREUNE</span>
-        <div class="header-actions">
-          <div class="hbtn" id="ghost-btn" onclick="toggleGhost()">👁</div>
-          <div class="hbtn" id="dnd-btn" onclick="toggleDnd()">🔔</div>
-          <div class="hbtn" onclick="showGroupPing()">👥</div>
-        </div>
-      </div>
-
-      <div class="compass-area" id="compass-area">
-        <!-- SVG Compass -->
-        <svg width="360" height="360" viewBox="0 0 360 360" class="compass-svg">
-          <!-- Outer glow ring -->
-          <circle cx="180" cy="180" r="155" fill="none" stroke="rgba(77,159,255,0.06)" stroke-width="30"/>
-          <!-- Radius ring -->
-          <circle cx="180" cy="180" r="130" fill="rgba(77,159,255,0.03)" stroke="rgba(77,159,255,0.15)" stroke-width="1" stroke-dasharray="4 4"/>
-          <!-- Compass ring (rotating) -->
-          <g class="compass-ring">
-            <circle cx="180" cy="180" r="105" fill="none" stroke="rgba(77,159,255,0.18)" stroke-width="1"/>
-            <!-- Tick marks -->
-            <g id="ticks"></g>
-            <!-- Cardinal letters -->
-            <text x="180" y="68" text-anchor="middle" fill="#4d9fff" font-size="11" font-weight="800" font-family="Space Grotesk" letter-spacing="1">N</text>
-            <text x="292" y="184" text-anchor="middle" fill="rgba(77,159,255,0.5)" font-size="10" font-weight="700" font-family="Space Grotesk">O</text>
-            <text x="180" y="300" text-anchor="middle" fill="rgba(77,159,255,0.5)" font-size="10" font-weight="700" font-family="Space Grotesk">S</text>
-            <text x="68" y="184" text-anchor="middle" fill="rgba(77,159,255,0.5)" font-size="10" font-weight="700" font-family="Space Grotesk">W</text>
-          </g>
-          <!-- Center crosshair -->
-          <line x1="180" y1="155" x2="180" y2="165" stroke="rgba(77,159,255,0.4)" stroke-width="1.5"/>
-          <line x1="180" y1="195" x2="180" y2="205" stroke="rgba(77,159,255,0.4)" stroke-width="1.5"/>
-          <line x1="155" y1="180" x2="165" y2="180" stroke="rgba(77,159,255,0.4)" stroke-width="1.5"/>
-          <line x1="195" y1="180" x2="205" y2="180" stroke="rgba(77,159,255,0.4)" stroke-width="1.5"/>
-        </svg>
-
-        <!-- My dot -->
-        <div class="my-dot"></div>
-
-        <!-- User dots -->
-        <div class="user-dot" style="left:calc(50% + 68px);top:calc(50% - 55px)" onclick="showPopup('Runner_K', '🏃 Sport', '87m')">
-          <span class="emoji">🏃</span>
-          <span class="dist">87m</span>
-        </div>
-        <div class="user-dot" style="left:calc(50% - 75px);top:calc(50% - 40px)" onclick="showPopup('CaféMax', '☕ Kaffee', '134m')">
-          <span class="emoji">☕</span>
-          <span class="dist">134m</span>
-        </div>
-        <div class="user-dot" style="left:calc(50% + 30px);top:calc(50% + 80px)" onclick="showPopup('Wanderer', '🚶 Spazieren', '210m')">
-          <span class="emoji">🚶</span>
-          <span class="dist">210m</span>
-        </div>
-        <div class="user-dot" style="left:calc(50% - 90px);top:calc(50% + 55px)" onclick="showPopup('FreiGeist', '✨ Offen', '295m')">
-          <span class="emoji">✨</span>
-          <span class="dist">295m</span>
-        </div>
-
-        <!-- Status + Radius -->
-        <div class="compass-status">
-          <div class="status-pill" onclick="toggleStatus()">✨ Offen für alles &nbsp;✎</div>
-          <div class="radius-txt">📡 1.200m Radius · 4 in der Nähe</div>
-          <div class="invite-big-btn" onclick="shareInvite()">
-            <span style="font-size:20px">📡</span>
-            <div style="flex:1;text-align:left">
-              <div style="font-size:14px;font-weight:800;color:#e8f0fe">Freunde einladen</div>
-              <div style="font-size:11px;color:#4d9fff;margin-top:2px">+150m Radius für euch beide</div>
-            </div>
-            <span style="font-size:16px;color:#4d9fff;font-weight:700">↗</span>
-          </div>
-        </div>
-
-        <!-- User popup -->
-        <div class="user-popup" id="user-popup">
-          <div class="popup-name" id="popup-name">Runner_K</div>
-          <div class="popup-status" id="popup-status">🏃 Sport</div>
-          <div class="popup-dist" id="popup-dist">87 Meter entfernt</div>
-          <div class="popup-btns">
-            <button class="btn-ping" onclick="openChat()">Anpingen 📡</button>
-            <button class="btn-close" onclick="hidePopup()">✕</button>
-          </div>
-        </div>
-      </div>
+  <!-- CHATS TAB -->
+  <div id="tab-chats" style="display:none;flex-direction:column;flex:1;overflow:hidden">
+    <div class="safe-top"></div>
+    <div class="hdr">
+      <span style="font-size:20px;font-weight:900;color:var(--text)">Chats</span>
     </div>
+    <div class="chat-list" id="chat-list"></div>
+  </div>
 
-    <!-- SCREEN 2: CHATS -->
-    <div class="screen" id="chats">
-      <div id="chats-list">
-        <div class="screen-header" style="padding:16px 20px 14px">
-          <div class="screen-title">Chats</div>
-        </div>
-        <div class="chat-item" onclick="openChatView()">
-          <div class="chat-avatar">R</div>
-          <div class="chat-info">
-            <div style="display:flex;align-items:center;gap:8px;margin-bottom:3px">
-              <div class="chat-name">Runner_K</div>
-              <div class="dist-pill">📍 87m</div>
-            </div>
-            <div class="chat-preview">Hey, bist du noch in der Nähe vom Park?</div>
-          </div>
-          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
-            <div class="chat-time">09:38</div>
-            <div class="unread-badge">2</div>
-          </div>
-        </div>
-        <div class="chat-item">
-          <div class="chat-avatar">C</div>
-          <div class="chat-info">
-            <div style="display:flex;align-items:center;gap:8px;margin-bottom:3px">
-              <div class="chat-name">CaféMax</div>
-              <div class="dist-pill">📍 134m</div>
-            </div>
-            <div class="chat-preview">Bin noch 20min hier wenn du willst</div>
-          </div>
-          <div class="chat-time">09:21</div>
-        </div>
-        <div class="chat-item">
-          <div class="chat-avatar">W</div>
-          <div class="chat-info">
-            <div style="display:flex;align-items:center;gap:8px;margin-bottom:3px">
-              <div class="chat-name">Wanderer</div>
-              <div class="dist-pill dist-far">⏱ vor 3h</div>
-            </div>
-            <div class="chat-preview">👋</div>
-          </div>
-          <div class="chat-time">Gestern</div>
-        </div>
-        <div class="chat-item">
-          <div class="chat-avatar" style="font-size:16px">👥</div>
-          <div class="chat-info">
-            <div style="display:flex;align-items:center;gap:8px;margin-bottom:3px">
-              <div class="chat-name">Treffpunkt Stadtpark</div>
-              <div class="dist-pill">📍 210m</div>
-            </div>
-            <div class="chat-preview">FreiGeist: Ich bin da! ✓</div>
-          </div>
-          <div class="chat-time">09:15</div>
-        </div>
-      </div>
-
-      <!-- Chat View (hidden initially) -->
-      <div id="chat-view-inner" style="display:none;height:100%;flex-direction:column">
-        <div class="chat-header">
-          <div class="back-btn" onclick="closeChatView()">←</div>
-          <div class="chat-header-info">
-            <div class="chat-header-name">Runner_K</div>
-            <div class="chat-header-status">🏃 Sport · 87m entfernt</div>
-          </div>
-          <div style="font-size:18px;cursor:pointer">🚩</div>
-        </div>
-        <div class="messages">
-          <div class="msg other">
-            <div class="msg-bubble">Hey! Bist du gerade auch im Park? 🏃</div>
-            <div class="msg-time">09:34</div>
-          </div>
-          <div class="msg me">
-            <div class="msg-bubble">Ja! Komme gerade vom Westeingang rein</div>
-            <div class="msg-time">09:35</div>
-          </div>
-          <div class="msg other">
-            <div class="msg-bubble">Nice, ich bin bei der großen Wiese. Sehen uns gleich?</div>
-            <div class="msg-time">09:36</div>
-          </div>
-          <div class="msg me">
-            <div class="msg-bubble">Bin in 3 Minuten da 👍</div>
-            <div class="msg-time">09:37</div>
-          </div>
-          <div class="msg other">
-            <div class="msg-bubble">Hey, bist du noch in der Nähe vom Park?</div>
-            <div class="msg-time">09:38</div>
-          </div>
-        </div>
-        <div class="chat-input-row">
-          <input class="chat-input" placeholder="Nachricht..." />
-          <button class="send-btn">↑</button>
-        </div>
-      </div>
+  <!-- SPOTS TAB -->
+  <div id="tab-spots" style="display:none;flex-direction:column;flex:1;overflow:hidden">
+    <div class="safe-top"></div>
+    <div class="hdr">
+      <span style="font-size:18px;font-weight:900;color:var(--text)">Spots in der Nähe</span>
+      <span style="color:var(--accent);font-weight:700;font-size:15px;cursor:pointer" onclick="showCreateSpot()">+ Neu</span>
     </div>
+    <div class="spot-list" id="spot-list"></div>
+  </div>
 
-    <!-- SCREEN 3: PROFILE -->
-    <div class="screen" id="profile" style="overflow-y:auto">
-      <div class="screen-header" style="padding:16px 20px 14px">
-        <div class="screen-title">Profil</div>
-      </div>
-
-      <div class="profile-section">
-        <div class="section-label">Pseudonym</div>
-        <div class="pseudonym-box">◎ &nbsp;FreiVogel_22</div>
+  <!-- PROFILE TAB -->
+  <div id="tab-profile" style="display:none;flex-direction:column;flex:1;overflow:hidden">
+    <div class="safe-top"></div>
+    <div class="hdr">
+      <span style="font-size:20px;font-weight:900;color:var(--text)">Profil</span>
+      <span style="color:var(--accent);font-weight:700;font-size:15px;cursor:pointer" onclick="saveProfile()">Speichern</span>
+    </div>
+    <div class="prof-scroll">
+      <div class="prof-sec">
+        <div class="prof-sec-title">Pseudonym</div>
+        <div class="pseudo-box" id="prof-pseudo">◎ NachtSchwärmer</div>
         <div style="font-size:11px;color:var(--muted);margin-top:8px">Kein Klarname. Kein Foto. Keine Daten.</div>
       </div>
-
-      <div class="profile-section">
-        <div class="section-label">Was machst du gerade?</div>
-        <div class="status-grid">
-          <div class="status-btn"><span class="s-emoji">🏃</span><span class="s-label">Sport</span></div>
-          <div class="status-btn"><span class="s-emoji">☕</span><span class="s-label">Kaffee</span></div>
-          <div class="status-btn"><span class="s-emoji">🚶</span><span class="s-label">Spazieren</span></div>
-          <div class="status-btn"><span class="s-emoji">🌆</span><span class="s-label">Unterwegs</span></div>
-          <div class="status-btn active"><span class="s-emoji">✨</span><span class="s-label">Offen</span></div>
+      <div class="prof-sec">
+        <div class="prof-sec-title">Status</div>
+        <div class="status-grid" id="prof-status-grid">
+          <div class="s-btn" onclick="selProfileStatus('sport',this)"><span>🏃</span><span>Sport</span></div>
+          <div class="s-btn" onclick="selProfileStatus('kaffee',this)"><span>☕</span><span>Kaffee</span></div>
+          <div class="s-btn" onclick="selProfileStatus('spazieren',this)"><span>🚶</span><span>Spazieren</span></div>
+          <div class="s-btn" onclick="selProfileStatus('unterwegs',this)"><span>🌆</span><span>Unterwegs</span></div>
+          <div class="s-btn sel" onclick="selProfileStatus('offen',this)"><span>✨</span><span>Offen</span></div>
         </div>
       </div>
-
-      <div class="profile-section">
-        <div class="section-label">Dein Radius</div>
-        <div class="radius-row" style="margin-bottom:8px">
-          <div class="radius-bar"><div class="radius-fill" id="r-fill" style="width:40%"></div></div>
-          <div class="radius-num">1.200m</div>
+      <div class="prof-sec">
+        <div class="prof-sec-title">Dein Radius</div>
+        <div class="radius-row">
+          <div class="radius-bar"><div class="radius-fill" id="prof-radius-fill" style="width:17%"></div></div>
+          <div class="radius-num" id="prof-radius-num">500m</div>
         </div>
-        <div style="font-size:11px;color:var(--muted)">Max. 3km · Wächst durch Einladungen</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:8px">Max 3km · Wächst durch Einladungen</div>
       </div>
-
-      <div class="profile-section">
-        <div class="section-label">📡 Freunde einladen → +150m Radius</div>
-        <div class="referral-box">
-          <span class="ref-code">A7F3K2</span>
-          <span class="ref-share">Teilen ↗</span>
+      <div class="prof-sec">
+        <div class="prof-sec-title">📡 Freunde einladen</div>
+        <div style="font-size:12px;color:var(--muted);margin-bottom:10px">+150m Radius für euch beide</div>
+        <div class="ref-btns">
+          <button class="ref-wa" onclick="shareWA()">💬 WhatsApp</button>
+          <button class="ref-share" onclick="shareNative()">↗ Teilen</button>
         </div>
       </div>
-
-      <div style="height:20px"></div>
+      <div class="prof-sec">
+        <button class="action-btn" onclick="showTab('spots')">
+          <span class="ai">📍</span><div><div class="at">Spots in der Nähe</div><div class="as">Orts-Gruppen beitreten</div></div><span class="aa">→</span>
+        </button>
+        <button class="action-btn" onclick="toast('Aufkleber-Feature kommt bald!')">
+          <span class="ai">🎁</span><div><div class="at">Kostenlose Aufkleber</div><div class="as">Ab 5 Einladungen</div></div><span class="aa">→</span>
+        </button>
+        <button class="action-btn" onclick="toast('Feedback-Feature kommt bald!')">
+          <span class="ai">💬</span><div><div class="at">Dem Entwickler schreiben</div><div class="as">Ideen & Feedback</div></div><span class="aa">→</span>
+        </button>
+      </div>
     </div>
-
   </div>
 
   <!-- TAB BAR -->
-  <div class="tabbar">
-    <div class="tab active" id="tab-0" onclick="switchTab(0)">
-      <div class="tab-icon">◎</div>
-      <div class="tab-label">Kompass</div>
+  <div class="bottom-nav">
+    <div class="nav-tab active" id="nav-compass" onclick="showTab('compass')">
+      <span class="ni">◎</span><span class="nl">Kompass</span>
     </div>
-    <div class="tab" id="tab-1" onclick="switchTab(1)" style="position:relative">
-      <div class="tab-icon">💬</div>
-      <div class="tab-badge">2</div>
-      <div class="tab-label">Chats</div>
+    <div class="nav-tab" id="nav-chats" onclick="showTab('chats')" style="position:relative">
+      <span class="ni">💬</span>
+      <div class="nav-badge" id="chat-badge" style="display:none">2</div>
+      <span class="nl">Chats</span>
     </div>
-    <div class="tab" id="tab-2" onclick="switchTab(2)">
-      <div class="tab-icon">⚙</div>
-      <div class="tab-label">Profil</div>
+    <div class="nav-tab" id="nav-spots" onclick="showTab('spots')">
+      <span class="ni">📍</span><span class="nl">Spots</span>
     </div>
+    <div class="nav-tab" id="nav-profile" onclick="showTab('profile')">
+      <span class="ni">⚙</span><span class="nl">Profil</span>
+    </div>
+  </div>
+  <div class="safe-bot"></div>
+</div>
+
+<!-- STATUS PICKER OVERLAY -->
+<div class="overlay" id="overlay-status" style="display:none" onclick="closeStatusPicker()">
+  <div class="overlay-sheet" onclick="event.stopPropagation()">
+    <div class="overlay-handle"></div>
+    <div class="overlay-title">Was machst du gerade?</div>
+    <div class="s-option" onclick="setStatus('sport','🏃 Sport')"><span class="so-e">🏃</span><span class="so-t">Sport</span></div>
+    <div class="s-option" onclick="setStatus('kaffee','☕ Kaffee')"><span class="so-e">☕</span><span class="so-t">Kaffee</span></div>
+    <div class="s-option" onclick="setStatus('spazieren','🚶 Spazieren')"><span class="so-e">🚶</span><span class="so-t">Spazieren</span></div>
+    <div class="s-option" onclick="setStatus('unterwegs','🌆 Unterwegs')"><span class="so-e">🌆</span><span class="so-t">Unterwegs</span></div>
+    <div class="s-option active" onclick="setStatus('offen','✨ Offen für alles')"><span class="so-e">✨</span><span class="so-t">Offen für alles</span></div>
   </div>
 </div>
 
-
-</div>
-
 <script>
-// Generate tick marks
-const ticks = document.getElementById('ticks');
-for (let i = 0; i < 72; i++) {
-  const angle = i * 5;
-  const rad = angle * Math.PI / 180;
-  const isMajor = i % 9 === 0;
-  const r1 = 105;
-  const r2 = isMajor ? 95 : 100;
-  const x1 = 180 + r1 * Math.sin(rad);
-  const y1 = 180 - r1 * Math.cos(rad);
-  const x2 = 180 + r2 * Math.sin(rad);
-  const y2 = 180 - r2 * Math.cos(rad);
-  const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-  line.setAttribute('x1', x1); line.setAttribute('y1', y1);
-  line.setAttribute('x2', x2); line.setAttribute('y2', y2);
-  line.setAttribute('stroke', isMajor ? 'rgba(77,159,255,0.5)' : 'rgba(77,159,255,0.2)');
-  line.setAttribute('stroke-width', isMajor ? '1.5' : '0.8');
-  ticks.appendChild(line);
-}
+// ── STATE ──────────────────────────────────────────────────────
+const S = {
+  name: '', status: 'offen', radius: 500, ghost: false, dnd: false,
+  ageOk: false, heading: 0, lat: null, lng: null, statusText: 'Offen für alles'
+};
+const DEMO_USERS = [
+  {id:1,name:'Runner_K',status:'sport',statusTxt:'Sport',dist:87,bearing:42,emoji:'🏃'},
+  {id:2,name:'CaféMax',status:'kaffee',statusTxt:'Kaffee',dist:134,bearing:168,emoji:'☕'},
+  {id:3,name:'Wanderer',status:'spazieren',statusTxt:'Spazieren',dist:210,bearing:285,emoji:'🚶'},
+  {id:4,name:'FreiGeist',status:'offen',statusTxt:'Offen',dist:295,bearing:340,emoji:'✨'},
+];
+const DEMO_SPOTS = [
+  {id:1,name:'Planet Fitness Mitte',emoji:'🏋️',dist:87,members:3},
+  {id:2,name:'Stadtpark Nord',emoji:'🌳',dist:234,members:1},
+];
+const DEMO_CHATS = [
+  {id:1,name:'Runner_K',last:'Hey, bist du noch im Park?',time:'09:38',dist:'87m',unread:2},
+  {id:2,name:'CaféMax',last:'Bin noch 20min hier',time:'09:21',dist:'134m',unread:0},
+];
 
-// Tab switching
-let currentTab = 0;
-function switchTab(n) {
-  currentTab = n;
-  const w = Math.min(window.innerWidth, 430);
-  document.getElementById('screens').style.transform = `translateX(-${n * w}px)`;
-  document.querySelectorAll('.tab').forEach((t,i) => t.classList.toggle('active', i === n));
-  if (n !== 1) { document.getElementById('chat-view-inner').style.display = 'none'; document.getElementById('chats-list').style.display = 'block'; }
-}
+// ── WELCOME ────────────────────────────────────────────────────
+let wIdx = 0;
+const W_TOTAL = 10;
 
-function setActive(el) {
-  document.querySelectorAll('.screen-tab').forEach(t => t.classList.remove('active'));
-  el.classList.add('active');
-}
-
-// Popup
-function showPopup(name, status, dist) {
-  document.getElementById('popup-name').textContent = name;
-  document.getElementById('popup-status').textContent = status;
-  document.getElementById('popup-dist').textContent = dist + ' entfernt';
-  document.getElementById('user-popup').classList.add('show');
-}
-function hidePopup() { document.getElementById('user-popup').classList.remove('show'); }
-function openChat() { hidePopup(); switchTab(1); setTimeout(() => openChatView(), 100); }
-
-// Ghost / DND
-let ghost = false, dnd = false;
-function toggleGhost() {
-  ghost = !ghost;
-  const btn = document.getElementById('ghost-btn');
-  btn.textContent = ghost ? '👻' : '👁';
-  btn.classList.toggle('on', ghost);
-}
-function toggleDnd() {
-  dnd = !dnd;
-  const btn = document.getElementById('dnd-btn');
-  btn.textContent = dnd ? '🔕' : '🔔';
-  btn.classList.toggle('on', dnd);
-}
-
-// Chat view
-function openChatView() {
-  document.getElementById('chats-list').style.display = 'none';
-  const cv = document.getElementById('chat-view-inner');
-  cv.style.display = 'flex';
-  cv.style.flexDirection = 'column';
-  cv.style.height = '100%';
-  // Remove unread badge
-  document.querySelector('.tab-badge').style.display = 'none';
-}
-function closeChatView() {
-  document.getElementById('chat-view-inner').style.display = 'none';
-  document.getElementById('chats-list').style.display = 'block';
-}
-
-// Animate dots
-let t = 0;
-setInterval(() => {
-  t += 0.003;
-  const dots = document.querySelectorAll('.user-dot');
-  const offsets = [0, Math.PI*0.7, Math.PI*1.3, Math.PI*1.9];
-  const radii = [90, 100, 115, 105];
-  dots.forEach((dot, i) => {
-    const a = offsets[i] + t * (i % 2 === 0 ? 1 : -0.7);
-    const r = radii[i];
-    const x = 180 + r * Math.sin(a);
-    const y = 180 - r * Math.cos(a);
-    dot.style.left = `calc(${x/360*100}% + ${x > 180 ? -36 : 0}px)`;
-    dot.style.top = `calc(${y/360*100}% + ${y > 180 ? -36 : 0}px)`;
-    dot.style.position = 'absolute';
-    dot.style.left = (x - 18) + 'px';
-    dot.style.top = (y - 18) + 'px';
-  });
-}, 50);
-
-// Radius animation
-let rPct = 40;
-setInterval(() => {
-  rPct = 30 + Math.sin(Date.now() / 3000) * 5 + 10;
-  document.getElementById('r-fill').style.width = rPct + '%';
-}, 100);
-
-function shareInvite() {
-  const url = 'https://tjark-dev3l0p3r.github.io/streune/ref?ref=A7F3K2&name=FreiVogel_22';
-  if (navigator.share) {
-    navigator.share({ title: 'Streune', text: 'Komm zu Streune! 📡', url });
-  } else {
-    navigator.clipboard?.writeText(url);
-    alert('Link kopiert! 📋\n' + url);
+function initWelcome() {
+  const d = document.getElementById('wdots');
+  for(let i=0;i<W_TOTAL;i++){
+    const dot = document.createElement('div');
+    dot.style.cssText=`width:${i===0?18:5}px;height:5px;border-radius:3px;background:${i===0?'var(--accent)':'var(--border)'};transition:all .25s;cursor:pointer`;
+    dot.onclick=()=>goW(i);
+    d.appendChild(dot);
   }
 }
-function showGroupPing() {
-  alert('👥 Gruppen-Ping: Wähle mehrere User in der Nähe aus und lege einen Treffpunkt fest.');
+
+function goW(n){ wIdx=n; updateW(); }
+
+function wNext(){
+  if(wIdx<W_TOTAL-1){ wIdx++; updateW(); }
+  else showOnboarding();
 }
-function toggleStatus() {
-  alert('✎ Status ändern:\n🏃 Sport\n☕ Kaffee\n🚶 Spazieren\n🌆 Unterwegs\n✨ Offen');
+
+function updateW(){
+  const W = Math.min(window.innerWidth,430);
+  document.getElementById('slides').style.transform=`translateX(-${wIdx*W}px)`;
+  document.getElementById('wprog').style.width=`${((wIdx+1)/W_TOTAL)*100}%`;
+  const dots = document.getElementById('wdots').children;
+  for(let i=0;i<dots.length;i++){
+    dots[i].style.width=i===wIdx?'18px':'5px';
+    dots[i].style.background=i===wIdx?'var(--accent)':'var(--border)';
+  }
+  const isLast=wIdx===W_TOTAL-1;
+  const btn=document.getElementById('wbtn');
+  btn.textContent=isLast?"Los geht's →":"Weiter →";
+  btn.style.background=isLast?'var(--accent)':'var(--card)';
+  btn.style.border=isLast?'1px solid var(--accent)':'1px solid var(--border)';
+  btn.style.color=isLast?'#fff':'var(--muted)';
+  document.getElementById('wskip').style.display=isLast?'none':'block';
 }
+
+// Touch swipe
+let tx=0;
+document.getElementById('slides').addEventListener('touchstart',e=>tx=e.touches[0].clientX,{passive:true});
+document.getElementById('slides').addEventListener('touchend',e=>{
+  const d=tx-e.changedTouches[0].clientX;
+  if(Math.abs(d)>40){if(d>0)wNext();else if(wIdx>0){wIdx--;updateW();}}
+},{passive:true});
+document.addEventListener('keydown',e=>{
+  if(document.getElementById('scr-welcome').classList.contains('hidden'))return;
+  if(e.key==='ArrowRight'||e.key===' ')wNext();
+  if(e.key==='ArrowLeft'&&wIdx>0){wIdx--;updateW();}
+});
+
+// ── ONBOARDING ─────────────────────────────────────────────────
+let selSt='sport';
+function showOnboarding(){ show('scr-onb'); }
+function selStatus(key,el){
+  selSt=key;
+  document.querySelectorAll('#status-grid .s-btn').forEach(b=>b.classList.remove('sel'));
+  el.classList.add('sel');
+  checkOnb();
+}
+function toggleAge(row){
+  S.ageOk=!S.ageOk;
+  document.getElementById('age-box').className='check-box'+(S.ageOk?' checked':'');
+  checkOnb();
+}
+function checkOnb(){
+  const name=document.getElementById('onb-name').value.trim();
+  document.getElementById('onb-btn').disabled=!(name&&S.ageOk);
+}
+document.getElementById('onb-name').addEventListener('input',checkOnb);
+function finishOnb(){
+  S.name=document.getElementById('onb-name').value.trim()||'Streune_User';
+  S.status=selSt;
+  localStorage.setItem('streune_user',JSON.stringify(S));
+  startApp();
+}
+
+// ── APP START ──────────────────────────────────────────────────
+function startApp(){
+  show('scr-app');
+  document.getElementById('hdr-pseudo').textContent='◎ '+S.name;
+  document.getElementById('prof-pseudo').textContent='◎  '+S.name;
+  renderChats();
+  renderSpots();
+  startCompass();
+  startGPS();
+  document.getElementById('chat-badge').style.display='flex';
+}
+
+// ── COMPASS ────────────────────────────────────────────────────
+let heading=0,compassRaf=null,t=0;
+
+function startCompass(){
+  if(window.DeviceOrientationEvent){
+    if(typeof DeviceOrientationEvent.requestPermission==='function'){
+      DeviceOrientationEvent.requestPermission().then(p=>{
+        if(p==='granted') window.addEventListener('deviceorientation',onOrient);
+      }).catch(()=>{});
+    } else {
+      window.addEventListener('deviceorientation',onOrient);
+    }
+  }
+  if(compassRaf) cancelAnimationFrame(compassRaf);
+  animateCompass();
+}
+
+function onOrient(e){
+  const a=e.webkitCompassHeading||e.alpha||0;
+  heading=a;
+}
+
+function animateCompass(){
+  t+=0.02;
+  const ring=document.getElementById('compass-ring');
+  ring.style.transform=`rotate(${-heading}deg)`;
+
+  // Animate demo user dots
+  const W=document.getElementById('compass-area').offsetWidth||360;
+  const H=document.getElementById('compass-area').offsetHeight||400;
+  const cx=W/2, cy=H/2;
+  DEMO_USERS.forEach(u=>{
+    const el=document.getElementById('udot-'+u.id);
+    if(!el)return;
+    const rel=((u.bearing-heading)+360)%360;
+    const r=Math.min(W,H)*0.33;
+    const x=cx+r*Math.sin(rel*Math.PI/180);
+    const y=cy-r*Math.cos(rel*Math.PI/180);
+    el.style.left=x+'px';
+    el.style.top=y+'px';
+  });
+  compassRaf=requestAnimationFrame(animateCompass);
+}
+
+function renderUserDots(){
+  const wrap=document.getElementById('user-dots');
+  wrap.innerHTML='';
+  DEMO_USERS.forEach(u=>{
+    const d=document.createElement('div');
+    d.className='udot'; d.id='udot-'+u.id;
+    d.innerHTML=`<span class="ue">${u.emoji}</span><span class="ud">${u.dist}m</span>`;
+    d.onclick=()=>showPopup(u);
+    wrap.appendChild(d);
+  });
+}
+
+// ── GPS ────────────────────────────────────────────────────────
+function startGPS(){
+  const banner=document.getElementById('loc-banner');
+  banner.style.display='block';
+  if(!navigator.geolocation){banner.textContent='📍 GPS nicht verfügbar';return;}
+  navigator.geolocation.getCurrentPosition(pos=>{
+    S.lat=pos.coords.latitude; S.lng=pos.coords.longitude;
+    banner.style.display='none';
+    renderUserDots();
+  }, err=>{
+    banner.textContent='📍 Demo-Modus: Kein GPS verfügbar';
+    setTimeout(()=>banner.style.display='none',3000);
+    renderUserDots();
+  }, {timeout:8000});
+}
+
+// ── POPUP ──────────────────────────────────────────────────────
+let activeUser=null;
+function showPopup(u){
+  activeUser=u;
+  document.getElementById('pu-av').textContent=u.name[0];
+  document.getElementById('pu-name').textContent=u.name;
+  document.getElementById('pu-status').textContent=u.emoji+' '+u.statusTxt;
+  document.getElementById('pu-dist').textContent=u.dist+' Meter entfernt';
+  document.getElementById('user-popup').style.display='block';
+}
+function closePopup(){document.getElementById('user-popup').style.display='none';}
+function pingUser(){
+  closePopup();
+  if(activeUser) addChat(activeUser);
+  showTab('chats');
+  toast('📡 '+activeUser?.name+' wurde angepingt!');
+}
+
+// ── STATUS ─────────────────────────────────────────────────────
+function showStatusPicker(){document.getElementById('overlay-status').style.display='flex';}
+function closeStatusPicker(){document.getElementById('overlay-status').style.display='none';}
+function setStatus(key,label){
+  S.status=key; S.statusText=label;
+  document.getElementById('status-display').textContent=label;
+  document.querySelectorAll('#overlay-status .s-option').forEach(o=>o.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+  closeStatusPicker();
+}
+
+function selProfileStatus(key,el){
+  document.querySelectorAll('#prof-status-grid .s-btn').forEach(b=>b.classList.remove('sel'));
+  el.classList.add('sel'); S.status=key;
+}
+function saveProfile(){toast('✓ Profil gespeichert!');}
+
+// ── TOGGLES ────────────────────────────────────────────────────
+function toggleGhost(){
+  S.ghost=!S.ghost;
+  const b=document.getElementById('tog-ghost');
+  b.textContent=S.ghost?'👻':'👁'; b.classList.toggle('on',S.ghost);
+  toast(S.ghost?'👻 Ghost-Modus an — du bist unsichtbar':'👁 Wieder sichtbar');
+}
+function toggleDnd(){
+  S.dnd=!S.dnd;
+  const b=document.getElementById('tog-dnd');
+  b.textContent=S.dnd?'🔕':'🔔'; b.classList.toggle('on',S.dnd);
+  toast(S.dnd?'🔕 Nicht stören an':'🔔 Benachrichtigungen an');
+}
+
+// ── TABS ───────────────────────────────────────────────────────
+function showTab(name){
+  ['compass','chats','spots','profile'].forEach(t=>{
+    document.getElementById('tab-'+t).style.display=t===name?'flex':'none';
+    document.getElementById('nav-'+t).classList.toggle('active',t===name);
+  });
+  if(name==='chats') document.getElementById('chat-badge').style.display='none';
+}
+
+// ── CHATS ──────────────────────────────────────────────────────
+function renderChats(){
+  const list=document.getElementById('chat-list');
+  list.innerHTML='';
+  DEMO_CHATS.forEach(c=>{
+    const row=document.createElement('div');
+    row.className='chat-row';
+    row.innerHTML=`
+      <div class="chat-av">${c.name[0]}</div>
+      <div class="chat-info">
+        <div class="chat-name-row">
+          <span class="chat-name">${c.name}</span>
+          <span class="dist-pill">📍 ${c.dist}</span>
+        </div>
+        <div class="chat-prev">${c.last}</div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
+        <span class="chat-time">${c.time}</span>
+        ${c.unread?`<span style="background:var(--red);border-radius:8px;min-width:18px;height:18px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:#fff;padding:0 4px">${c.unread}</span>`:''}
+      </div>`;
+    row.onclick=()=>toast('💬 Chat-Screen kommt bald!');
+    list.appendChild(row);
+  });
+}
+function addChat(u){
+  if(!DEMO_CHATS.find(c=>c.name===u.name)){
+    DEMO_CHATS.unshift({id:Date.now(),name:u.name,last:'Ihr habt euch gerade angepingt 📡',time:'Jetzt',dist:u.dist+'m',unread:0});
+    renderChats();
+  }
+}
+
+// ── SPOTS ──────────────────────────────────────────────────────
+function renderSpots(){
+  const list=document.getElementById('spot-list');
+  list.innerHTML='';
+  DEMO_SPOTS.forEach(s=>{
+    const card=document.createElement('div');
+    card.className='spot-card';
+    card.innerHTML=`
+      <span class="spot-ico">${s.emoji}</span>
+      <div class="spot-info">
+        <div class="spot-name">${s.name}</div>
+        <div class="spot-sub">${s.members} Person${s.members!==1?'en':''} gerade hier</div>
+      </div>
+      <span class="spot-dist">${s.dist}m</span>`;
+    card.onclick=()=>toast(`📍 ${s.name} beigetreten! Gruppen-Chat kommt bald.`);
+    list.appendChild(card);
+  });
+  const create=document.createElement('div');
+  create.className='create-spot-btn';
+  create.textContent='+ Neuen Spot erstellen';
+  create.onclick=showCreateSpot;
+  list.appendChild(create);
+}
+function showCreateSpot(){
+  const name=prompt('Name des Spots (z.B. "Planet Fitness Mitte"):');
+  if(name){
+    DEMO_SPOTS.unshift({id:Date.now(),name:name.trim(),emoji:'📍',dist:0,members:1});
+    renderSpots();
+    toast('📍 Spot "'+name.trim()+'" erstellt!');
+  }
+}
+function showSpots(){showTab('spots');}
+function showGroupPing(){toast('👥 Gruppen-Ping — wähle Leute aus und setze einen Treffpunkt!');}
+function showProfile(){showTab('profile');}
+
+// ── SHARE ──────────────────────────────────────────────────────
+function shareWA(){
+  const code='DEMO01';
+  const name=S.name||'Jemand';
+  const url=`https://tjark-dev3l0p3r.github.io/streune/ref?ref=${code}&name=${encodeURIComponent(name)}`;
+  const msg=`Hey! Ich nutze Streune — eine App die zeigt, wer gerade in deiner Nähe ist. Kein Instagram, kein Dating. Einfach Leute in der Nähe entdecken und treffen.\n\n◎ Kompass zeigt andere in Metern\n📡 Kein Algorithmus\n🤝 Treffen → Radius wächst für euch beide\n🔒 Kein Background-Tracking\n\nLad's runter:\n${url}`;
+  const wa=`whatsapp://send?text=${encodeURIComponent(msg)}`;
+  const waWeb=`https://wa.me/?text=${encodeURIComponent(msg)}`;
+  window.location=wa;
+  setTimeout(()=>window.open(waWeb,'_blank'),1500);
+}
+function shareNative(){
+  const url='https://tjark-dev3l0p3r.github.io/streune/ref?ref=DEMO01&name='+encodeURIComponent(S.name||'Jemand');
+  if(navigator.share){navigator.share({title:'Streune',text:'Finde Leute in deiner Nähe 📡',url});}
+  else{navigator.clipboard?.writeText(url);toast('📋 Link kopiert!');}
+}
+
+// ── TOAST ──────────────────────────────────────────────────────
+function toast(msg){
+  document.querySelectorAll('.toast').forEach(t=>t.remove());
+  const t=document.createElement('div');
+  t.className='toast'; t.textContent=msg;
+  document.body.appendChild(t);
+  setTimeout(()=>t.remove(),2500);
+}
+
+// ── SCREEN TRANSITIONS ─────────────────────────────────────────
+function show(id){
+  document.querySelectorAll('.screen').forEach(s=>{
+    if(s.id===id){s.classList.remove('hidden','out');}
+    else if(!s.classList.contains('hidden')){s.classList.add('out');}
+  });
+  setTimeout(()=>{
+    document.querySelectorAll('.screen.out').forEach(s=>s.classList.add('hidden'));
+  },300);
+}
+
+// ── INIT ───────────────────────────────────────────────────────
+const saved=localStorage.getItem('streune_user');
+if(saved){
+  Object.assign(S,JSON.parse(saved));
+  startApp();
+} else {
+  initWelcome();
+}
+
+// Resize fix for slides
+window.addEventListener('resize',()=>{
+  const W=Math.min(window.innerWidth,430);
+  document.getElementById('slides').style.transform=`translateX(-${wIdx*W}px)`;
+});
 </script>
 </body>
 </html>

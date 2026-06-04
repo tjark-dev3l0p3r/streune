@@ -143,7 +143,11 @@ if (code) {
   localStorage.setItem('streune_referral_ts', Date.now().toString());
 }
 
-// Foto anzeigen (pixelig)
+// Bin ich selbst der Einlader? (eigenen Referral-Code im localStorage)
+const myCode = localStorage.getItem('streune_own_code') || '';
+const isOwner = myCode && code && myCode.toUpperCase() === code.toUpperCase();
+
+// Foto anzeigen
 if (photo) {
   const img = document.getElementById('photo-img');
   const placeholder = document.getElementById('photo-placeholder');
@@ -151,21 +155,29 @@ if (photo) {
   img.style.display = 'block';
   placeholder.style.display = 'none';
 
-  // Reveal-Bar zeigen
-  document.getElementById('reveal-section').style.display = 'block';
-
-  // Klick = kurz weniger pixelig aber nie ganz klar
-  document.getElementById('photo-wrap').onclick = () => {
-    let blur = 16;
-    const interval = setInterval(() => {
-      blur = Math.max(6, blur - 1);
-      img.style.filter = `blur(${blur}px)`;
-      document.getElementById('reveal-fill').style.width = `${((16-blur)/10)*100}%`;
-      document.getElementById('reveal-txt').textContent =
-        blur > 6 ? `Noch ${blur - 6} Nachrichten weniger...` : '🔒 Erst in der App vollständig sichtbar';
-      if (blur <= 6) clearInterval(interval);
-    }, 80);
-  };
+  if (isOwner) {
+    // Eigenes Foto → klar anzeigen
+    img.style.filter = 'blur(0px)';
+    img.style.transform = 'scale(1)';
+    document.getElementById('inviter-name').textContent = decodeURIComponent(params.get('fullname') || name);
+    const hint = document.querySelector('.mystery-hint');
+    if (hint) hint.textContent = 'Das ist deine Einladungsseite. Andere sehen dein Foto pixelig — erst nach 150 Nachrichten wird es klar. 📸';
+    document.getElementById('mystery-label').textContent = 'Das bist du';
+  } else {
+    // Fremdes Foto → pixelig + Reveal-Interaktion
+    document.getElementById('reveal-section').style.display = 'block';
+    document.getElementById('photo-wrap').onclick = () => {
+      let blur = 16;
+      const interval = setInterval(() => {
+        blur = Math.max(6, blur - 1);
+        img.style.filter = `blur(${blur}px)`;
+        document.getElementById('reveal-fill').style.width = `${((16-blur)/10)*100}%`;
+        document.getElementById('reveal-txt').textContent =
+          blur > 6 ? `Noch ${blur - 6} Schritte...` : '🔒 Erst in der App vollständig sichtbar';
+        if (blur <= 6) clearInterval(interval);
+      }, 80);
+    };
+  }
 }
 
 // Platform detection

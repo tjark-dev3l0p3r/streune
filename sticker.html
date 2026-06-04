@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>STREUNE — Aufkleber</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700;800;900&family=Space+Mono:wght@700&display=swap');
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: #f0f0f0;
+  font-family: 'Space Grotesk', sans-serif;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
+h2 {
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 4px;
+  text-align: center;
+}
+p.note {
+  font-size: 13px;
+  color: #888;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.row {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* ── STICKER VARIANTE 1 — Dark, classic ── */
+.sticker {
+  width: 200px;
+  height: 200px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+  flex-shrink: 0;
+}
+
+/* Variante 1: Dark mit Glow */
+.v1 {
+  background: #0a0e14;
+  border: 2px solid #1f2d40;
+}
+.v1 .logo { font-size: 36px; color: #4d9fff; line-height: 1; margin-bottom: 2px; }
+.v1 .brand { font-size: 14px; font-weight: 900; letter-spacing: 4px; color: #e8f0fe; margin-bottom: 8px; }
+.v1 .tagline { font-size: 11px; color: #4a6280; text-align: center; padding: 0 12px; margin-bottom: 10px; line-height: 1.5; font-weight: 700; }
+.v1 .qr-wrap { background: #141d2b; border-radius: 10px; padding: 6px; }
+.v1 .qr-wrap img { width: 72px; height: 72px; display: block; }
+
+/* Variante 2: Dark mit blauer Ecke */
+.v2 {
+  background: #0a0e14;
+  border: 2.5px solid #4d9fff;
+}
+.v2::before {
+  content: '';
+  position: absolute;
+  top: 0; right: 0;
+  width: 60px; height: 60px;
+  background: rgba(77,159,255,0.08);
+  clip-path: polygon(100% 0, 0 0, 100% 100%);
+}
+.v2 .logo { font-size: 38px; color: #4d9fff; margin-bottom: 0; text-shadow: 0 0 20px rgba(77,159,255,.4); }
+.v2 .tagline-main { font-size: 13px; font-weight: 900; color: #e8f0fe; text-align: center; padding: 0 14px; margin-bottom: 2px; line-height: 1.4; }
+.v2 .brand-small { font-size: 10px; font-weight: 700; letter-spacing: 3px; color: #4d9fff; margin-bottom: 8px; font-family: 'Space Mono', monospace; }
+.v2 .qr-wrap { background: #0d1520; border-radius: 8px; padding: 5px; border: 1px solid #1f2d40; }
+.v2 .qr-wrap img { width: 68px; height: 68px; display: block; }
+
+/* Variante 3: Weiß/Hell */
+.v3 {
+  background: #ffffff;
+  border: 2px solid #e0e0e0;
+}
+.v3 .logo { font-size: 36px; color: #0a0e14; margin-bottom: 0; }
+.v3 .brand { font-size: 13px; font-weight: 900; letter-spacing: 4px; color: #0a0e14; margin-bottom: 6px; }
+.v3 .tagline { font-size: 11px; color: #666; text-align: center; padding: 0 12px; margin-bottom: 10px; line-height: 1.5; font-weight: 700; }
+.v3 .qr-wrap { background: #f5f5f5; border-radius: 8px; padding: 5px; }
+.v3 .qr-wrap img { width: 70px; height: 70px; display: block; filter: invert(0); }
+
+/* Variante 4: Minimalst */
+.v4 {
+  background: #0d1520;
+  width: 180px;
+  height: 220px;
+  border-radius: 14px;
+  border: 1px solid #1f2d40;
+}
+.v4 .big-q { font-size: 42px; font-weight: 900; color: #e8f0fe; text-align: center; line-height: 1.1; padding: 0 16px; margin-bottom: 6px; }
+.v4 .sub-q { font-size: 10px; color: #4a6280; text-align: center; margin-bottom: 12px; font-weight: 700; letter-spacing: 0.5px; }
+.v4 .qr-wrap { background: #141d2b; border-radius: 8px; padding: 6px; margin: 0 auto; width: fit-content; }
+.v4 .qr-wrap img { width: 76px; height: 76px; display: block; }
+.v4 .brand-bot { font-size: 10px; font-weight: 900; letter-spacing: 3px; color: #4d9fff; margin-top: 8px; font-family: 'Space Mono', monospace; }
+
+.label {
+  font-size: 12px;
+  color: #666;
+  text-align: center;
+  margin-top: 6px;
+  font-weight: 600;
+}
+
+/* PRINT */
+@media print {
+  body { background: white; padding: 10px; gap: 10px; }
+  h2, p.note, .label, .print-btn { display: none; }
+  .row { gap: 12px; }
+  .sticker { box-shadow: none; }
+}
+
+.print-btn {
+  background: #0a0e14;
+  color: #4d9fff;
+  border: 2px solid #4d9fff;
+  border-radius: 12px;
+  padding: 12px 28px;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+  font-family: 'Space Grotesk', sans-serif;
+  margin-top: 10px;
+}
+.print-btn:hover { background: rgba(77,159,255,0.1); }
+</style>
+</head>
+<body>
+
+<div>
+  <h2>◎ STREUNE — Aufkleber Designs</h2>
+  <p class="note">Drucke auf Aufkleberpapier · ca. 5×5cm · QR-Code ist Test-Link</p>
+</div>
+
+<div class="row">
+
+  <!-- V1: Classic Dark -->
+  <div>
+    <div class="sticker v1">
+      <div class="logo">◎</div>
+      <div class="brand">STREUNE</div>
+      <div class="tagline">Du bist nicht allein hier.</div>
+      <div class="qr-wrap">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://tjark-dev3l0p3r.github.io/streune/ref%3Fref%3DTEST01&bgcolor=141d2b&color=4d9fff&margin=4" alt="QR">
+      </div>
+    </div>
+    <div class="label">V1 — Classic</div>
+  </div>
+
+  <!-- V2: Tagline vorne -->
+  <div>
+    <div class="sticker v2">
+      <div class="logo">◎</div>
+      <div class="tagline-main">Wer ist gerade<br>in deiner Nähe?</div>
+      <div class="brand-small">STREUNE</div>
+      <div class="qr-wrap">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://tjark-dev3l0p3r.github.io/streune/ref%3Fref%3DTEST01&bgcolor=0d1520&color=4d9fff&margin=4" alt="QR">
+      </div>
+    </div>
+    <div class="label">V2 — Frage</div>
+  </div>
+
+  <!-- V3: Hell/Print-freundlich -->
+  <div>
+    <div class="sticker v3">
+      <div class="logo">◎</div>
+      <div class="brand">STREUNE</div>
+      <div class="tagline">Jemand in 87m<br>Entfernung.</div>
+      <div class="qr-wrap">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://tjark-dev3l0p3r.github.io/streune/ref%3Fref%3DTEST01&bgcolor=ffffff&color=0a0e14&margin=4" alt="QR">
+      </div>
+    </div>
+    <div class="label">V3 — Hell (druckfreundlich)</div>
+  </div>
+
+</div>
+
+<div class="row">
+
+  <!-- V4: Minimalst mit großer Frage -->
+  <div>
+    <div class="sticker v4">
+      <div class="big-q">3 Leute.<br>Gerade jetzt.<br>In der Nähe.</div>
+      <div class="sub-q">Schau wer da ist ↓</div>
+      <div class="qr-wrap">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://tjark-dev3l0p3r.github.io/streune/ref%3Fref%3DTEST01&bgcolor=141d2b&color=4d9fff&margin=4" alt="QR">
+      </div>
+      <div class="brand-bot">STREUNE</div>
+    </div>
+    <div class="label">V4 — Dramatisch</div>
+  </div>
+
+  <!-- V5: Location-spezifisch (Gym) -->
+  <div>
+    <div class="sticker v2" style="border-color:#34d399">
+      <div class="logo" style="color:#34d399">◎</div>
+      <div class="tagline-main">Wer trainiert<br>gerade neben dir?</div>
+      <div class="brand-small" style="color:#34d399">STREUNE</div>
+      <div class="qr-wrap">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://tjark-dev3l0p3r.github.io/streune/ref%3Fref%3DTEST01&bgcolor=0d1520&color=34d399&margin=4" alt="QR">
+      </div>
+    </div>
+    <div class="label">V5 — Gym-Version</div>
+  </div>
+
+  <!-- V6: Location-spezifisch (Park) -->
+  <div>
+    <div class="sticker v2" style="border-color:#f59e0b">
+      <div class="logo" style="color:#f59e0b">◎</div>
+      <div class="tagline-main">Wer läuft gerade<br>durch denselben Park?</div>
+      <div class="brand-small" style="color:#f59e0b">STREUNE</div>
+      <div class="qr-wrap">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://tjark-dev3l0p3r.github.io/streune/ref%3Fref%3DTEST01&bgcolor=0d1520&color=f59e0b&margin=4" alt="QR">
+      </div>
+    </div>
+    <div class="label">V6 — Park-Version</div>
+  </div>
+
+</div>
+
+<button class="print-btn" onclick="window.print()">🖨️ Drucken / Als PDF speichern</button>
+
+</body>
+</html>

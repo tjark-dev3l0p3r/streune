@@ -22,56 +22,43 @@
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
-html { background: #050810; }
+html, body { height: 100%; overflow: hidden; background: var(--bg); }
 body {
   font-family: 'Space Grotesk', sans-serif;
-  min-height: 100vh;
+  height: 100vh;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  background: radial-gradient(ellipse at 30% 20%, #0a1628 0%, #050810 70%);
-  padding: 20px;
+  flex-direction: column;
 }
 
-/* PHONE FRAME */
+/* PHONE FRAME = fullscreen */
 .phone {
-  width: 375px;
-  height: 812px;
+  width: 100%;
+  height: 100%;
+  max-width: 430px;
+  margin: 0 auto;
   background: var(--bg);
-  border-radius: 44px;
-  border: 2px solid #1a2540;
   overflow: hidden;
   position: relative;
-  box-shadow:
-    0 0 0 6px #0d1520,
-    0 0 0 8px #1a2540,
-    0 50px 100px rgba(0,0,0,.8),
-    0 0 60px rgba(77,159,255,.08);
-  flex-shrink: 0;
+  flex: 1;
 }
 
-/* NOTCH */
-.notch {
-  position: absolute; top: 0; left: 50%; transform: translateX(-50%);
-  width: 120px; height: 28px;
-  background: #050810;
-  border-radius: 0 0 18px 18px;
-  z-index: 100;
-}
+/* NOTCH hidden in fullscreen */
+.notch { display: none; }
 
 /* STATUS BAR */
 .statusbar {
   height: 44px;
-  display: flex; align-items: flex-end; justify-content: space-between;
-  padding: 0 24px 8px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 20px;
   position: relative; z-index: 10;
+  background: var(--bg);
 }
-.statusbar .time { font-family: 'Space Mono', monospace; font-size: 13px; font-weight: 700; color: var(--text); }
-.statusbar .icons { display: flex; gap: 5px; align-items: center; font-size: 12px; color: var(--text); }
+.statusbar .time { font-family: 'Space Mono', monospace; font-size: 14px; font-weight: 700; color: var(--text); }
+.statusbar .icons { display: flex; gap: 5px; align-items: center; font-size: 13px; color: var(--text); }
 
 /* SCREEN CONTAINER */
-.screens { display: flex; width: 300%; height: calc(812px - 44px - 56px); transition: transform .35s cubic-bezier(.25,.46,.45,.94); }
-.screen { width: calc(375px); flex-shrink: 0; overflow: hidden; position: relative; }
+.screens { display: flex; width: 300%; height: calc(100vh - 44px - 56px); transition: transform .35s cubic-bezier(.25,.46,.45,.94); }
+.screen { width: calc(100vw); max-width: 430px; flex-shrink: 0; overflow: hidden; position: relative; }
 
 /* COMPASS SCREEN */
 #compass { background: var(--bg); }
@@ -93,7 +80,7 @@ body {
 /* COMPASS AREA */
 .compass-area {
   position: relative;
-  height: 420px;
+  height: calc(100vh - 44px - 56px - 60px - 60px);
   display: flex; align-items: center; justify-content: center;
 }
 
@@ -286,7 +273,8 @@ body {
 
 /* TAB BAR */
 .tabbar {
-  position: absolute; bottom: 0; left: 0; right: 0; height: 56px;
+  position: fixed; bottom: 0; left: 0; right: 0; height: 56px;
+  max-width: 430px; margin: 0 auto; left: 50%; transform: translateX(-50%); width: 100%;
   background: rgba(10,14,20,.95); border-top: 1px solid var(--border);
   display: flex; backdrop-filter: blur(10px);
 }
@@ -339,7 +327,7 @@ body {
 </head>
 <body>
 
-<div style="display:flex;align-items:flex-start;gap:0;justify-content:center;width:100%">
+<div style="width:100%;height:100vh;display:flex;flex-direction:column">
 
 <!-- PHONE -->
 <div class="phone">
@@ -579,53 +567,6 @@ body {
   </div>
 </div>
 
-<!-- INFO PANEL -->
-<div class="info-panel">
-  <div class="info-title">◎ STREUNE</div>
-  <div class="info-sub">Finde Leute in deiner Nähe.<br>Kein Swipen. Kein Algorithmus. Kein Profilbild.</div>
-
-  <div class="info-feature">
-    <div class="feat-icon">◎</div>
-    <div class="feat-text">
-      <div class="feat-title">Kompass-View</div>
-      <div class="feat-desc">Andere User als Punkte auf dem Kompass. Richtung + Distanz in Metern.</div>
-    </div>
-  </div>
-  <div class="info-feature">
-    <div class="feat-icon">📡</div>
-    <div class="feat-text">
-      <div class="feat-title">Ping + Chat</div>
-      <div class="feat-desc">Einfach drauftippen → anpingen → Realtime-Chat. Kein Match nötig.</div>
-    </div>
-  </div>
-  <div class="info-feature">
-    <div class="feat-icon">🏠</div>
-    <div class="feat-text">
-      <div class="feat-title">Home-Zone</div>
-      <div class="feat-desc">Zuhause = kein Standort gesendet. Privacy by Design.</div>
-    </div>
-  </div>
-  <div class="info-feature">
-    <div class="feat-icon">📡</div>
-    <div class="feat-text">
-      <div class="feat-title">Radius wächst</div>
-      <div class="feat-desc">500m Start → bis 3km durch Einladungen & tägliche Nutzung.</div>
-    </div>
-  </div>
-  <div class="info-feature">
-    <div class="feat-icon">👻</div>
-    <div class="feat-text">
-      <div class="feat-title">Ghost-Modus</div>
-      <div class="feat-desc">Unsichtbar werden mit einem Tap. Chat bleibt trotzdem offen.</div>
-    </div>
-  </div>
-
-  <div class="screen-tabs">
-    <div class="screen-tab active" onclick="switchTab(0);setActive(this)">Kompass</div>
-    <div class="screen-tab" onclick="switchTab(1);setActive(this)">Chats</div>
-    <div class="screen-tab" onclick="switchTab(2);setActive(this)">Profil</div>
-  </div>
-</div>
 
 </div>
 
@@ -654,7 +595,8 @@ for (let i = 0; i < 72; i++) {
 let currentTab = 0;
 function switchTab(n) {
   currentTab = n;
-  document.getElementById('screens').style.transform = `translateX(-${n * 375}px)`;
+  const w = Math.min(window.innerWidth, 430);
+  document.getElementById('screens').style.transform = `translateX(-${n * w}px)`;
   document.querySelectorAll('.tab').forEach((t,i) => t.classList.toggle('active', i === n));
   if (n !== 1) { document.getElementById('chat-view-inner').style.display = 'none'; document.getElementById('chats-list').style.display = 'block'; }
 }

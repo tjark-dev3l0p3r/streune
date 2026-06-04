@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>STREUNE — So funktioniert's</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800;900&family=Space+Mono:wght@700&display=swap');
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:root{
+  --bg:#0a0e14;--card:#141d2b;--border:#1f2d40;
+  --accent:#4d9fff;--text:#e8f0fe;--muted:#4a6280;
+  --amber:#f59e0b;--green:#34d399;--red:#f87171;
+}
+html,body{height:100%;overflow:hidden;background:var(--bg);font-family:'Space Grotesk',sans-serif;color:var(--text)}
+body{display:flex;flex-direction:column;max-width:430px;margin:0 auto;height:100vh}
+
+/* PROGRESS */
+.progress-track{height:3px;background:var(--border);flex-shrink:0;margin-top:env(safe-area-inset-top,44px)}
+.progress-fill{height:3px;background:var(--accent);border-radius:2px;transition:width .35s ease}
+
+/* SLIDES */
+.slides-wrap{flex:1;overflow:hidden;position:relative}
+.slides{display:flex;height:100%;transition:transform .35s cubic-bezier(.25,.46,.45,.94)}
+.slide{min-width:100vw;max-width:430px;height:100%;overflow-y:auto;padding:36px 28px 24px;display:flex;flex-direction:column;justify-content:center}
+
+/* CONTENT */
+.ico{font-size:54px;margin-bottom:18px;display:block;animation:drop .5s ease}
+@keyframes drop{from{transform:translateY(-12px);opacity:0}to{transform:translateY(0);opacity:1}}
+.tag{display:inline-flex;align-items:center;background:rgba(77,159,255,.1);border:1px solid rgba(77,159,255,.25);border-radius:20px;padding:5px 14px;font-size:12px;font-weight:700;color:var(--accent);margin-bottom:14px}
+.slide-title{font-size:clamp(26px,7vw,34px);font-weight:900;color:var(--text);line-height:1.2;margin-bottom:22px;letter-spacing:-.5px;animation:fadein .4s ease}
+.slide-body{font-size:16px;color:var(--muted);line-height:1.75;animation:fadein .45s ease}
+.slide-body b{color:var(--text);font-weight:700}
+.slide-body .hi{color:var(--accent);font-weight:800}
+.slide-body .gr{color:var(--green);font-weight:800}
+.slide-body .am{color:var(--amber);font-weight:800}
+.slide-body .re{color:var(--red);font-weight:800}
+@keyframes fadein{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* MECHANIC CARDS */
+.mech-grid{display:flex;flex-direction:column;gap:8px;margin-top:16px}
+.mech-row{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px 14px}
+.mech-ico{font-size:22px;flex-shrink:0;width:32px;text-align:center}
+.mech-text{flex:1}
+.mech-title{font-size:14px;font-weight:800;color:var(--text)}
+.mech-desc{font-size:12px;color:var(--muted);margin-top:2px}
+.mech-boost{font-size:13px;font-weight:900;color:var(--accent);font-family:'Space Mono',monospace;flex-shrink:0}
+
+/* PHOTO STAGES */
+.photo-stages{display:flex;gap:8px;margin-top:16px;justify-content:center}
+.photo-stage{display:flex;flex-direction:column;align-items:center;gap:6px}
+.photo-circle{width:56px;height:56px;border-radius:28px;background:linear-gradient(135deg,#1a2940,#0d1520);border:2px solid var(--border);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.photo-inner{width:100%;height:100%;background:radial-gradient(circle at 50% 35%,#4d9fff44,transparent),radial-gradient(circle at 50% 80%,#4d9fff22,transparent);display:flex;align-items:center;justify-content:center;font-size:20px}
+.photo-blur-0{filter:blur(12px);opacity:.6}
+.photo-blur-1{filter:blur(7px);opacity:.75}
+.photo-blur-2{filter:blur(3px);opacity:.9}
+.photo-blur-3{filter:blur(0px);opacity:1}
+.photo-label{font-size:10px;color:var(--muted);font-family:'Space Mono',monospace;text-align:center}
+.photo-reveal{border-color:var(--accent)!important;box-shadow:0 0 12px rgba(77,159,255,.35)}
+
+/* RATING VISUAL */
+.rating-example{margin-top:16px;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px}
+.stars-row{display:flex;gap:6px;margin-bottom:8px}
+.star{font-size:28px;cursor:pointer;transition:transform .15s}
+.star:hover{transform:scale(1.2)}
+.star.active{filter:none}
+.star.inactive{opacity:.2}
+.rating-label{font-size:14px;font-weight:800;color:var(--amber);height:20px;transition:all .2s}
+.rating-note{font-size:11px;color:var(--muted);margin-top:8px;line-height:17px}
+.decay-bar{margin-top:12px}
+.decay-title{font-size:11px;color:var(--muted);margin-bottom:6px}
+.decay-row{display:flex;align-items:center;gap:8px;margin-bottom:4px}
+.decay-lbl{font-size:11px;color:var(--muted);width:80px;flex-shrink:0}
+.decay-track{flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden}
+.decay-fill{height:6px;background:var(--amber);border-radius:3px;transition:width .4s}
+.decay-pct{font-size:11px;color:var(--muted);font-family:'Space Mono',monospace;width:32px;text-align:right;flex-shrink:0}
+
+/* STICKER VISUAL */
+.sticker-flow{margin-top:16px;display:flex;flex-direction:column;gap:10px}
+.flow-step{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--card);border:1px solid var(--border);border-radius:12px}
+.flow-num{width:28px;height:28px;border-radius:14px;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;color:#fff;flex-shrink:0}
+.flow-num.locked{background:var(--border);color:var(--muted)}
+.flow-text{font-size:13px;color:var(--text);font-weight:600;flex:1}
+.flow-badge{font-size:11px;background:rgba(52,211,153,.1);border:1px solid rgba(52,211,153,.25);color:var(--green);border-radius:8px;padding:3px 8px;font-weight:700}
+
+/* SUMMARY */
+.summary-grid{margin-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.sum-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px;display:flex;align-items:center;gap:10px}
+.sum-ico{font-size:20px;flex-shrink:0}
+.sum-txt{font-size:12px;color:var(--muted);line-height:16px}
+.sum-txt b{color:var(--text);font-weight:700;display:block}
+
+/* BOTTOM */
+.bottom{padding:16px 24px;padding-bottom:calc(env(safe-area-inset-bottom,16px) + 16px);border-top:1px solid var(--border);flex-shrink:0;background:var(--bg)}
+.dots{display:flex;gap:5px;justify-content:center;margin-bottom:14px}
+.dot{width:5px;height:5px;border-radius:3px;background:var(--border);transition:all .25s}
+.dot.active{background:var(--accent);width:18px}
+.btn-next{width:100%;padding:15px;border:none;border-radius:14px;font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:800;cursor:pointer;transition:all .15s;background:var(--card);border:1px solid var(--border);color:var(--muted)}
+.btn-next.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn-next:hover{opacity:.9;transform:translateY(-1px)}
+.btn-skip{display:block;text-align:center;padding:12px;font-size:13px;color:var(--muted);cursor:pointer;margin-top:4px}
+</style>
+</head>
+<body>
+
+<div class="progress-track">
+  <div class="progress-fill" id="prog" style="width:9%"></div>
+</div>
+
+<div class="slides-wrap">
+<div class="slides" id="slides">
+
+<!-- 1: Problem -->
+<div class="slide">
+  <span class="ico">📱</span>
+  <h1 class="slide-title">Mal ehrlich.</h1>
+  <div class="slide-body">
+    Du hast gerade dein Handy in der Hand.<br><br>
+    Gleichzeitig laufen da draußen Menschen vorbei, trinken Kaffee zwei Straßen weiter, joggen durch denselben Park — und ihr werdet euch niemals begegnen.<br><br>
+    Nicht weil ihr es nicht wollt.<br>
+    Sondern weil niemand einfach so fremde Leute anspricht.<br><br>
+    <b>Streune löst genau das.</b>
+  </div>
+</div>
+
+<!-- 2: Kompass -->
+<div class="slide">
+  <span class="ico">◎</span>
+  <h1 class="slide-title">Ein Kompass.<br>Kein Algorithmus.</h1>
+  <div class="slide-body">
+    Öffne die App. Ein Kompass zeigt dir andere User in deiner Nähe — als Punkte, mit Richtung und Distanz in Metern.<br><br>
+    <span class="hi">Kein Swipe. Kein Profil-Stress. Keine endlose Scroll-Hölle.</span><br><br>
+    Person in 87 Metern. Tap. <i>"Hey, bist du der mit dem Kaffee?"</i><br>
+    Chat. Treffen. Fertig.
+  </div>
+</div>
+
+<!-- 3: Privacy -->
+<div class="slide">
+  <span class="ico">🏠</span>
+  <div class="tag">🔒 Privacy by Design</div>
+  <h1 class="slide-title">Dein Zuhause<br>bleibt dein Zuhause.</h1>
+  <div class="slide-body">
+    Wir tracken dich <b>nicht</b> im Hintergrund. Nie.<br><br>
+    Wenn du die App öffnest, wird dein Standort einmalig eingefroren und nach <b>3 Stunden automatisch gelöscht</b>.<br><br>
+    Bist du in deiner Home-Zone? Passiert gar nichts. Deine Adresse sieht niemand außer dir. Kein Gedanke nötig.
+  </div>
+</div>
+
+<!-- 4: Radius Mechanik -->
+<div class="slide">
+  <span class="ico">📡</span>
+  <div class="tag">📡 Radius als Währung</div>
+  <h1 class="slide-title">So wächst<br>deine Welt.</h1>
+  <div class="slide-body">
+    Du startest mit <span class="hi">500 Meter</span> Sichtweite. Wie weit du siehst, hängt von dir ab — nicht von deinem Abo.
+  </div>
+  <div class="mech-grid">
+    <div class="mech-row">
+      <div class="mech-ico">👤</div>
+      <div class="mech-text"><div class="mech-title">Jemanden einladen</div><div class="mech-desc">Link teilen → Person lädt App runter</div></div>
+      <div class="mech-boost">+150m</div>
+    </div>
+    <div class="mech-row">
+      <div class="mech-ico">🤝</div>
+      <div class="mech-text"><div class="mech-title">Euch wirklich treffen</div><div class="mech-desc">Beide bestätigen das Treffen</div></div>
+      <div class="mech-boost">+150m</div>
+    </div>
+    <div class="mech-row">
+      <div class="mech-ico">📅</div>
+      <div class="mech-text"><div class="mech-title">Täglich aktiv sein</div><div class="mech-desc">App öffnen außerhalb der Home-Zone</div></div>
+      <div class="mech-boost">+25m</div>
+    </div>
+    <div class="mech-row" style="border-color:rgba(77,159,255,.3)">
+      <div class="mech-ico">🏁</div>
+      <div class="mech-text"><div class="mech-title">Maximum</div><div class="mech-desc">Mehr wäre nicht mehr hyperlokal</div></div>
+      <div class="mech-boost" style="color:var(--muted)">3.000m</div>
+    </div>
+  </div>
+</div>
+
+<!-- 5: Fotos -->
+<div class="slide">
+  <span class="ico">📸</span>
+  <div class="tag">✨ Earned Intimacy</div>
+  <h1 class="slide-title">Bilder die sich<br>verdienen lassen.</h1>
+  <div class="slide-body">
+    Du kannst Fotos hochladen. Aber andere sehen sie erst nach und nach — abhängig davon wie viel ihr miteinander geschrieben habt.
+  </div>
+  <div class="photo-stages">
+    <div class="photo-stage">
+      <div class="photo-circle"><div class="photo-inner photo-blur-0">🧑</div></div>
+      <div class="photo-label">0 Nachr.<br>Blob</div>
+    </div>
+    <div class="photo-stage">
+      <div class="photo-circle"><div class="photo-inner photo-blur-1">🧑</div></div>
+      <div class="photo-label">25 Nachr.<br>Umrisse</div>
+    </div>
+    <div class="photo-stage">
+      <div class="photo-circle"><div class="photo-inner photo-blur-2">🧑</div></div>
+      <div class="photo-label">75 Nachr.<br>Erkennbar</div>
+    </div>
+    <div class="photo-stage">
+      <div class="photo-circle photo-reveal"><div class="photo-inner photo-blur-3">🧑</div></div>
+      <div class="photo-label" style="color:var(--accent)">150 Nachr.<br>✨ Klar!</div>
+    </div>
+  </div>
+  <div class="slide-body" style="margin-top:14px;font-size:14px">
+    Du lernst jemanden kennen <b>bevor</b> du sein Gesicht siehst.<br>Nicht andersrum.
+  </div>
+</div>
+
+<!-- 6: Ratings -->
+<div class="slide">
+  <span class="ico">⭐</span>
+  <div class="tag">⚖️ Fair by Design</div>
+  <h1 class="slide-title">Weißt du ob<br>jemand nett ist?</h1>
+  <div class="slide-body">Auf Streune kannst du andere Nutzer bewerten. Aber erst <span class="hi">nach 100 Nachrichten</span>. Das macht egomotive Einster-Bewertungen technisch unmöglich.</div>
+  <div class="rating-example">
+    <div class="stars-row" id="stars">
+      <span class="star inactive" onclick="rate(1)">★</span>
+      <span class="star inactive" onclick="rate(2)">★</span>
+      <span class="star inactive" onclick="rate(3)">★</span>
+      <span class="star inactive" onclick="rate(4)">★</span>
+      <span class="star inactive" onclick="rate(5)">★</span>
+    </div>
+    <div class="rating-label" id="rlabel">Tippe auf einen Stern</div>
+    <div class="decay-bar">
+      <div class="decay-title">Neuere Bewertungen zählen mehr:</div>
+      <div class="decay-row"><div class="decay-lbl">Heute</div><div class="decay-track"><div class="decay-fill" style="width:100%"></div></div><div class="decay-pct">100%</div></div>
+      <div class="decay-row"><div class="decay-lbl">Vor 2 Monaten</div><div class="decay-track"><div class="decay-fill" style="width:50%"></div></div><div class="decay-pct">50%</div></div>
+      <div class="decay-row"><div class="decay-lbl">Vor 6 Monaten</div><div class="decay-track"><div class="decay-fill" style="width:25%"></div></div><div class="decay-pct">25%</div></div>
+      <div class="decay-row"><div class="decay-lbl">Vor 1 Jahr</div><div class="decay-track"><div class="decay-fill" style="width:14%"></div></div><div class="decay-pct">14%</div></div>
+    </div>
+    <div class="rating-note">Schlechte Phase gehabt? Die verblasst automatisch. Du kannst immer aus dem Schlamm rauskommen.</div>
+  </div>
+</div>
+
+<!-- 7: Sticker -->
+<div class="slide">
+  <span class="ico">🎁</span>
+  <div class="tag">🎁 Guerrilla Marketing</div>
+  <h1 class="slide-title">Aufkleber.<br>Deine Stadt. Dein Radius.</h1>
+  <div class="slide-body">Kleb Streune in deine Stadt — und wachse dabei selbst mit.</div>
+  <div class="sticker-flow">
+    <div class="flow-step">
+      <div class="flow-num">1</div>
+      <div class="flow-text">5 Personen einladen</div>
+      <div class="flow-badge">Pflicht</div>
+    </div>
+    <div class="flow-step" style="border-color:rgba(52,211,153,.3)">
+      <div class="flow-num">2</div>
+      <div class="flow-text">Adresse eingeben → 10 Aufkleber kommen per Post</div>
+      <div class="flow-badge">Kostenlos</div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num">3</div>
+      <div class="flow-text">Aufkleber kleben — QR-Code führt zur App mit deinem Referral</div>
+    </div>
+    <div class="flow-step" style="border-color:rgba(77,159,255,.3)">
+      <div class="flow-num">4</div>
+      <div class="flow-text">Jeder Scan = neuer Nutzer + <span style="color:var(--accent);font-weight:800">+150m</span> für dich</div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num locked">5</div>
+      <div class="flow-text">Nach 20 weiteren Einladungen: nächste Runde Aufkleber</div>
+    </div>
+  </div>
+</div>
+
+<!-- 8: Gruppen-Ping -->
+<div class="slide">
+  <span class="ico">👥</span>
+  <h1 class="slide-title">Gruppen-Ping.<br>Bros sammeln.</h1>
+  <div class="slide-body">
+    Mehrere Leute in der Nähe gleichzeitig zu einem Treffpunkt einladen.<br><br>
+    <span class="gr">"Stadtpark, Eingang West, 10 Minuten?"</span><br><br>
+    Alle kriegen eine Nachricht. Ein Treffpunkt wird angepinnt. Fertig.<br><br>
+    Das ist das <b>Wingman / Bros sammeln / zusammen was machen</b> Feature.
+  </div>
+</div>
+
+<!-- 9: Ghost + DND -->
+<div class="slide">
+  <span class="ico">👻</span>
+  <h1 class="slide-title">Ghost-Modus.<br>Für die anderen Tage.</h1>
+  <div class="slide-body">
+    Du siehst andere.<br>
+    Die anderen sehen dich nicht.<br><br>
+    <span class="hi">Ein Tap</span> — kein App-Neustart, keine Erklärung nötig.<br><br>
+    Chats die du bereits hast laufen weiter. Nur neu entdeckt werden geht gerade nicht.<br><br>
+    <b>Nicht-Stören:</b> Sichtbar bleiben aber keine Pings empfangen.
+  </div>
+</div>
+
+<!-- 10: Zusammenfassung -->
+<div class="slide">
+  <span class="ico">🗺️</span>
+  <h1 class="slide-title">Alles auf<br>einen Blick.</h1>
+  <div class="summary-grid">
+    <div class="sum-card"><div class="sum-ico">◎</div><div class="sum-txt"><b>Kompass</b>Leute in der Nähe</div></div>
+    <div class="sum-card"><div class="sum-ico">👤</div><div class="sum-txt"><b>+150m</b>pro Einladung</div></div>
+    <div class="sum-card"><div class="sum-ico">🤝</div><div class="sum-txt"><b>+150m</b>pro echtem Treffen</div></div>
+    <div class="sum-card"><div class="sum-ico">⭐</div><div class="sum-txt"><b>Ratings</b>ab 100 Nachrichten</div></div>
+    <div class="sum-card"><div class="sum-ico">📸</div><div class="sum-txt"><b>Fotos</b>klar nach 150 Nachr.</div></div>
+    <div class="sum-card"><div class="sum-ico">🎁</div><div class="sum-txt"><b>Aufkleber</b>ab 5 Einladungen</div></div>
+    <div class="sum-card"><div class="sum-ico">👥</div><div class="sum-txt"><b>Gruppen-Ping</b>Bros sammeln</div></div>
+    <div class="sum-card"><div class="sum-ico">👻</div><div class="sum-txt"><b>Ghost-Modus</b>1 Tap unsichtbar</div></div>
+    <div class="sum-card"><div class="sum-ico">🏠</div><div class="sum-txt"><b>Home-Zone</b>zuhause = weg</div></div>
+    <div class="sum-card"><div class="sum-ico">🔒</div><div class="sum-txt"><b>Kein Tracking</b>3h dann gelöscht</div></div>
+  </div>
+</div>
+
+<!-- 11: Early Adopter -->
+<div class="slide">
+  <span class="ico">🌱</span>
+  <div class="tag">🌱 Gründer-Generation</div>
+  <h1 class="slide-title">Du bist früh.</h1>
+  <div class="slide-body">
+    Der Kompass könnte leer sein wenn du ihn das erste Mal öffnest.<br><br>
+    Das ist der Preis dafür, dass du dabei bist bevor alle anderen es sind.<br><br>
+    Jede Person die du einlädst baut diese App mit auf.<br>
+    Jede Stadt hatte einmal ihren ersten Tag.<br><br>
+    <span class="hi">Das hier ist deiner.</span>
+  </div>
+</div>
+
+</div><!-- /slides -->
+</div><!-- /slides-wrap -->
+
+<div class="bottom">
+  <div class="dots" id="dots"></div>
+  <button class="btn-next" id="btn" onclick="next()">Weiter →</button>
+  <span class="btn-skip" id="skip" onclick="finish()">Überspringen</span>
+</div>
+
+<script>
+const TOTAL = 11;
+let cur = 0;
+
+const labels = ['','','','','','','','','','',''];
+const RATINGS = ['','Nicht okay','Geht so','Okay','Nett','Top Mensch! 🙌'];
+const COLORS  = ['','#f87171','#fb923c','#fbbf24','#34d399','#4d9fff'];
+
+function init() {
+  const d = document.getElementById('dots');
+  for(let i=0;i<TOTAL;i++){
+    const dot = document.createElement('div');
+    dot.className='dot'+(i===0?' active':'');
+    dot.onclick=()=>goTo(i);
+    d.appendChild(dot);
+  }
+  render();
+}
+
+function goTo(n) {
+  cur = n; render();
+}
+
+function next() {
+  if(cur < TOTAL-1){ cur++; render(); }
+  else finish();
+}
+
+function finish() {
+  document.body.innerHTML='<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;gap:20px;padding:32px;text-align:center"><span style="font-size:60px">◎</span><h1 style="font-size:28px;font-weight:900;letter-spacing:4px;color:#4d9fff">STREUNE</h1><p style="color:#4a6280;font-size:15px;line-height:1.7">Das war ein Vorschau-Demo.<br>Die echte App kommt bald.</p></div>';
+}
+
+function render() {
+  const W = Math.min(window.innerWidth, 430);
+  document.getElementById('slides').style.transform=`translateX(-${cur*W}px)`;
+  document.getElementById('prog').style.width=`${((cur+1)/TOTAL)*100}%`;
+  document.querySelectorAll('.dot').forEach((d,i)=>d.className='dot'+(i===cur?' active':''));
+  const isLast = cur===TOTAL-1;
+  const btn = document.getElementById('btn');
+  btn.textContent = isLast ? 'Los geht\'s →' : 'Weiter →';
+  btn.className = 'btn-next'+(isLast?' primary':'');
+  document.getElementById('skip').style.display = isLast ? 'none' : 'block';
+}
+
+function rate(n) {
+  const stars = document.querySelectorAll('.star');
+  stars.forEach((s,i)=>{
+    s.className='star '+(i<n?'active':'inactive');
+    s.style.color=i<n?COLORS[n]:'';
+  });
+  const lbl = document.getElementById('rlabel');
+  lbl.textContent = RATINGS[n];
+  lbl.style.color = COLORS[n];
+}
+
+// Touch/Swipe
+let startX = 0;
+document.getElementById('slides').addEventListener('touchstart',e=>startX=e.touches[0].clientX,{passive:true});
+document.getElementById('slides').addEventListener('touchend',e=>{
+  const diff = startX - e.changedTouches[0].clientX;
+  if(Math.abs(diff)>50){ if(diff>0) next(); else if(cur>0){cur--;render();} }
+},{passive:true});
+
+// Keyboard
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key===' ') next();
+  if(e.key==='ArrowLeft'&&cur>0){cur--;render();}
+});
+
+init();
+</script>
+</body>
+</html>

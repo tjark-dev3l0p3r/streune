@@ -139,6 +139,20 @@ body {
   cursor: pointer;
 }
 .radius-txt { font-size: 11px; color: var(--muted); font-family: 'Space Mono', monospace; }
+.invite-big-btn {
+  display: flex; align-items: center; gap: 12;
+  margin-top: 10px; width: calc(100% - 32px);
+  background: rgba(77,159,255,0.1);
+  border: 1.5px solid rgba(77,159,255,0.35);
+  border-radius: 14px; padding: 13px 16px;
+  cursor: pointer; transition: all .15s;
+  display: flex; align-items: center; gap: 12px;
+}
+.invite-big-btn:hover {
+  background: rgba(77,159,255,0.18);
+  border-color: rgba(77,159,255,0.6);
+  transform: translateY(-1px);
+}
 
 /* USER POPUP */
 .user-popup {
@@ -415,6 +429,14 @@ body {
         <div class="compass-status">
           <div class="status-pill" onclick="toggleStatus()">✨ Offen für alles &nbsp;✎</div>
           <div class="radius-txt">📡 1.200m Radius · 4 in der Nähe</div>
+          <div class="invite-big-btn" onclick="shareInvite()">
+            <span style="font-size:20px">📡</span>
+            <div style="flex:1;text-align:left">
+              <div style="font-size:14px;font-weight:800;color:#e8f0fe">Freunde einladen</div>
+              <div style="font-size:11px;color:#4d9fff;margin-top:2px">+150m Radius für euch beide</div>
+            </div>
+            <span style="font-size:16px;color:#4d9fff;font-weight:700">↗</span>
+          </div>
         </div>
 
         <!-- User popup -->
@@ -693,6 +715,15 @@ setInterval(() => {
   document.getElementById('r-fill').style.width = rPct + '%';
 }, 100);
 
+function shareInvite() {
+  const url = 'https://tjark-dev3l0p3r.github.io/streune/ref?ref=A7F3K2&name=FreiVogel_22';
+  if (navigator.share) {
+    navigator.share({ title: 'Streune', text: 'Komm zu Streune! 📡', url });
+  } else {
+    navigator.clipboard?.writeText(url);
+    alert('Link kopiert! 📋\n' + url);
+  }
+}
 function showGroupPing() {
   alert('👥 Gruppen-Ping: Wähle mehrere User in der Nähe aus und lege einen Treffpunkt fest.');
 }

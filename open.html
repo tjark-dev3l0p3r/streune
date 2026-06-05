@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Streune in Expo Go öffnen</title>
+<style>
+  html,body{margin:0;height:100%;background:#0d1117;color:#e6edf3;
+    font-family:-apple-system,system-ui,sans-serif;
+    display:flex;align-items:center;justify-content:center;text-align:center}
+  .box{padding:24px;max-width:420px}
+  .logo{font-size:64px;color:#58a6ff;margin-bottom:8px}
+  h1{font-size:22px;margin:8px 0}
+  p{color:#7d8590;line-height:1.5;font-size:15px}
+  a.btn{display:block;margin:22px auto 10px;background:#58a6ff;color:#fff;
+    text-decoration:none;font-weight:800;font-size:18px;
+    padding:16px 24px;border-radius:14px;max-width:300px}
+  code{background:#161b22;border:1px solid #30363d;border-radius:8px;
+    padding:8px 10px;display:block;margin-top:14px;color:#58a6ff;
+    font-size:12px;word-break:break-all}
+  .hint{font-size:13px;margin-top:18px}
+</style>
+</head>
+<body>
+<div class="box">
+  <div class="logo">◎</div>
+  <h1>Streune öffnen</h1>
+  <p id="status">Öffne Expo Go…</p>
+  <a class="btn" id="openBtn" href="#">In Expo Go öffnen</a>
+  <p class="hint">Falls nichts passiert: oben auf den blauen Button tippen.
+     Expo Go muss installiert sein.</p>
+  <code id="url"></code>
+</div>
+<script>
+  // Tunnel-Host kommt nach dem # im Link, z.B.:
+  //   open.html#l6px7ou-anonymous-8094
+  // → exp://l6px7ou-anonymous-8094.exp.direct
+  var host = (location.hash || '').replace(/^#/, '').trim();
+  if (host) {
+    // Voll-URL erlaubt (mit .exp.direct) oder nur der Prefix
+    var expUrl = host.indexOf('exp://') === 0
+      ? host
+      : ('exp://' + (host.indexOf('.exp.direct') >= 0 ? host : host + '.exp.direct'));
+    document.getElementById('openBtn').setAttribute('href', expUrl);
+    document.getElementById('url').textContent = expUrl;
+    // Automatischer Versuch nach kurzer Verzögerung
+    setTimeout(function(){ window.location.href = expUrl; }, 400);
+  } else {
+    document.getElementById('status').textContent =
+      'Kein Tunnel-Link angegeben (#... fehlt).';
+    document.getElementById('openBtn').style.display = 'none';
+  }
+</script>
+</body>
+</html>

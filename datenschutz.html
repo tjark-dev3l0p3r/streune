@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>STREUNE — Datenschutzerklärung</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{--bg:#0a0e14;--card:#11161f;--line:#1c2636;--blue:#4d9fff;--green:#34d399;--txt:#e8f0fe;--mut:#8a9bb0}
+  body{font-family:'Space Grotesk',system-ui,sans-serif;background:radial-gradient(120% 80% at 50% -10%,#101826 0%,var(--bg) 60%);color:var(--txt);line-height:1.65;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:680px;margin:0 auto;padding:54px 22px 80px}
+  .top{display:flex;align-items:center;gap:12px;justify-content:center;margin-bottom:8px}
+  .ring{width:34px;height:34px}.ring circle{fill:none;stroke:var(--blue)}
+  .brand{letter-spacing:5px;font-weight:700;color:#fff}
+  .step{display:block;text-align:center;color:var(--mut);font-size:12px;letter-spacing:2px;margin-bottom:40px}
+  h1{font-size:clamp(26px,6vw,38px);font-weight:700;line-height:1.15;margin-bottom:10px}
+  .sub{color:var(--mut);font-size:15px;margin-bottom:36px}
+  h2{font-size:19px;margin:34px 0 10px;font-weight:700;color:#fff}
+  p,li{color:var(--mut);font-size:15px;margin:10px 0}
+  ul{padding-left:20px}
+  .em{color:var(--txt)}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin:14px 0}
+  a{color:var(--blue);text-decoration:none}
+  .nav{margin-top:54px;border-top:1px solid var(--line);padding-top:24px;text-align:center}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <svg class="ring" viewBox="0 0 64 64"><circle cx="32" cy="32" r="28" stroke-width="3"/><circle cx="32" cy="32" r="19" stroke-width="6"/></svg>
+    <span class="brand">STREUNE</span>
+  </div>
+  <span class="step">DATENSCHUTZ</span>
+
+  <h1>Datenschutzerklärung</h1>
+  <p class="sub">Stand: Juni 2026 · Kurz, ehrlich, ohne Juristendeutsch — und trotzdem vollständig.</p>
+
+  <div class="card">
+    <p><span class="em">Das Wichtigste in 4 Sätzen:</span> Wir verkaufen keine Daten. Wir zeigen keine Werbung und nutzen keine Tracking-Dienste Dritter. Dein Standort wird nur geteilt, während du die App aktiv nutzt — und verfällt automatisch. Du kannst dein Konto samt aller Daten jederzeit selbst in der App löschen.</p>
+  </div>
+
+  <h2>1. Verantwortlicher</h2>
+  <p>Streune — ein junges Team aus Heide (Dithmarschen), Deutschland.<br>
+  Kontakt: <a href="mailto:hallo@streune.app">hallo@streune.app</a></p>
+
+  <h2>2. Welche Daten wir verarbeiten</h2>
+  <ul>
+    <li><span class="em">Konto:</span> E-Mail-Adresse, Passwort (verschlüsselt/gehasht), Pseudonym, Geburtsdatum (Altersprüfung, Mindestalter 16).</li>
+    <li><span class="em">Standort:</span> Nur während du die App aktiv nutzt. Jeder gesendete Standort <span class="em">verfällt automatisch nach spätestens 3 Stunden</span>. In deiner Home-Zone wird dein Standort gar nicht erst gesendet; im Ghost-Modus bist du unsichtbar.</li>
+    <li><span class="em">Profilfotos:</span> Von dir hochgeladene Bilder. Für Fremde werden sie unkenntlich (verpixelt) angezeigt — klar sehen sie nur Freunde bzw. nach längerem Kennenlernen.</li>
+    <li><span class="em">Nachrichten & Inhalte:</span> Chats, Gruppen-Beiträge, Bilder/Sprachnachrichten und „Husch"-Bilder (verschwinden nach dem Ansehen bzw. 24 h).</li>
+    <li><span class="em">Push-Token:</span> Damit dein Gerät Benachrichtigungen empfangen kann.</li>
+    <li><span class="em">Meldungen & Blockierungen:</span> Zur Moderation und für deine Sicherheit.</li>
+  </ul>
+
+  <h2>3. Wo deine Daten liegen</h2>
+  <p>Unsere Daten werden bei <span class="em">Supabase</span> in der <span class="em">EU (Region Irland, AWS eu-west-1)</span> gespeichert und verarbeitet. Es findet kein Verkauf und keine Weitergabe an Werbenetzwerke statt.</p>
+
+  <h2>4. Karten</h2>
+  <p>Für die Kartendarstellung laden wir Kartenkacheln von <span class="em">OpenStreetMap</span>. Dabei wird technisch bedingt deine IP-Adresse an die Kachel-Server übertragen.</p>
+
+  <h2>5. Push-Benachrichtigungen</h2>
+  <p>Benachrichtigungen werden über den Dienst von <span class="em">Expo</span> (Apple/Google Push-Infrastruktur) zugestellt. Du kannst sie jederzeit in den Systemeinstellungen deaktivieren.</p>
+
+  <h2>6. Deine Rechte</h2>
+  <ul>
+    <li><span class="em">Löschung:</span> Profil → „Konto löschen" entfernt dein Konto und alle zugehörigen Daten unwiderruflich — direkt in der App, ohne Nachfragen.</li>
+    <li><span class="em">Auskunft, Berichtigung, Einschränkung, Widerspruch, Datenübertragbarkeit:</span> Schreib uns an <a href="mailto:hallo@streune.app">hallo@streune.app</a>.</li>
+    <li><span class="em">Beschwerde:</span> Du kannst dich bei einer Datenschutz-Aufsichtsbehörde beschweren (z.B. ULD Schleswig-Holstein).</li>
+  </ul>
+
+  <h2>7. Mindestalter</h2>
+  <p>Streune ist für Personen ab <span class="em">16 Jahren</span>. Das Geburtsdatum wird bei der Registrierung geprüft.</p>
+
+  <h2>8. Rechtsgrundlagen (DSGVO)</h2>
+  <p>Vertragserfüllung (Art. 6 Abs. 1 b — die App funktioniert nur mit Konto/Standort), Einwilligung (Art. 6 Abs. 1 a — z.B. Standortfreigabe, Fotos) und berechtigtes Interesse (Art. 6 Abs. 1 f — Sicherheit & Moderation). Einwilligungen kannst du jederzeit widerrufen (Systemeinstellungen bzw. Konto-Löschung).</p>
+
+  <div class="nav">
+    <a href="./regeln.html">Nutzungsregeln →</a> · <a href="./index.html">Start</a>
+  </div>
+</div>
+</body>
+</html>

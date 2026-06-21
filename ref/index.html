@@ -108,17 +108,32 @@ h1{font-size:26px;font-weight:900;letter-spacing:4px;color:var(--text);margin-bo
   </div>
 </div>
 
-<p style="text-align:center;color:#8a9bb0;font-size:13px;margin:4px 0 -2px">📅 Verfügbar ab dem <b style="color:#e8f0fe">28. Juni 2026</b> — schon mal vormerken!</p>
-<a href="https://testflight.apple.com/join/pF8pwRS4" style="display:flex;align-items:center;justify-content:center;gap:10px;max-width:340px;margin:14px auto 4px;padding:16px;background:#34d399;color:#06281d;font-weight:800;font-size:16px;text-decoration:none;border-radius:14px;box-shadow:0 6px 20px rgba(52,211,153,.35)">
-  <span>🧪</span> Jetzt schon testen (iOS · TestFlight)
-</a>
-<p style="text-align:center;color:#8a9bb0;font-size:12px;margin:0 auto 8px;max-width:340px">Vorab-Zugang über Apple TestFlight — ohne auf den 28. zu warten.</p>
+<p style="text-align:center;color:#8a9bb0;font-size:13px;margin:4px 0 10px">📅 Offizieller Start: <b style="color:#e8f0fe">28. Juni 2026</b> — du kannst aber <b style="color:#34d399">JETZT schon</b> in die Beta. 👇</p>
+
+<!-- So kommst du rein (Erklärung) -->
+<div style="background:rgba(77,159,255,.06);border:1px solid rgba(77,159,255,.18);border-radius:14px;padding:16px;max-width:340px;margin:0 auto 16px;text-align:left">
+  <div style="font-size:14px;font-weight:800;color:#4d9fff;margin-bottom:8px">📲 So kommst du rein</div>
+  <div style="font-size:12px;color:#8a9bb0;line-height:1.6">Streune ist gerade in der <b style="color:#e8f0fe">Beta</b> (Test vor dem Start am 28.6.). Die Installation läuft noch nicht über den normalen App Store, sondern so:</div>
+  <div style="display:flex;flex-direction:column;gap:8px;margin-top:10px">
+    <div style="font-size:12px;color:#e8f0fe;line-height:1.5;background:rgba(255,255,255,.03);border-radius:8px;padding:9px 11px">🍎 <b>iPhone:</b> Einmalig Apples kostenlose <b>„TestFlight"</b>-App holen (Button&nbsp;1), dann auf <b>„Streune-Beta öffnen"</b> tippen (Button&nbsp;2) → Installieren. Dauert ~1&nbsp;Min.</div>
+    <div style="font-size:12px;color:#e8f0fe;line-height:1.5;background:rgba(255,255,255,.03);border-radius:8px;padding:9px 11px">🤖 <b>Android:</b> Auf <b>„App laden"</b> tippen und öffnen (falls gefragt: „aus dieser Quelle erlauben").</div>
+  </div>
+  <div style="font-size:12px;color:#8a9bb0;line-height:1.6;margin-top:10px">Danach Streune normal starten — dein <b style="color:#e8f0fe">Einladungscode</b> wird automatisch angewendet, ihr bekommt beide <b style="color:#34d399">+150m Radius</b> geschenkt. 🎁</div>
+</div>
+
 <div class="dl-btns">
-  <a class="btn-ios" id="btn-ios" href="#" onclick="download('ios')">
-    <span>🍎</span> Im App Store laden
-  </a>
-  <a class="btn-android" href="#" onclick="download('android')">
-    <span>🤖</span> Bei Google Play laden
+  <!-- iPhone: Beta über TestFlight (App ist noch nicht im App Store) -->
+  <div id="ios-block" style="display:flex;flex-direction:column;gap:10px">
+    <a class="btn-android" href="https://apps.apple.com/app/testflight/id899247664" target="_blank">
+      <span>🍎</span> 1. TestFlight installieren
+    </a>
+    <a href="https://testflight.apple.com/join/pF8pwRS4" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:10px;padding:16px;background:#34d399;color:#06281d;font-weight:800;font-size:15px;text-decoration:none;border-radius:14px;box-shadow:0 6px 20px rgba(52,211,153,.35)">
+      <span>📲</span> 2. Streune-Beta öffnen
+    </a>
+  </div>
+  <!-- Android: direkter Beta-Download (APK) -->
+  <a class="btn-android" id="android-block" href="https://github.com/tjark-dev3l0p3r/superpower/releases/download/streune-latest/streune.apk">
+    <span>🤖</span> Android: App laden
   </a>
 </div>
 
@@ -164,28 +179,13 @@ if (photo) {
 const fullname = params.get('fullname') || name;
 document.getElementById('inviter-name').textContent = decodeURIComponent(fullname);
 
-// Platform detection
+// Plattform-Erkennung → nur das Passende zeigen (Desktop: beide)
 const ios     = /iphone|ipad|ipod/i.test(navigator.userAgent);
 const android = /android/i.test(navigator.userAgent);
-if (ios) {
-  document.getElementById('btn-ios').style.order = '-1';
-} else if (android) {
-  const ab = document.querySelector('.btn-android');
-  ab.style.background = 'var(--accent)';
-  ab.style.color = '#fff';
-  ab.style.border = 'none';
-}
-
-function download(platform) {
-  const deepLink = `streune://ref/${code}`;
-  window.location = deepLink;
-  setTimeout(() => {
-    if (platform === 'ios' || ios) {
-      window.location = 'https://apps.apple.com/app/streune/id000000000';
-    } else {
-      window.location = 'https://play.google.com/store/apps/details?id=app.streune';
-    }
-  }, 1500);
+if (android) {
+  document.getElementById('ios-block').style.display = 'none';
+} else if (ios) {
+  document.getElementById('android-block').style.display = 'none';
 }
 </script>
 </body>

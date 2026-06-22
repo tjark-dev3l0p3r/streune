@@ -74,13 +74,13 @@ h1{font-size:26px;font-weight:900;letter-spacing:4px;color:var(--text);margin-bo
 
 <div class="mystery-card">
   <div class="photo-wrap" id="photo-wrap">
-    <div class="photo-placeholder" id="photo-placeholder">🧑</div>
-    <img id="photo-img" class="photo-img" src="" alt="" style="display:none;position:absolute;inset:0">
+    <div class="photo-placeholder" id="photo-placeholder" style="filter:none;font-size:46px">👋</div>
   </div>
-  <div class="mystery-label">Eingeladen von</div>
-  <div class="mystery-name" id="inviter-name">...</div>
+  <div class="mystery-label">Einladung</div>
+  <div class="mystery-name" style="font-size:19px;letter-spacing:.5px;line-height:1.3">Du wurdest von einem<br>Streune-User eingeladen</div>
   <div class="mystery-hint">
-    Lad die App runter — ihr bekommt beide <b>+150m Radius</b> geschenkt.
+    Lad die App runter und gib den <b>Einladungscode</b> (unten) bei der Anmeldung ein —
+    ihr bekommt beide <b>+150m Radius</b> geschenkt.
   </div>
   <div class="bonus-badge">🎁 +150m Radius für euch beide</div>
 </div>
@@ -118,7 +118,7 @@ h1{font-size:26px;font-weight:900;letter-spacing:4px;color:var(--text);margin-bo
     <div style="font-size:12px;color:#e8f0fe;line-height:1.5;background:rgba(255,255,255,.03);border-radius:8px;padding:9px 11px">🍎 <b>iPhone:</b> Einmalig Apples kostenlose <b>„TestFlight"</b>-App holen (Button&nbsp;1), dann auf <b>„Streune-Beta öffnen"</b> tippen (Button&nbsp;2) → Installieren. Dauert ~1&nbsp;Min.</div>
     <div style="font-size:12px;color:#e8f0fe;line-height:1.5;background:rgba(255,255,255,.03);border-radius:8px;padding:9px 11px">🤖 <b>Android:</b> Auf <b>„App laden"</b> tippen und öffnen (falls gefragt: „aus dieser Quelle erlauben").</div>
   </div>
-  <div style="font-size:12px;color:#8a9bb0;line-height:1.6;margin-top:10px">Danach Streune normal starten — dein <b style="color:#e8f0fe">Einladungscode</b> wird automatisch angewendet, ihr bekommt beide <b style="color:#34d399">+150m Radius</b> geschenkt. 🎁</div>
+  <div style="font-size:12px;color:#8a9bb0;line-height:1.6;margin-top:10px">Danach Streune normal starten und bei der Anmeldung den <b style="color:#e8f0fe">Einladungscode</b> (unten) im Feld „Einladungscode" eingeben — ihr bekommt beide <b style="color:#34d399">+150m Radius</b> geschenkt. 🎁</div>
 </div>
 
 <div class="dl-btns">
@@ -144,40 +144,17 @@ h1{font-size:26px;font-weight:900;letter-spacing:4px;color:var(--text);margin-bo
 </div>
 
 <p class="note">
-  Dein Einladungscode: <span class="ref-code" id="ref-code-display">...</span><br>
-  wird automatisch nach dem ersten Start angewendet.
+  👉 Dein Einladungscode: <span class="ref-code" id="ref-code-display">...</span><br>
+  Gib ihn beim Anmelden im Feld „Einladungscode" ein — dann gibt's für euch beide +150m.
 </p>
 
 <script>
 const params = new URLSearchParams(window.location.search);
-const code   = params.get('ref') || '';
-const name   = params.get('name') || 'Na***';
-const photo  = params.get('photo') || '';
-
-// Name anzeigen (bereits maskiert)
-document.getElementById('inviter-name').textContent = decodeURIComponent(name);
-document.getElementById('ref-code-display').textContent = code.toUpperCase() || 'DEMO';
-
-// Referral im localStorage speichern (Deferred Deep Link)
-if (code) {
-  localStorage.setItem('streune_referral', code.toUpperCase());
-  localStorage.setItem('streune_referral_ts', Date.now().toString());
-}
-
-// Foto klar anzeigen — der Empfänger kennt den Einlader ja
-if (photo) {
-  const img = document.getElementById('photo-img');
-  const placeholder = document.getElementById('photo-placeholder');
-  img.src = decodeURIComponent(photo);
-  img.style.display = 'block';
-  img.style.filter = 'blur(0px)';
-  img.style.transform = 'scale(1)';
-  placeholder.style.display = 'none';
-}
-
-// Vollständiger Name anzeigen (kein Masking nötig — persönliche Einladung)
-const fullname = params.get('fullname') || name;
-document.getElementById('inviter-name').textContent = decodeURIComponent(fullname);
+// Nur der Einladungscode wird genutzt — KEIN (Fake-)Name, KEIN Foto des Einladers.
+// Die Einladung ist bewusst generisch ("ein Streune-User"); der Code wird bei der
+// Anmeldung MANUELL eingegeben (Deferred-Link-Auto-Apply entfernt, war unzuverlässig).
+const code = (params.get('ref') || '').toUpperCase();
+document.getElementById('ref-code-display').textContent = code || 'DEMO';
 
 // Plattform-Erkennung → nur das Passende zeigen (Desktop: beide)
 const ios     = /iphone|ipad|ipod/i.test(navigator.userAgent);

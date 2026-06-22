@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<title>STREUNE für Läden — Mach deinen Laden zum Spot</title>
+<meta property="og:title" content="Streune für Läden — mach deinen Laden zum Spot">
+<meta property="og:description" content="Eigene Gäste-Community, Events, Angebote, neue Laufkundschaft — kostenlos.">
+<meta property="og:image" content="https://tjark-dev3l0p3r.github.io/streune/og-image.png">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700;800;900&family=Space+Mono:wght@700&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0a0e14;--card:#141d2b;--border:#1f2d40;--accent:#4d9fff;--text:#e8f0fe;--muted:#4a6280;--green:#34d399}
+html,body{min-height:100%;background:var(--bg);font-family:'Space Grotesk',sans-serif;color:var(--text)}
+body{display:flex;flex-direction:column;align-items:center;min-height:100vh;padding:32px 20px 48px;
+  background:radial-gradient(ellipse at 50% 0%,#0d1f3c 0%,#0a0e14 60%)}
+.logo{font-size:48px;color:var(--accent);margin-bottom:4px;animation:glow 3s ease-in-out infinite}
+@keyframes glow{0%,100%{text-shadow:0 0 20px rgba(77,159,255,.3)}50%{text-shadow:0 0 40px rgba(77,159,255,.6)}}
+h1{font-size:24px;font-weight:900;letter-spacing:3px;margin-bottom:6px;text-align:center}
+h1 span{color:var(--accent);font-weight:600;letter-spacing:1px;font-size:18px}
+.sub{font-size:17px;color:var(--text);font-weight:800;margin-bottom:18px;text-align:center}
+.hero{background:var(--card);border:1px solid var(--border);border-left:3px solid var(--green);
+  border-radius:0 16px 16px 0;padding:16px 18px;max-width:360px;font-size:13.5px;line-height:1.6;
+  color:#c3cfe0;margin-bottom:18px}
+.hero b{color:var(--text)}
+.features{display:flex;flex-direction:column;gap:9px;width:100%;max-width:360px;margin-bottom:20px}
+.feat{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--border);
+  border-radius:13px;padding:13px 15px;font-size:13px;font-weight:600;line-height:1.4}
+.feat .ico{font-size:20px;flex-shrink:0}
+.steps-title,.dl-title{font-size:12px;color:var(--accent);font-weight:800;text-transform:uppercase;
+  letter-spacing:1.5px;margin:6px 0 12px;text-align:center;width:100%;max-width:360px}
+.steps{display:flex;flex-direction:column;gap:8px;width:100%;max-width:360px;margin-bottom:22px}
+.step{display:flex;align-items:flex-start;gap:11px;background:rgba(52,211,153,.06);
+  border:1px solid rgba(52,211,153,.2);border-radius:12px;padding:12px 14px;font-size:13px;line-height:1.45}
+.step .n{background:var(--green);color:#06281d;font-weight:900;border-radius:50%;width:22px;height:22px;
+  flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px}
+.step b{color:var(--text)}
+.howto{background:rgba(77,159,255,.06);border:1px solid rgba(77,159,255,.18);border-radius:14px;
+  padding:16px;width:100%;max-width:360px;margin-bottom:16px;text-align:left}
+.howto-title{font-size:14px;font-weight:800;color:var(--accent);margin-bottom:8px}
+.howto-txt{font-size:12px;color:var(--muted);line-height:1.6}
+.howto-step{font-size:12px;color:var(--text);line-height:1.5;background:rgba(255,255,255,.03);
+  border-radius:8px;padding:9px 11px;margin-top:8px}
+.dl-btns{display:flex;flex-direction:column;gap:10px;width:100%;max-width:360px}
+.btn{display:flex;align-items:center;justify-content:center;gap:12px;padding:16px;border-radius:14px;
+  font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:800;text-decoration:none;transition:all .18s}
+.btn-sec{background:var(--card);border:1px solid var(--border);color:var(--text)}
+.btn-sec:hover{border-color:var(--accent)}
+.btn-tf{background:var(--green);color:#06281d;box-shadow:0 6px 20px rgba(52,211,153,.35)}
+.btn-tf:hover{transform:translateY(-2px)}
+.tel{margin-top:24px;font-size:16px;font-weight:800;color:var(--text);text-align:center}
+.tel span{color:var(--muted);font-size:12px;font-weight:600;display:block;margin-top:3px}
+.start{margin-top:16px;font-size:12px;color:var(--muted);text-align:center;line-height:1.6;max-width:340px}
+.start b{color:var(--text)}
+</style>
+</head>
+<body>
+
+<div class="logo">◎</div>
+<h1>STREUNE <span>für Läden</span></h1>
+<p class="sub">Mach deinen Laden zum <span style="color:var(--green)">Spot</span> 📍</p>
+
+<div class="hero">
+  Streune bringt Leute aus der Nähe wieder zusammen — ohne Feed, ohne Algorithmus.
+  Dein Laden wird ein <b>Spot</b>: ein Treffpunkt auf der Karte, den Gäste finden, anpingen und betreten.
+  <b>Kostenlos</b>, kein Abo, jederzeit kündbar.
+</div>
+
+<div class="features">
+  <div class="feat"><span class="ico">🫂</span><div>Eigene <b>Gäste-Community</b> — Stammgäste in einer Gruppe</div></div>
+  <div class="feat"><span class="ico">📣</span><div><b>Event-Ankündigungen</b> &amp; Angebots-Banner</div></div>
+  <div class="feat"><span class="ico">🚶</span><div>Neue <b>Laufkundschaft</b> — Leute sehen dich auf der Karte &amp; kommen vorbei</div></div>
+  <div class="feat"><span class="ico">🎁</span><div><b>3 Streune-Aufkleber</b> fürs Schaufenster gratis dazu</div></div>
+</div>
+
+<div class="steps-title">So wird dein Laden ein Spot</div>
+<div class="steps">
+  <div class="step"><span class="n">1</span><div>App laden (unten — iPhone oder Android)</div></div>
+  <div class="step"><span class="n">2</span><div>In der App <b>„Spot erstellen"</b> und deinen Laden beanspruchen</div></div>
+  <div class="step"><span class="n">3</span><div>Fertig — du verwaltest deinen Spot, die <b>Aufkleber</b> bekommst du von uns</div></div>
+</div>
+
+<!-- So kommst du rein (Beta-Erklärung) -->
+<div class="howto">
+  <div class="howto-title">📲 So lädst du die App</div>
+  <div class="howto-txt">Streune ist gerade in der <b style="color:var(--text)">Beta</b> (Test vor dem Start am 28.6.) — die Installation läuft noch nicht über den normalen App Store, sondern so:</div>
+  <div class="howto-step">🍎 <b>iPhone:</b> Einmalig Apples kostenlose <b>„TestFlight"</b>-App holen (Button&nbsp;1), dann <b>„Streune-Beta öffnen"</b> (Button&nbsp;2) → Installieren. ~1&nbsp;Min.</div>
+  <div class="howto-step">🤖 <b>Android:</b> Auf <b>„App laden"</b> tippen &amp; öffnen (falls gefragt: „aus dieser Quelle erlauben").</div>
+</div>
+
+<div class="dl-title">App laden</div>
+<div class="dl-btns">
+  <!-- iPhone: Beta über TestFlight -->
+  <div id="ios-block" style="display:flex;flex-direction:column;gap:10px">
+    <a class="btn btn-sec" href="https://apps.apple.com/app/testflight/id899247664" target="_blank">
+      <span>🍎</span> 1. TestFlight installieren
+    </a>
+    <a class="btn btn-tf" href="https://testflight.apple.com/join/pF8pwRS4" target="_blank">
+      <span>📲</span> 2. Streune-Beta öffnen
+    </a>
+  </div>
+  <!-- Android: direkter Beta-Download (APK) -->
+  <a class="btn btn-sec" id="android-block" href="https://github.com/tjark-dev3l0p3r/superpower/releases/download/streune-latest/streune.apk">
+    <span>🤖</span> Android: App laden
+  </a>
+</div>
+
+<div class="tel">📞 0176 24172840<span>Fragen? Einfach anrufen oder schreiben — Tjark aus Heide 🐾</span></div>
+<p class="start">📅 Offizieller Start: <b>28. Juni 2026</b> — du kannst aber <b style="color:var(--green)">jetzt schon</b> in die Beta und deinen Laden sichern.</p>
+
+<script>
+// Plattform-Erkennung → nur das Passende zeigen (Desktop: beide)
+const ios     = /iphone|ipad|ipod/i.test(navigator.userAgent);
+const android = /android/i.test(navigator.userAgent);
+if (android) {
+  document.getElementById('ios-block').style.display = 'none';
+} else if (ios) {
+  document.getElementById('android-block').style.display = 'none';
+}
+</script>
+</body>
+</html>

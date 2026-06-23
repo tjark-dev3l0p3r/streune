@@ -70,7 +70,7 @@ h1{font-size:26px;font-weight:900;letter-spacing:4px;color:var(--text);margin-bo
 <div class="logo">◎</div>
 <h1>STREUNE</h1>
 <p class="sub">Jemand aus deiner Nähe lädt dich ein.</p>
-<div style="margin:14px auto 2px;display:inline-block;padding:9px 18px;border:1px solid #4d9fff;border-radius:999px;color:#4d9fff;font-weight:700;font-size:15px;letter-spacing:.3px;background:rgba(77,159,255,.08)">🚀 Start: 28. Juni 2026</div>
+<div style="margin:14px auto 2px;display:inline-block;padding:9px 18px;border:1px solid #4d9fff;border-radius:999px;color:#4d9fff;font-weight:700;font-size:15px;letter-spacing:.3px;background:rgba(77,159,255,.08)">🚀 Launch in <b>Heide</b> · 28. Juni 2026</div>
 
 <div class="mystery-card">
   <div class="photo-wrap" id="photo-wrap">
@@ -114,27 +114,40 @@ h1{font-size:26px;font-weight:900;letter-spacing:4px;color:var(--text);margin-bo
 <div style="background:rgba(77,159,255,.06);border:1px solid rgba(77,159,255,.18);border-radius:14px;padding:16px;max-width:340px;margin:0 auto 16px;text-align:left">
   <div style="font-size:14px;font-weight:800;color:#4d9fff;margin-bottom:8px">📲 So kommst du rein</div>
   <div style="font-size:12px;color:#8a9bb0;line-height:1.6">Streune ist gerade in der <b style="color:#e8f0fe">Beta</b> (Test vor dem Start am 28.6.). Die Installation läuft noch nicht über den normalen App Store, sondern so:</div>
-  <div style="display:flex;flex-direction:column;gap:8px;margin-top:10px">
-    <div style="font-size:12px;color:#e8f0fe;line-height:1.5;background:rgba(255,255,255,.03);border-radius:8px;padding:9px 11px">🍎 <b>iPhone:</b> Einmalig Apples kostenlose <b>„TestFlight"</b>-App holen (Button&nbsp;1), dann auf <b>„Streune-Beta öffnen"</b> tippen (Button&nbsp;2) → Installieren. Dauert ~1&nbsp;Min.</div>
-    <div style="font-size:12px;color:#e8f0fe;line-height:1.5;background:rgba(255,255,255,.03);border-radius:8px;padding:9px 11px">🤖 <b>Android:</b> Auf <b>„App laden"</b> tippen und öffnen (falls gefragt: „aus dieser Quelle erlauben").</div>
-  </div>
+  <div style="font-size:12px;color:#8a9bb0;line-height:1.6;margin-top:8px">Such dir unten dein Handy aus — <b style="color:#e8f0fe">iPhone</b> oder <b style="color:#e8f0fe">Android</b> — die genaue Anleitung steht direkt am Knopf. 👇</div>
   <div style="font-size:12px;color:#8a9bb0;line-height:1.6;margin-top:10px">Danach Streune normal starten und bei der Anmeldung den <b style="color:#e8f0fe">Einladungscode</b> (unten) im Feld „Einladungscode" eingeben — ihr bekommt beide <b style="color:#34d399">+150m Radius</b> geschenkt. 🎁</div>
 </div>
 
 <div class="dl-btns">
   <!-- iPhone: Beta über TestFlight (App ist noch nicht im App Store) -->
   <div id="ios-block" style="display:flex;flex-direction:column;gap:10px">
+    <div style="font-size:15px;font-weight:800;color:#e8f0fe;margin-bottom:2px">🍎 iPhone <span style="color:#8a9bb0;font-weight:600;font-size:12px">· über TestFlight</span></div>
     <a class="btn-android" href="https://apps.apple.com/app/testflight/id899247664" target="_blank">
-      <span>🍎</span> 1. TestFlight installieren
+      <span>1️⃣</span> TestFlight holen (Apple, gratis)
     </a>
     <a href="https://testflight.apple.com/join/pF8pwRS4" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:10px;padding:16px;background:#34d399;color:#06281d;font-weight:800;font-size:15px;text-decoration:none;border-radius:14px;box-shadow:0 6px 20px rgba(52,211,153,.35)">
-      <span>📲</span> 2. Streune-Beta öffnen
+      <span>2️⃣</span> Streune-Beta installieren
     </a>
+    <div style="font-size:12px;color:#c3cfe0;line-height:1.7;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:12px;padding:12px 13px;text-align:left">
+      <div style="font-weight:700;color:#e8f0fe;margin-bottom:6px">So geht's:</div>
+      <div style="margin-bottom:5px"><b style="color:#4d9fff">1.</b> <b>TestFlight</b> (Apples gratis Test-App) holen — Knopf&nbsp;1.</div>
+      <div><b style="color:#4d9fff">2.</b> Auf <b>Knopf&nbsp;2</b> → öffnet TestFlight → auf <b>„Installieren"</b> tippen. Fertig, ~1&nbsp;Min.</div>
+    </div>
   </div>
   <!-- Android: direkter Beta-Download (APK) -->
-  <a class="btn-android" id="android-block" href="https://github.com/tjark-dev3l0p3r/superpower/releases/download/streune-latest/streune.apk">
-    <span>🤖</span> Android: App laden
-  </a>
+  <div id="android-block" style="display:flex;flex-direction:column;gap:8px">
+    <div style="font-size:15px;font-weight:800;color:#e8f0fe;margin-bottom:2px">🤖 Android <span style="color:#8a9bb0;font-weight:600;font-size:12px">· direkter Download</span></div>
+    <a href="https://github.com/tjark-dev3l0p3r/superpower/releases/download/streune-latest/streune.apk" style="display:flex;align-items:center;justify-content:center;gap:10px;padding:16px;background:#34d399;color:#06281d;font-weight:800;font-size:15px;text-decoration:none;border-radius:14px;box-shadow:0 6px 20px rgba(52,211,153,.35)">
+      <span>⬇️</span> Streune-App laden (.apk)
+    </a>
+    <div style="font-size:12px;color:#c3cfe0;line-height:1.7;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:12px;padding:12px 13px;text-align:left">
+      <div style="font-weight:700;color:#e8f0fe;margin-bottom:6px">So installierst du sie:</div>
+      <div style="margin-bottom:5px"><b style="color:#4d9fff">1.</b> Oben auf <b>„App laden"</b> tippen → die <b>.apk</b> lädt runter, dann öffnen.</div>
+      <div style="margin-bottom:5px"><b style="color:#4d9fff">2.</b> Kommt <b>„Aus dieser Quelle zulassen?"</b> → erlauben (unbekannte Quellen). Nur einmal nötig.</div>
+      <div style="margin-bottom:5px"><b style="color:#4d9fff">3.</b> Warnt <b>Play&nbsp;Protect</b> („App nicht geprüft")? → auf <b>„Trotzdem installieren"</b> tippen.</div>
+      <div><b style="color:#4d9fff">4.</b> Geht gar nichts? Play&nbsp;Protect kurz aus: <b>Play&nbsp;Store → Profilbild → „Play&nbsp;Protect" → ⚙️ → „Apps mit Play&nbsp;Protect scannen" aus</b> → installieren → danach wieder an.</div>
+    </div>
+  </div>
 </div>
 
 <div style="max-width:380px;margin:30px auto 0;padding:22px;background:var(--card,#11161f);border:1px solid var(--border,#1c2636);border-left:3px solid #34d399;border-radius:0 16px 16px 0;text-align:left">
@@ -159,11 +172,8 @@ document.getElementById('ref-code-display').textContent = code || 'DEMO';
 // Plattform-Erkennung → nur das Passende zeigen (Desktop: beide)
 const ios     = /iphone|ipad|ipod/i.test(navigator.userAgent);
 const android = /android/i.test(navigator.userAgent);
-if (android) {
-  document.getElementById('ios-block').style.display = 'none';
-} else if (ios) {
-  document.getElementById('android-block').style.display = 'none';
-}
+// Beide Plattformen jetzt IMMER sichtbar — die Anleitung steht je am Knopf.
+void ios; void android;
 </script>
 <!-- streune-open-beacon -->
 <script>(function(){try{var u=new URL(location.href);var src=u.searchParams.get('via')||'ref';var r=u.searchParams.get('ref');fetch('https://twybfsbfbxvwwxbdphum.supabase.co/rest/v1/rpc/track_open',{method:'POST',keepalive:true,headers:{'Content-Type':'application/json','apikey':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR3eWJmc2JmYnh2d3d4YmRwaHVtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA1Njc0NTgsImV4cCI6MjA5NjE0MzQ1OH0.F2KUos9D83mT_lt6Gs2UYbHRxBTxFPeBq8cMo1-F3Mg','Authorization':'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR3eWJmc2JmYnh2d3d4YmRwaHVtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA1Njc0NTgsImV4cCI6MjA5NjE0MzQ1OH0.F2KUos9D83mT_lt6Gs2UYbHRxBTxFPeBq8cMo1-F3Mg'},body:JSON.stringify({p_source:src,p_ref:r})}).catch(function(){});}catch(e){}})();</script>

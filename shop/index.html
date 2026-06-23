@@ -59,6 +59,7 @@ h1 span{color:var(--accent);font-weight:600;letter-spacing:1px;font-size:18px}
 <div class="logo">◎</div>
 <h1>STREUNE <span>für Läden</span></h1>
 <p class="sub">Mach deinen Laden zum <span style="color:var(--green)">Spot</span> 📍</p>
+<div style="margin-bottom:18px;padding:9px 18px;border:1px solid var(--accent);border-radius:999px;color:var(--accent);font-weight:700;font-size:15px;background:rgba(77,159,255,.08)">🚀 Launch in <b>Heide</b> · 28. Juni 2026</div>
 
 <div class="hero">
   Streune bringt Leute aus der Nähe wieder zusammen — ohne Feed, ohne Algorithmus.
@@ -66,6 +67,7 @@ h1 span{color:var(--accent);font-weight:600;letter-spacing:1px;font-size:18px}
   <b>Kostenlos</b>, kein Abo, jederzeit kündbar.
 </div>
 
+<div style="display:flex;align-items:center;gap:12px;background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.28);border-radius:13px;padding:13px 15px;width:100%;max-width:360px;margin-bottom:14px"><div style="font-size:22px">🔥</div><div><div style="font-size:13.5px;color:var(--text);font-weight:800;line-height:1.35">Schon eine aktive Community in Heide</div><div style="font-size:11px;color:var(--muted);font-weight:600;margin-top:2px;line-height:1.4">Jeden Tag neue Spots &amp; hunderte Nachrichten — deine Gäste sind schon hier.</div></div></div>
 <div class="features">
   <div class="feat"><span class="ico">🫂</span><div>Eigene <b>Gäste-Community</b> — Stammgäste in einer Gruppe</div></div>
   <div class="feat"><span class="ico">📣</span><div><b>Event-Ankündigungen</b> &amp; Angebots-Banner</div></div>
@@ -80,29 +82,21 @@ h1 span{color:var(--accent);font-weight:600;letter-spacing:1px;font-size:18px}
   <div class="step"><span class="n">3</span><div>Fertig — du verwaltest deinen Spot, die <b>Aufkleber</b> bekommst du von uns</div></div>
 </div>
 
-<!-- So kommst du rein (Beta-Erklärung) -->
-<div class="howto">
-  <div class="howto-title">📲 So lädst du die App</div>
-  <div class="howto-txt">Streune ist gerade in der <b style="color:var(--text)">Beta</b> (Test vor dem Start am 28.6.) — die Installation läuft noch nicht über den normalen App Store, sondern so:</div>
-  <div class="howto-step">🍎 <b>iPhone:</b> Einmalig Apples kostenlose <b>„TestFlight"</b>-App holen (Button&nbsp;1), dann <b>„Streune-Beta öffnen"</b> (Button&nbsp;2) → Installieren. ~1&nbsp;Min.</div>
-  <div class="howto-step">🤖 <b>Android:</b> Auf <b>„App laden"</b> tippen &amp; öffnen (falls gefragt: „aus dieser Quelle erlauben").</div>
-</div>
-
-<div class="dl-title">App laden</div>
+<div class="dl-title">App laden — Beta (vor dem Start am 28.6.)</div>
 <div class="dl-btns">
-  <!-- iPhone: Beta über TestFlight -->
-  <div id="ios-block" style="display:flex;flex-direction:column;gap:10px">
-    <a class="btn btn-sec" href="https://apps.apple.com/app/testflight/id899247664" target="_blank">
-      <span>🍎</span> 1. TestFlight installieren
-    </a>
-    <a class="btn btn-tf" href="https://testflight.apple.com/join/pF8pwRS4" target="_blank">
-      <span>📲</span> 2. Streune-Beta öffnen
-    </a>
+  <!-- iPhone -->
+  <div id="ios-block" style="display:flex;flex-direction:column;gap:8px">
+    <div style="font-size:15px;font-weight:800;color:var(--text)">🍎 iPhone <span style="color:var(--muted);font-weight:600;font-size:12px">· über TestFlight</span></div>
+    <a class="btn btn-sec" href="https://apps.apple.com/app/testflight/id899247664" target="_blank"><span>1️⃣</span> TestFlight holen (Apple, gratis)</a>
+    <a class="btn btn-tf" href="https://testflight.apple.com/join/pF8pwRS4" target="_blank"><span>2️⃣</span> Streune-Beta installieren</a>
+    <div class="howto-step" style="line-height:1.7"><b style="color:var(--text)">So geht's:</b><br><b style="color:var(--accent)">1.</b> TestFlight (Apples gratis Test-App) holen — Knopf&nbsp;1.<br><b style="color:var(--accent)">2.</b> Auf Knopf&nbsp;2 → öffnet TestFlight → „Installieren". Fertig, ~1&nbsp;Min.</div>
   </div>
-  <!-- Android: direkter Beta-Download (APK) -->
-  <a class="btn btn-sec" id="android-block" href="https://github.com/tjark-dev3l0p3r/superpower/releases/download/streune-latest/streune.apk">
-    <span>🤖</span> Android: App laden
-  </a>
+  <!-- Android -->
+  <div id="android-block" style="display:flex;flex-direction:column;gap:8px;margin-top:6px">
+    <div style="font-size:15px;font-weight:800;color:var(--text)">🤖 Android <span style="color:var(--muted);font-weight:600;font-size:12px">· direkter Download</span></div>
+    <a class="btn btn-tf" href="https://github.com/tjark-dev3l0p3r/superpower/releases/download/streune-latest/streune.apk"><span>⬇️</span> Streune-App laden (.apk)</a>
+    <div class="howto-step" style="line-height:1.7"><b style="color:var(--text)">So installierst du sie:</b><br><b style="color:var(--accent)">1.</b> Oben auf „App laden" → die .apk lädt runter, dann öffnen.<br><b style="color:var(--accent)">2.</b> „Aus dieser Quelle zulassen?" → erlauben (unbekannte Quellen). Einmalig.<br><b style="color:var(--accent)">3.</b> Warnt <b>Play&nbsp;Protect</b>? → auf „Trotzdem installieren" tippen.<br><b style="color:var(--accent)">4.</b> Geht gar nichts? Play&nbsp;Protect kurz aus: Play&nbsp;Store → Profilbild → „Play&nbsp;Protect" → ⚙️ → „Apps scannen" aus → installieren → danach wieder an.</div>
+  </div>
 </div>
 
 <div class="tel">📞 0176 24172840<span>Fragen? Einfach anrufen oder schreiben — Tjark aus Heide 🐾</span></div>
@@ -112,11 +106,8 @@ h1 span{color:var(--accent);font-weight:600;letter-spacing:1px;font-size:18px}
 // Plattform-Erkennung → nur das Passende zeigen (Desktop: beide)
 const ios     = /iphone|ipad|ipod/i.test(navigator.userAgent);
 const android = /android/i.test(navigator.userAgent);
-if (android) {
-  document.getElementById('ios-block').style.display = 'none';
-} else if (ios) {
-  document.getElementById('android-block').style.display = 'none';
-}
+// Beide Plattformen jetzt IMMER sichtbar — Anleitung steht je am Knopf.
+void ios; void android;
 </script>
 <!-- streune-open-beacon -->
 <script>(function(){try{var u=new URL(location.href);var src=u.searchParams.get('via')||'shop';var r=u.searchParams.get('ref');fetch('https://twybfsbfbxvwwxbdphum.supabase.co/rest/v1/rpc/track_open',{method:'POST',keepalive:true,headers:{'Content-Type':'application/json','apikey':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR3eWJmc2JmYnh2d3d4YmRwaHVtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA1Njc0NTgsImV4cCI6MjA5NjE0MzQ1OH0.F2KUos9D83mT_lt6Gs2UYbHRxBTxFPeBq8cMo1-F3Mg','Authorization':'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR3eWJmc2JmYnh2d3d4YmRwaHVtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA1Njc0NTgsImV4cCI6MjA5NjE0MzQ1OH0.F2KUos9D83mT_lt6Gs2UYbHRxBTxFPeBq8cMo1-F3Mg'},body:JSON.stringify({p_source:src,p_ref:r})}).catch(function(){});}catch(e){}})();</script>

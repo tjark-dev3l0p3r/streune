@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>STREUNE — Datenschutzerklärung</title>
+<title>STREUNE — Datenschutz / Privacy Policy</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   *{margin:0;padding:0;box-sizing:border-box}
-  :root{--bg:#0a0e14;--card:#11161f;--line:#1c2636;--blue:#4d9fff;--green:#34d399;--txt:#e8f0fe;--mut:#8a9bb0}
+  :root{--bg:#0a0e14;--card:#11161f;--line:#1c2636;--blue:#4d9fff;--green:#34d399;--red:#f87171;--txt:#e8f0fe;--mut:#8a9bb0}
   body{font-family:'Space Grotesk',system-ui,sans-serif;background:radial-gradient(120% 80% at 50% -10%,#101826 0%,var(--bg) 60%);color:var(--txt);line-height:1.65;-webkit-font-smoothing:antialiased}
   .wrap{max-width:680px;margin:0 auto;padding:54px 22px 80px}
   .top{display:flex;align-items:center;gap:12px;justify-content:center;margin-bottom:8px}
@@ -24,6 +24,9 @@
   .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin:14px 0}
   a{color:var(--blue);text-decoration:none}
   .nav{margin-top:54px;border-top:1px solid var(--line);padding-top:24px;text-align:center}
+  .langbar{display:flex;justify-content:center;width:fit-content;margin:0 auto 34px;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+  .langbtn{background:transparent;color:var(--mut);border:none;padding:7px 18px;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer}
+  .langbtn.active{background:var(--blue);color:#06121f}
 </style>
 </head>
 <body>
@@ -32,8 +35,13 @@
     <svg class="ring" viewBox="0 0 64 64"><circle cx="32" cy="32" r="28" stroke-width="3"/><circle cx="32" cy="32" r="19" stroke-width="6"/></svg>
     <span class="brand">STREUNE</span>
   </div>
-  <span class="step">DATENSCHUTZ</span>
+  <div class="langbar">
+    <button id="b-de" class="langbtn" onclick="setLang('de')">DE</button>
+    <button id="b-en" class="langbtn" onclick="setLang('en')">EN</button>
+  </div>
 
+  <div id="de-content">
+  <span class="step">DATENSCHUTZ</span>
   <h1>Datenschutzerklärung</h1>
   <p class="sub">Stand: Juni 2026 · Kurz, ehrlich, ohne Juristendeutsch — und trotzdem vollständig.</p>
 
@@ -50,9 +58,9 @@
     <li><span class="em">Konto:</span> E-Mail-Adresse, Passwort (verschlüsselt/gehasht), Pseudonym, Geburtsdatum (Altersprüfung, Mindestalter 16).</li>
     <li><span class="em">Standort:</span> Nur während du die App aktiv nutzt. Jeder gesendete Standort <span class="em">verfällt automatisch nach spätestens 3 Stunden</span>. In deiner Home-Zone wird dein Standort gar nicht erst gesendet; im Ghost-Modus bist du unsichtbar.</li>
     <li><span class="em">Profilfotos:</span> Von dir hochgeladene Bilder. Für Fremde werden sie unkenntlich (verpixelt) angezeigt — klar sehen sie nur Freunde bzw. nach längerem Kennenlernen.</li>
-    <li><span class="em">Nachrichten & Inhalte:</span> Chats, Gruppen-Beiträge, Bilder/Sprachnachrichten und „Husch"-Bilder (verschwinden nach dem Ansehen bzw. 24 h).</li>
+    <li><span class="em">Nachrichten &amp; Inhalte:</span> Chats, Gruppen-Beiträge, Bilder/Sprachnachrichten und „Husch"-Bilder (verschwinden nach dem Ansehen bzw. 24 h).</li>
     <li><span class="em">Push-Token:</span> Damit dein Gerät Benachrichtigungen empfangen kann.</li>
-    <li><span class="em">Meldungen & Blockierungen:</span> Zur Moderation und für deine Sicherheit.</li>
+    <li><span class="em">Meldungen &amp; Blockierungen:</span> Zur Moderation und für deine Sicherheit.</li>
   </ul>
 
   <h2>3. Wo deine Daten liegen</h2>
@@ -75,11 +83,78 @@
   <p>Streune ist für Personen ab <span class="em">16 Jahren</span>. Das Geburtsdatum wird bei der Registrierung geprüft.</p>
 
   <h2>8. Rechtsgrundlagen (DSGVO)</h2>
-  <p>Vertragserfüllung (Art. 6 Abs. 1 b — die App funktioniert nur mit Konto/Standort), Einwilligung (Art. 6 Abs. 1 a — z.B. Standortfreigabe, Fotos) und berechtigtes Interesse (Art. 6 Abs. 1 f — Sicherheit & Moderation). Einwilligungen kannst du jederzeit widerrufen (Systemeinstellungen bzw. Konto-Löschung).</p>
+  <p>Vertragserfüllung (Art. 6 Abs. 1 b — die App funktioniert nur mit Konto/Standort), Einwilligung (Art. 6 Abs. 1 a — z.B. Standortfreigabe, Fotos) und berechtigtes Interesse (Art. 6 Abs. 1 f — Sicherheit &amp; Moderation). Einwilligungen kannst du jederzeit widerrufen (Systemeinstellungen bzw. Konto-Löschung).</p>
 
   <div class="nav">
     <a href="./regeln.html">Nutzungsregeln →</a> · <a href="./index.html">Start</a>
   </div>
+  </div>
+
+  <div id="en-content">
+  <span class="step">PRIVACY POLICY</span>
+  <h1>Privacy Policy</h1>
+  <p class="sub">Last updated: June 2026 · Short, honest, no legalese — and still complete.</p>
+
+  <div class="card">
+    <p><span class="em">The essentials in 4 sentences:</span> We do not sell data. We show no ads and use no third-party tracking services. Your location is only shared while you actively use the app — and expires automatically. You can delete your account and all its data yourself in the app at any time.</p>
+  </div>
+
+  <h2>1. Controller</h2>
+  <p>Streune — a small team from Heide (Dithmarschen), Germany.<br>
+  Contact: <a href="mailto:hallo@streune.app">hallo@streune.app</a></p>
+
+  <h2>2. What data we process</h2>
+  <ul>
+    <li><span class="em">Account:</span> email address, password (encrypted/hashed), pseudonym, date of birth (age check, minimum age 16).</li>
+    <li><span class="em">Location:</span> only while you actively use the app. Every location sent <span class="em">expires automatically after 3 hours at most</span>. In your home zone your location is not sent at all; in ghost mode you are invisible.</li>
+    <li><span class="em">Profile photos:</span> images you upload. They are shown pixelated (unrecognizable) to strangers — only friends, or people you've gotten to know over time, see them clearly.</li>
+    <li><span class="em">Messages &amp; content:</span> chats, group posts, images/voice messages and "Husch" snaps (disappear after viewing or within 24 h).</li>
+    <li><span class="em">Push token:</span> so your device can receive notifications.</li>
+    <li><span class="em">Reports &amp; blocks:</span> for moderation and your safety.</li>
+  </ul>
+
+  <h2>3. Where your data is stored</h2>
+  <p>Our data is stored and processed at <span class="em">Supabase</span> in the <span class="em">EU (Ireland region, AWS eu-west-1)</span>. There is no sale and no sharing with advertising networks.</p>
+
+  <h2>4. Maps</h2>
+  <p>To display maps we load map tiles from <span class="em">OpenStreetMap</span>. For technical reasons your IP address is transmitted to the tile servers.</p>
+
+  <h2>5. Push notifications</h2>
+  <p>Notifications are delivered via the <span class="em">Expo</span> service (Apple/Google push infrastructure). You can disable them at any time in your system settings.</p>
+
+  <h2>6. Your rights</h2>
+  <ul>
+    <li><span class="em">Deletion:</span> Profile → "Delete account" irreversibly removes your account and all associated data — right in the app, no questions asked.</li>
+    <li><span class="em">Access, rectification, restriction, objection, data portability:</span> write to us at <a href="mailto:hallo@streune.app">hallo@streune.app</a>.</li>
+    <li><span class="em">Complaint:</span> you can lodge a complaint with a data protection authority (e.g. ULD Schleswig-Holstein, Germany).</li>
+  </ul>
+
+  <h2>7. Minimum age</h2>
+  <p>Streune is for people aged <span class="em">16 and up</span>. Date of birth is checked at registration.</p>
+
+  <h2>8. Legal bases (GDPR)</h2>
+  <p>Performance of a contract (Art. 6(1)(b) — the app only works with an account/location), consent (Art. 6(1)(a) — e.g. location sharing, photos) and legitimate interest (Art. 6(1)(f) — safety &amp; moderation). You can withdraw consent at any time (system settings or account deletion).</p>
+
+  <div class="nav">
+    <a href="./regeln.html">Community Rules →</a> · <a href="./index.html">Home</a>
+  </div>
+  </div>
+
 </div>
+<script>
+  function setLang(l){
+    document.getElementById('de-content').style.display = l==='en' ? 'none' : 'block';
+    document.getElementById('en-content').style.display = l==='en' ? 'block' : 'none';
+    document.getElementById('b-de').classList.toggle('active', l!=='en');
+    document.getElementById('b-en').classList.toggle('active', l==='en');
+    document.documentElement.lang = l;
+    try{ localStorage.setItem('streune_lang', l); }catch(e){}
+  }
+  (function(){
+    var saved=null; try{ saved=localStorage.getItem('streune_lang'); }catch(e){}
+    var nav=(navigator.language||'de').slice(0,2).toLowerCase();
+    setLang(saved || (nav==='de' ? 'de' : 'en'));
+  })();
+</script>
 </body>
 </html>

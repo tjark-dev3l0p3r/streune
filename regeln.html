@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>STREUNE — Nutzungsregeln</title>
+<title>STREUNE — Nutzungsregeln / Community Rules</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
@@ -26,6 +26,9 @@
   .danger .t{color:var(--red);font-weight:700}
   a{color:var(--blue);text-decoration:none}
   .nav{margin-top:54px;border-top:1px solid var(--line);padding-top:24px;text-align:center}
+  .langbar{display:flex;justify-content:center;width:fit-content;margin:0 auto 34px;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+  .langbtn{background:transparent;color:var(--mut);border:none;padding:7px 18px;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer}
+  .langbtn.active{background:var(--blue);color:#06121f}
 </style>
 </head>
 <body>
@@ -34,8 +37,13 @@
     <svg class="ring" viewBox="0 0 64 64"><circle cx="32" cy="32" r="28" stroke-width="3"/><circle cx="32" cy="32" r="19" stroke-width="6"/></svg>
     <span class="brand">STREUNE</span>
   </div>
-  <span class="step">NUTZUNGSREGELN</span>
+  <div class="langbar">
+    <button id="b-de" class="langbtn" onclick="setLang('de')">DE</button>
+    <button id="b-en" class="langbtn" onclick="setLang('en')">EN</button>
+  </div>
 
+  <div id="de-content">
+  <span class="step">NUTZUNGSREGELN</span>
   <h1>Nutzungsregeln</h1>
   <p class="sub">Stand: Juni 2026 · Streune lebt von echten, respektvollen Begegnungen. Diese Regeln akzeptierst du mit deiner Registrierung.</p>
 
@@ -54,8 +62,8 @@
     <li>Veröffentlichen fremder privater Daten (Doxxing) oder Screenshots privater Chats ohne Einwilligung</li>
   </ul>
 
-  <h2>2. Melden & Blockieren</h2>
-  <p>In der App kannst du jede Person <span class="em">melden</span> (über das Profil) und <span class="em">blockieren</span>. Blockierte Personen sehen dich nicht mehr und können dich nicht kontaktieren. Meldungen erreichen uns sofort — wir prüfen sie und reagieren <span class="em">innerhalb von 24 Stunden</span>: Inhalte werden entfernt, Konten verwarnt oder gesperrt.</p>
+  <h2>2. Melden &amp; Blockieren</h2>
+  <p>In der App kannst du jede Person <span class="em">melden</span> und <span class="em">blockieren</span> (über das &bull;&bull;&bull;-Menü im Chat). Blockierte Personen sehen dich nicht mehr und können dich nicht kontaktieren. Meldungen erreichen uns sofort — wir prüfen sie und reagieren <span class="em">innerhalb von 24 Stunden</span>: Inhalte werden entfernt, Konten verwarnt oder gesperrt.</p>
 
   <h2>3. Mindestalter</h2>
   <p>Streune ist ab <span class="em">16 Jahren</span>. Falsche Altersangaben führen zur Sperrung.</p>
@@ -83,6 +91,74 @@
   <div class="nav">
     <a href="./datenschutz.html">Datenschutzerklärung →</a> · <a href="./index.html">Start</a>
   </div>
+  </div>
+
+  <div id="en-content">
+  <span class="step">COMMUNITY RULES</span>
+  <h1>Community Rules</h1>
+  <p class="sub">Last updated: June 2026 · Streune thrives on real, respectful encounters. You accept these rules when you register.</p>
+
+  <div class="card danger">
+    <p><span class="t">Zero tolerance:</span> There is no place on Streune for objectionable content or abusive behavior. Reported content is reviewed and removed, and the accounts responsible are banned — immediately and permanently in serious cases.</p>
+  </div>
+
+  <h2>1. What is not allowed</h2>
+  <ul>
+    <li>Harassment, bullying, threats or stalking — online and offline</li>
+    <li>Hate speech, discrimination, extremism</li>
+    <li>Nudity, sexual or suggestive content; sexual solicitation of minors (will additionally be reported to the authorities)</li>
+    <li>Depiction or glorification of violence</li>
+    <li>Spam, fraud, unsolicited advertising, fake profiles, identity theft</li>
+    <li>Illegal content or activities of any kind</li>
+    <li>Publishing someone else's private data (doxxing) or screenshots of private chats without consent</li>
+  </ul>
+
+  <h2>2. Reporting &amp; Blocking</h2>
+  <p>In the app you can <span class="em">report</span> and <span class="em">block</span> any person (via the &bull;&bull;&bull; menu in a chat). Blocked people can no longer see or contact you. Reports reach us immediately — we review them and respond <span class="em">within 24 hours</span>: content is removed, accounts are warned or banned.</p>
+
+  <h2>3. Minimum age</h2>
+  <p>Streune is for ages <span class="em">16 and up</span>. False age information leads to a ban.</p>
+
+  <h2>4. Safety when meeting in person</h2>
+  <ul>
+    <li>Meet for the first time in <span class="em">public places</span> (that's exactly what Spots are for 🐾)</li>
+    <li>Tell someone where you're going</li>
+    <li>Trust your gut — you don't owe anyone a meeting</li>
+  </ul>
+
+  <h2>5. Your content</h2>
+  <p>You keep the rights to your content but grant us the license needed to display it in the app (that's what it's for). You are responsible for your content. We may remove content that violates these rules.</p>
+
+  <h2>6. Spots &amp; Stickers</h2>
+  <p>Spots live from real places in the community. Be fair with places that aren't yours — the owner of a place can claim their Spot at any time.</p>
+  <p>Streune <span class="em">stickers</span> may only be placed on <span class="em">your own surfaces</span> or <span class="em">with the owner's permission</span>. You are responsible for placing them; sticking them on surfaces that aren't yours without permission is not allowed and may be treated as a rule violation.</p>
+
+  <h2>7. Consequences</h2>
+  <p>Depending on severity, violations lead to: content removal → warning → temporary suspension → <span class="em">permanent account ban</span>. For criminal acts, we reserve the right to report to the authorities.</p>
+
+  <h2>8. Contact</h2>
+  <p>Questions, complaints, appeals: <a href="mailto:hallo@streune.app">hallo@streune.app</a></p>
+
+  <div class="nav">
+    <a href="./datenschutz.html">Privacy Policy →</a> · <a href="./index.html">Home</a>
+  </div>
+  </div>
+
 </div>
+<script>
+  function setLang(l){
+    document.getElementById('de-content').style.display = l==='en' ? 'none' : 'block';
+    document.getElementById('en-content').style.display = l==='en' ? 'block' : 'none';
+    document.getElementById('b-de').classList.toggle('active', l!=='en');
+    document.getElementById('b-en').classList.toggle('active', l==='en');
+    document.documentElement.lang = l;
+    try{ localStorage.setItem('streune_lang', l); }catch(e){}
+  }
+  (function(){
+    var saved=null; try{ saved=localStorage.getItem('streune_lang'); }catch(e){}
+    var nav=(navigator.language||'de').slice(0,2).toLowerCase();
+    setLang(saved || (nav==='de' ? 'de' : 'en'));
+  })();
+</script>
 </body>
 </html>

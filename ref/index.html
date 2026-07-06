@@ -67,18 +67,6 @@ h1{font-size:27px;font-weight:900;letter-spacing:5px;color:var(--text);margin-bo
 <p class="sub">Finde Leute in deiner Nähe.<br>Kein Swipen. Kein Algorithmus.</p>
 <div class="live">🚀 Jetzt live · gestartet in Heide</div>
 
-<!-- Einladung + Code -->
-<div class="invite">
-  <div class="emoji">👋</div>
-  <div class="lbl">Einladung</div>
-  <div class="head">Du wurdest von einem<br>Streune-User eingeladen</div>
-  <div class="code-box">
-    <div class="code-lbl">Dein Einladungscode</div>
-    <div class="code" id="ref-code-display">...</div>
-  </div>
-  <div class="bonus">🎁 +150m Radius für euch beide</div>
-</div>
-
 <!-- Store-Knöpfe (nur 2) -->
 <div class="stores">
   <a class="store ios" href="https://apps.apple.com/app/id6779207091" target="_blank">
@@ -119,14 +107,10 @@ h1{font-size:27px;font-weight:900;letter-spacing:5px;color:var(--text);margin-bo
   </div>
 </div>
 
-<p class="foot">
-  👉 Gib deinen Code <span style="font-family:'Space Mono',monospace;color:var(--accent)">oben</span> beim Anmelden im Feld „Einladungscode" ein — dann gibt's für euch beide +150m Radius.
-</p>
-
 <script>
-// Einladungscode aus der URL (?ref=CODE) anzeigen. Manuelle Eingabe bei der Anmeldung.
-const code = (new URLSearchParams(location.search).get('ref') || '').toUpperCase();
-document.getElementById('ref-code-display').textContent = code || 'DEMO';
+// Einladungscode (?ref=CODE) — Anzeige-Element wurde entfernt; null-sicher belassen.
+const _c = document.getElementById('ref-code-display');
+if (_c) _c.textContent = (new URLSearchParams(location.search).get('ref') || 'DEMO').toUpperCase();
 </script>
 <!-- streune-open-beacon -->
 <script>(function(){try{var u=new URL(location.href);var r=u.searchParams.get('ref');var src=u.searchParams.get('via')||(r?'invite':'sticker');fetch('https://twybfsbfbxvwwxbdphum.supabase.co/rest/v1/rpc/track_open',{method:'POST',keepalive:true,headers:{'Content-Type':'application/json','apikey':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR3eWJmc2JmYnh2d3d4YmRwaHVtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA1Njc0NTgsImV4cCI6MjA5NjE0MzQ1OH0.F2KUos9D83mT_lt6Gs2UYbHRxBTxFPeBq8cMo1-F3Mg','Authorization':'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR3eWJmc2JmYnh2d3d4YmRwaHVtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA1Njc0NTgsImV4cCI6MjA5NjE0MzQ1OH0.F2KUos9D83mT_lt6Gs2UYbHRxBTxFPeBq8cMo1-F3Mg'},body:JSON.stringify({p_source:src,p_ref:r})}).catch(function(){});}catch(e){}})();</script>

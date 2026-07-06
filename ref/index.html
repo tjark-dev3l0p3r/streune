@@ -10,177 +10,133 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700;800;900&family=Space+Mono:wght@700&display=swap');
 *{box-sizing:border-box;margin:0;padding:0}
-:root{--bg:#0a0e14;--card:#141d2b;--border:#1f2d40;--accent:#4d9fff;--text:#e8f0fe;--muted:#4a6280}
+:root{--bg:#0a0e14;--card:#141d2b;--border:#1f2d40;--accent:#4d9fff;--ping:#f0883e;--green:#34d399;--text:#e8f0fe;--muted:#4a6280}
 html,body{min-height:100%;background:var(--bg);font-family:'Space Grotesk',sans-serif;color:var(--text)}
-body{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;
-  padding:32px 20px;
-  background:radial-gradient(ellipse at 50% 0%,#0d1f3c 0%,#0a0e14 60%)}
+body{display:flex;flex-direction:column;align-items:center;min-height:100vh;
+  padding:38px 20px 44px;background:radial-gradient(ellipse at 50% 0%,#0d1f3c 0%,#0a0e14 60%)}
 
 .logo{font-size:52px;color:var(--accent);margin-bottom:6px;animation:glow 3s ease-in-out infinite}
 @keyframes glow{0%,100%{text-shadow:0 0 20px rgba(77,159,255,.3)}50%{text-shadow:0 0 40px rgba(77,159,255,.6)}}
-h1{font-size:26px;font-weight:900;letter-spacing:4px;color:var(--text);margin-bottom:6px}
-.sub{font-size:14px;color:var(--muted);margin-bottom:32px;text-align:center}
+h1{font-size:27px;font-weight:900;letter-spacing:5px;color:var(--text);margin-bottom:6px}
+.sub{font-size:14px;color:#8a9bb0;margin-bottom:16px;text-align:center;line-height:1.5}
+.live{display:inline-block;padding:8px 18px;border:1px solid var(--green);border-radius:999px;color:var(--green);
+  font-weight:700;font-size:14px;letter-spacing:.3px;background:rgba(52,211,153,.08);margin-bottom:26px}
 
-/* Mystery card */
-.mystery-card{background:var(--card);border:1px solid var(--border);border-radius:20px;
-  padding:28px 24px;width:100%;max-width:340px;margin-bottom:24px;text-align:center}
-.photo-wrap{position:relative;width:110px;height:110px;margin:0 auto 16px;border-radius:55px;overflow:hidden;
-  border:3px solid rgba(77,159,255,.3);box-shadow:0 0 30px rgba(77,159,255,.15)}
-.photo-img{width:100%;height:100%;object-fit:cover;filter:blur(16px);transform:scale(1.1);transition:filter 1.5s ease}
-.photo-img.revealed{filter:blur(0);transform:scale(1)}
-.photo-placeholder{width:100%;height:100%;background:linear-gradient(135deg,#1a2940,#0d1520);
-  display:flex;align-items:center;justify-content:center;font-size:40px;filter:blur(8px)}
-.mystery-label{font-size:13px;color:var(--muted);margin-bottom:10px;text-transform:uppercase;letter-spacing:1px}
-.mystery-name{font-size:28px;font-weight:900;color:var(--accent);letter-spacing:2px;margin-bottom:8px;font-family:'Space Mono',monospace}
-.mystery-hint{font-size:12px;color:var(--muted);line-height:1.7}
-.bonus-badge{display:inline-flex;align-items:center;gap:8px;
-  background:rgba(77,159,255,.1);border:1px solid rgba(77,159,255,.25);
-  border-radius:50px;padding:8px 18px;font-size:13px;font-weight:700;color:var(--accent);margin-top:14px}
+/* Invite card */
+.invite{background:var(--card);border:1px solid var(--border);border-radius:20px;
+  padding:24px 22px;width:100%;max-width:360px;margin-bottom:22px;text-align:center}
+.invite .emoji{font-size:44px;margin-bottom:10px}
+.invite .lbl{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px}
+.invite .head{font-size:19px;font-weight:800;color:var(--text);line-height:1.35;margin-bottom:14px}
+.code-box{background:rgba(77,159,255,.08);border:1px dashed rgba(77,159,255,.4);border-radius:12px;padding:12px 14px;margin-bottom:12px}
+.code-box .code-lbl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+.code-box .code{font-family:'Space Mono',monospace;font-size:24px;font-weight:700;color:var(--accent);letter-spacing:3px}
+.bonus{display:inline-flex;align-items:center;gap:8px;background:rgba(52,211,153,.1);border:1px solid rgba(52,211,153,.28);
+  border-radius:50px;padding:8px 18px;font-size:13px;font-weight:700;color:var(--green)}
+
+/* Store buttons */
+.stores{display:flex;flex-direction:column;gap:12px;width:100%;max-width:360px;margin-bottom:30px}
+.store{display:flex;align-items:center;justify-content:center;gap:12px;padding:17px;border-radius:15px;
+  font-size:16px;font-weight:800;text-decoration:none;transition:transform .16s,box-shadow .16s}
+.store .ic{font-size:22px}
+.store.ios{background:#fff;color:#0a0e14;box-shadow:0 8px 24px rgba(255,255,255,.12)}
+.store.play{background:linear-gradient(135deg,#4d9fff,#3b82f6);color:#fff;box-shadow:0 8px 24px rgba(77,159,255,.35)}
+.store:active{transform:scale(.98)}
 
 /* Features */
-.features{display:flex;flex-direction:column;gap:10px;width:100%;max-width:340px;margin-bottom:28px}
-.feat{display:flex;align-items:center;gap:13px;background:var(--card);
-  border:1px solid var(--border);border-radius:13px;padding:13px 15px}
-.feat-ico{font-size:20px;flex-shrink:0}
-.feat-txt{font-size:13px;color:var(--text);font-weight:600;line-height:1.4}
-.feat-sub{font-size:11px;color:var(--muted);margin-top:2px}
+.feat-title{font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;font-weight:700;margin-bottom:14px}
+.features{display:flex;flex-direction:column;gap:10px;width:100%;max-width:360px;margin-bottom:30px}
+.feat{display:flex;align-items:flex-start;gap:13px;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px 15px;text-align:left}
+.feat.new{border-color:rgba(240,136,62,.5);background:rgba(240,136,62,.06)}
+.feat-ico{font-size:21px;flex-shrink:0;width:26px;text-align:center}
+.feat-txt{font-size:14px;color:var(--text);font-weight:700;line-height:1.35}
+.feat-sub{font-size:12px;color:#8a9bb0;margin-top:3px;line-height:1.45;font-weight:500}
+.tag-new{display:inline-block;font-size:9px;font-weight:800;color:#0a0e14;background:var(--ping);border-radius:5px;padding:1px 6px;letter-spacing:.5px;margin-left:6px;vertical-align:middle}
 
-/* Download buttons */
-.dl-btns{display:flex;flex-direction:column;gap:10px;width:100%;max-width:340px}
-.btn-ios,.btn-android{display:flex;align-items:center;justify-content:center;gap:12px;
-  padding:16px;border-radius:14px;font-family:'Space Grotesk',sans-serif;
-  font-size:15px;font-weight:800;cursor:pointer;border:none;transition:all .18s;text-decoration:none}
-.btn-ios{background:var(--accent);color:#fff;box-shadow:0 6px 20px rgba(77,159,255,.35)}
-.btn-ios:hover{transform:translateY(-2px)}
-.btn-android{background:var(--card);border:1px solid var(--border);color:var(--text)}
-.btn-android:hover{border-color:var(--accent)}
-
-.note{font-size:11px;color:var(--muted);text-align:center;margin-top:20px;line-height:1.8;max-width:300px}
-.ref-code{font-family:'Space Mono',monospace;font-size:12px;color:var(--accent);
-  background:rgba(77,159,255,.08);border-radius:6px;padding:3px 8px;letter-spacing:2px}
-
-/* Countdown reveal */
-.reveal-bar{width:100%;height:4px;background:var(--border);border-radius:2px;overflow:hidden;margin-top:12px}
-.reveal-fill{height:4px;background:var(--accent);border-radius:2px;width:0;transition:width 0.1s linear}
-.reveal-txt{font-size:11px;color:var(--muted);margin-top:6px}
+.story{max-width:360px;margin:0 auto;padding:20px;background:var(--card);border:1px solid var(--border);
+  border-left:3px solid var(--green);border-radius:0 16px 16px 0;text-align:left}
+.story h3{font-size:14px;font-weight:800;color:var(--green);margin-bottom:8px}
+.story p{color:#c3cfe0;font-size:13.5px;line-height:1.55}
+.foot{font-size:11px;color:var(--muted);text-align:center;margin-top:24px;line-height:1.7}
 </style>
 </head>
 <body>
 
 <div class="logo">◎</div>
 <h1>STREUNE</h1>
-<p class="sub">Jemand aus deiner Nähe lädt dich ein.</p>
-<div style="margin:14px auto 2px;display:inline-block;padding:9px 18px;border:1px solid #4d9fff;border-radius:999px;color:#4d9fff;font-weight:700;font-size:15px;letter-spacing:.3px;background:rgba(77,159,255,.08)">🚀 Live · gestartet in <b>Heide</b></div>
+<p class="sub">Finde Leute in deiner Nähe.<br>Kein Swipen. Kein Algorithmus.</p>
+<div class="live">🚀 Jetzt live · gestartet in Heide</div>
 
-<div class="mystery-card">
-  <div class="photo-wrap" id="photo-wrap">
-    <div class="photo-placeholder" id="photo-placeholder" style="filter:none;font-size:46px">👋</div>
+<!-- Einladung + Code -->
+<div class="invite">
+  <div class="emoji">👋</div>
+  <div class="lbl">Einladung</div>
+  <div class="head">Du wurdest von einem<br>Streune-User eingeladen</div>
+  <div class="code-box">
+    <div class="code-lbl">Dein Einladungscode</div>
+    <div class="code" id="ref-code-display">...</div>
   </div>
-  <div class="mystery-label">Einladung</div>
-  <div class="mystery-name" style="font-size:19px;letter-spacing:.5px;line-height:1.3">Du wurdest von einem<br>Streune-User eingeladen</div>
-  <div class="mystery-hint">
-    Lad die App runter und gib den <b>Einladungscode</b> (unten) bei der Anmeldung ein —
-    ihr bekommt beide <b>+150m Radius</b> geschenkt.
-  </div>
-  <div class="bonus-badge">🎁 +150m Radius für euch beide</div>
+  <div class="bonus">🎁 +150m Radius für euch beide</div>
 </div>
 
-<!-- Social Proof + Frühe-Vögel-Belohnung -->
-<div style="width:100%;max-width:340px;margin:0 auto 24px;display:flex;flex-direction:column;gap:10px">
-  <div style="display:flex;align-items:center;gap:12px;background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.28);border-radius:13px;padding:13px 15px">
-    <div style="font-size:22px">🔥</div>
-    <div><div style="font-size:13.5px;color:#e8f0fe;font-weight:800;line-height:1.35">Schon jetzt eine aktive Community</div><div style="font-size:11px;color:#8a9bb0;font-weight:600;margin-top:2px;line-height:1.4">Jeden Tag neue Spots &amp; hunderte Nachrichten in Heide — du kommst nicht in eine leere App.</div></div>
-  </div>
-  <div style="display:flex;align-items:center;gap:12px;background:rgba(77,159,255,.08);border:1px solid rgba(77,159,255,.28);border-radius:13px;padding:13px 15px">
-    <div style="font-size:22px">💙</div>
-    <div><div style="font-size:13.5px;color:#e8f0fe;font-weight:800;line-height:1.35">Die ersten paar Hundert bekommen das blaue Herz</div><div style="font-size:11px;color:#8a9bb0;font-weight:600;margin-top:2px;line-height:1.4">Ein Abzeichen im Profil — der Beweis, dass du von Anfang an dabei warst.</div></div>
-  </div>
+<!-- Store-Knöpfe (nur 2) -->
+<div class="stores">
+  <a class="store ios" href="https://apps.apple.com/app/id6779207091" target="_blank">
+    <span class="ic">🍎</span> Im App Store laden
+  </a>
+  <a class="store play" href="https://play.google.com/store/apps/details?id=app.streune" target="_blank">
+    <span class="ic">▶</span> Bei Google Play holen
+  </a>
 </div>
 
+<!-- Features -->
+<div class="feat-title">Was Streune kann</div>
 <div class="features">
   <div class="feat">
     <div class="feat-ico">◎</div>
     <div><div class="feat-txt">Kompass zeigt Leute in deiner Nähe</div>
-    <div class="feat-sub">Richtung + Distanz in Metern — einfach hinlaufen</div></div>
+    <div class="feat-sub">Richtung + Distanz in Metern — einfach hinlaufen und anschreiben.</div></div>
+  </div>
+  <div class="feat new">
+    <div class="feat-ico">🎙️</div>
+    <div><div class="feat-txt">CB-Funk<span class="tag-new">NEU</span></div>
+    <div class="feat-sub">Bist du unterwegs, öffnet sich automatisch ein Live-Sprachraum mit Leuten in deiner Nähe — reden statt tippen. Nach 1 Std zusammen funken werdet ihr Freunde.</div></div>
   </div>
   <div class="feat">
     <div class="feat-ico">📡</div>
     <div><div class="feat-txt">Anpingen → sofort chatten</div>
-    <div class="feat-sub">Kein Match, kein Warten, kein Algorithmus</div></div>
+    <div class="feat-sub">Kein Match, kein Warten, kein Algorithmus.</div></div>
+  </div>
+  <div class="feat">
+    <div class="feat-ico">📍</div>
+    <div><div class="feat-txt">Spots & Events in deiner Nähe</div>
+    <div class="feat-sub">Treffpunkte mit Gruppen-Chat und echte Events rundherum — beitreten und mitmischen.</div></div>
   </div>
   <div class="feat">
     <div class="feat-ico">📸</div>
-    <div><div class="feat-txt">Fotos werden nach 150 Nachrichten klar</div>
-    <div class="feat-sub">Du verdienst das Gesicht durch echten Kontakt</div></div>
+    <div><div class="feat-txt">Fotos werden durch echten Kontakt klar</div>
+    <div class="feat-sub">Du verdienst das Gesicht — kein blindes Wischen nach Aussehen.</div></div>
   </div>
   <div class="feat">
     <div class="feat-ico">🔒</div>
     <div><div class="feat-txt">Kein Background-Tracking</div>
-    <div class="feat-sub">Standort nur beim Öffnen, nach ein paar Stunden weg</div></div>
+    <div class="feat-sub">Standort nur bei geöffneter App, nach ein paar Stunden wieder weg.</div></div>
   </div>
 </div>
 
-<p style="text-align:center;color:#8a9bb0;font-size:13px;margin:4px 0 10px">✅ <b style="color:#34d399">Jetzt live</b> — lad dir Streune und leg direkt los. 👇</p>
-
-<!-- So kommst du rein (Erklärung) -->
-<div style="background:rgba(77,159,255,.06);border:1px solid rgba(77,159,255,.18);border-radius:14px;padding:16px;max-width:340px;margin:0 auto 16px;text-align:left">
-  <div style="font-size:14px;font-weight:800;color:#4d9fff;margin-bottom:8px">📲 So kommst du rein</div>
-  <div style="font-size:12px;color:#8a9bb0;line-height:1.6">Streune ist <b style="color:#34d399">jetzt live</b> — <b style="color:#e8f0fe">iPhone</b> im App Store, <b style="color:#e8f0fe">Android</b> im Google Play Store:</div>
-  <div style="font-size:12px;color:#8a9bb0;line-height:1.6;margin-top:8px">Such dir unten dein Handy aus — <b style="color:#e8f0fe">iPhone</b> oder <b style="color:#e8f0fe">Android</b> — die genaue Anleitung steht direkt am Knopf. 👇</div>
-  <div style="font-size:12px;color:#8a9bb0;line-height:1.6;margin-top:10px">Danach Streune normal starten und bei der Anmeldung den <b style="color:#e8f0fe">Einladungscode</b> (unten) im Feld „Einladungscode" eingeben — ihr bekommt beide <b style="color:#34d399">+150m Radius</b> geschenkt. 🎁</div>
+<div class="story">
+  <h3>❤️ Warum Heide?</h3>
+  <p>Ein junges Team aus <b style="color:#e8f0fe">Heide</b> hat Streune gebaut — darum fängt es hier an. Klein genug, dass man sich begegnet, groß genug, dass man sich noch nicht kennt. Von hier aus in die Welt. 🐾</p>
 </div>
 
-<div class="dl-btns">
-  <!-- iPhone: direkt im App Store (App ist live) -->
-  <div id="ios-block" style="display:flex;flex-direction:column;gap:10px">
-    <div style="font-size:15px;font-weight:800;color:#e8f0fe;margin-bottom:2px">🍎 iPhone <span style="color:#8a9bb0;font-weight:600;font-size:12px">· im App Store</span></div>
-    <a href="https://apps.apple.com/app/id6779207091" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:10px;padding:16px;background:#34d399;color:#06281d;font-weight:800;font-size:15px;text-decoration:none;border-radius:14px;box-shadow:0 6px 20px rgba(52,211,153,.35)">
-      <span>🍎</span> Im App Store laden
-    </a>
-    <div style="font-size:12px;color:#c3cfe0;line-height:1.7;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:12px;padding:12px 13px;text-align:left">
-      <div style="font-weight:700;color:#e8f0fe;margin-bottom:6px">So geht's:</div>
-      <div style="margin-bottom:5px"><b style="color:#4d9fff">1.</b> Auf <b>„Im App Store laden"</b> tippen → im App Store auf <b>„Laden"</b>. Fertig.</div>
-      <div><b style="color:#4d9fff">2.</b> Streune öffnen und bei der Anmeldung den <b>Einladungscode</b> (unten) eingeben.</div>
-    </div>
-  </div>
-  <!-- Android: LIVE im Google Play Store -->
-  <div id="android-block" style="display:flex;flex-direction:column;gap:8px">
-    <div style="font-size:15px;font-weight:800;color:#e8f0fe;margin-bottom:2px">🤖 Android <span style="color:#8a9bb0;font-weight:600;font-size:12px">· im Play Store</span></div>
-    <a href="https://play.google.com/store/apps/details?id=app.streune" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:10px;padding:16px;background:#34d399;color:#06281d;font-weight:800;font-size:15px;text-decoration:none;border-radius:14px;box-shadow:0 6px 20px rgba(52,211,153,.35)">
-      <span>▶️</span> Bei Google Play holen
-    </a>
-    <div style="font-size:12px;color:#c3cfe0;line-height:1.7;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:12px;padding:12px 13px;text-align:left">
-      <div style="font-weight:700;color:#e8f0fe;margin-bottom:6px">So geht's:</div>
-      <div style="margin-bottom:5px"><b style="color:#4d9fff">1.</b> Auf <b>„Bei Google Play holen"</b> tippen → im Play Store auf <b>„Installieren"</b>. Fertig.</div>
-      <div><b style="color:#4d9fff">2.</b> Streune öffnen und bei der Anmeldung den <b>Einladungscode</b> (unten) eingeben.</div>
-    </div>
-  </div>
-</div>
-
-<div style="max-width:380px;margin:30px auto 0;padding:22px;background:var(--card,#11161f);border:1px solid var(--border,#1c2636);border-left:3px solid #34d399;border-radius:0 16px 16px 0;text-align:left">
-  <div style="font-size:15px;font-weight:700;color:#34d399;margin-bottom:8px">❤️ Warum Heide?</div>
-  <p style="color:#c3cfe0;font-size:14.5px;line-height:1.55;margin:0">Ein <b style="color:#e8f0fe">junges Team aus Heide</b> hat Streune entwickelt — darum fängt es hier an. Hier sind wir zuhause: wir kennen die Straßen, die Cafés, die Gesichter. Heide ist klein genug, dass man sich begegnet, und groß genug, dass man sich noch nicht kennt. Wir lieben diese Stadt — von hier aus in die Welt. 🐾</p>
-  <div style="margin-top:12px;color:#4d9fff;font-weight:700;font-size:14px">🚀 Live seit 28.6.2026</div>
-</div>
-
-<p class="note">
-  👉 Dein Einladungscode: <span class="ref-code" id="ref-code-display">...</span><br>
-  Gib ihn beim Anmelden im Feld „Einladungscode" ein — dann gibt's für euch beide +150m.
+<p class="foot">
+  👉 Gib deinen Code <span style="font-family:'Space Mono',monospace;color:var(--accent)">oben</span> beim Anmelden im Feld „Einladungscode" ein — dann gibt's für euch beide +150m Radius.
 </p>
 
 <script>
-const params = new URLSearchParams(window.location.search);
-// Nur der Einladungscode wird genutzt — KEIN (Fake-)Name, KEIN Foto des Einladers.
-// Die Einladung ist bewusst generisch ("ein Streune-User"); der Code wird bei der
-// Anmeldung MANUELL eingegeben (Deferred-Link-Auto-Apply entfernt, war unzuverlässig).
-const code = (params.get('ref') || '').toUpperCase();
+// Einladungscode aus der URL (?ref=CODE) anzeigen. Manuelle Eingabe bei der Anmeldung.
+const code = (new URLSearchParams(location.search).get('ref') || '').toUpperCase();
 document.getElementById('ref-code-display').textContent = code || 'DEMO';
-
-// Plattform-Erkennung → nur das Passende zeigen (Desktop: beide)
-const ios     = /iphone|ipad|ipod/i.test(navigator.userAgent);
-const android = /android/i.test(navigator.userAgent);
-// Beide Plattformen jetzt IMMER sichtbar — die Anleitung steht je am Knopf.
-void ios; void android;
 </script>
 <!-- streune-open-beacon -->
 <script>(function(){try{var u=new URL(location.href);var r=u.searchParams.get('ref');var src=u.searchParams.get('via')||(r?'invite':'sticker');fetch('https://twybfsbfbxvwwxbdphum.supabase.co/rest/v1/rpc/track_open',{method:'POST',keepalive:true,headers:{'Content-Type':'application/json','apikey':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR3eWJmc2JmYnh2d3d4YmRwaHVtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA1Njc0NTgsImV4cCI6MjA5NjE0MzQ1OH0.F2KUos9D83mT_lt6Gs2UYbHRxBTxFPeBq8cMo1-F3Mg','Authorization':'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR3eWJmc2JmYnh2d3d4YmRwaHVtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA1Njc0NTgsImV4cCI6MjA5NjE0MzQ1OH0.F2KUos9D83mT_lt6Gs2UYbHRxBTxFPeBq8cMo1-F3Mg'},body:JSON.stringify({p_source:src,p_ref:r})}).catch(function(){});}catch(e){}})();</script>

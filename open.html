@@ -42,8 +42,10 @@
     // Voll-URL (mit .exp.direct) oder nur der Prefix erlaubt.
     var host = raw.indexOf('.exp.direct') >= 0 ? raw : (raw + '.exp.direct');
     var metroUrl = 'http://' + host;
-    // Dev-Client-Deeplink (Streune-eigenes Schema) — öffnet den installierten Dev-Build.
-    var devUrl = 'streune://expo-development-client/?url=' + encodeURIComponent(metroUrl);
+    // Dev-Client-Deeplink über das exp+<slug>-Schema — das registriert NUR der Expo-Dev-Build,
+    // NICHT die normale Production-App (die kennt nur 'streune://'). So landet man im Dev-Build
+    // statt in der installierten App.
+    var devUrl = 'exp+streune://expo-development-client/?url=' + encodeURIComponent(metroUrl);
     document.getElementById('openBtn').setAttribute('href', devUrl);
     document.getElementById('manual').setAttribute('href', metroUrl);
     document.getElementById('url').textContent = host;

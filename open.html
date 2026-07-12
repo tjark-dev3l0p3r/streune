@@ -1,21 +1,59 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><title>Streune &#8594; Expo Go</title>
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Streune Dev-Build öffnen</title>
+<style>
+  html,body{margin:0;height:100%;background:#0d1117;color:#e6edf3;
+    font-family:-apple-system,system-ui,sans-serif;
+    display:flex;align-items:center;justify-content:center;text-align:center}
+  .box{padding:24px;max-width:440px}
+  .logo{font-size:64px;color:#58a6ff;margin-bottom:8px}
+  h1{font-size:22px;margin:8px 0}
+  p{color:#7d8590;line-height:1.5;font-size:15px}
+  a.btn{display:block;margin:22px auto 10px;background:#58a6ff;color:#fff;
+    text-decoration:none;font-weight:800;font-size:18px;
+    padding:16px 24px;border-radius:14px;max-width:320px}
+  a.alt{display:inline-block;margin-top:6px;color:#7d8590;font-size:13px}
+  code{background:#161b22;border:1px solid #30363d;border-radius:8px;
+    padding:8px 10px;display:block;margin-top:14px;color:#58a6ff;
+    font-size:12px;word-break:break-all}
+  .hint{font-size:13px;margin-top:18px}
+</style>
+</head>
+<body>
+<div class="box">
+  <div class="logo">◎</div>
+  <h1>Streune Dev-Build öffnen</h1>
+  <p id="status">Öffne den Streune Dev-Build…</p>
+  <a class="btn" id="openBtn" href="#">Im Dev-Build öffnen</a>
+  <a class="alt" id="manual" href="#">Öffnet nicht? Host manuell eingeben ↓</a>
+  <p class="hint">Der <b>Development-Build</b> (nicht Expo Go!) muss installiert sein.
+     Falls nichts passiert: oben auf den blauen Button tippen.</p>
+  <code id="url"></code>
+</div>
 <script>
-  // Hash = Tunnel-Host (z.B. rnaks90-xxtjarkyxx-8081) -> exp://<host>.exp.direct
-  var h = (location.hash || '').replace(/^#/, '').trim();
-  var url = h ? ('exp://' + h + '.exp.direct') : '';
-  if (url) { location.href = url; }
-</script>
-</head><body style="background:#0d1117;color:#e6edf3;font-family:-apple-system,system-ui,sans-serif;text-align:center;padding-top:28vh">
-<h2>&#128225; Streune startet in Expo Go&#8230;</h2>
-<p style="opacity:.6">Falls nichts passiert, tippe:</p>
-<p id="lnk"></p>
-<script>
-  var h2 = (location.hash || '').replace(/^#/, '').trim();
-  if (h2) {
-    var u = 'exp://' + h2 + '.exp.direct';
-    document.getElementById('lnk').innerHTML =
-      '<a href="' + u + '" style="color:#58a6ff;font-size:21px;font-weight:bold;text-decoration:none">&#128073; In Expo Go &#246;ffnen</a>';
+  // Tunnel-Host kommt nach dem # im Link, z.B.:
+  //   open.html#hrtmbxm-anonymous-8081
+  // → streune://expo-development-client/?url=http://hrtmbxm-anonymous-8081.exp.direct
+  var raw = (location.hash || '').replace(/^#/, '').trim();
+  if (raw) {
+    // Voll-URL (mit .exp.direct) oder nur der Prefix erlaubt.
+    var host = raw.indexOf('.exp.direct') >= 0 ? raw : (raw + '.exp.direct');
+    var metroUrl = 'http://' + host;
+    // Dev-Client-Deeplink (Streune-eigenes Schema) — öffnet den installierten Dev-Build.
+    var devUrl = 'streune://expo-development-client/?url=' + encodeURIComponent(metroUrl);
+    document.getElementById('openBtn').setAttribute('href', devUrl);
+    document.getElementById('manual').setAttribute('href', metroUrl);
+    document.getElementById('url').textContent = host;
+    // Automatischer Versuch nach kurzer Verzögerung.
+    setTimeout(function(){ window.location.href = devUrl; }, 400);
+  } else {
+    document.getElementById('status').textContent =
+      'Kein Tunnel-Link angegeben (#... fehlt).';
+    document.getElementById('openBtn').style.display = 'none';
   }
 </script>
-</body></html>
+</body>
+</html>
